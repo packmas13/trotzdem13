@@ -23,7 +23,7 @@
         <h1 class="text-center text-5xl my-2 p-3 text-mango-700 bg-white rounded-xl shadow-lg font-black">
             Trotzdem ’13
         </h1>
-        <a href="#" class="text-white border-white border-2 block px-4 p-2 rounded-full w-48 text-center">Anmelden</a>
+        <a href="/dashboard" class="text-white border-white border-2 block px-4 p-2 rounded-full w-48 text-center">Anmelden</a>
     </header>
 
     <h2 class="font-bold text-5xl text-teal-500 bg-white rounded-xl p-3 shadow-lg my-4 mx-1/4 text-center">
