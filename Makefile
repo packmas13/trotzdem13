@@ -12,11 +12,14 @@ install_dependencies:# install dependencies
 	touch database/database.sqlite
 	$(artisan) migrate
 
-test: vendor
+test: vendor public/mix-manifest.json
 	$(artisan) test
 
 vendor:
 	composer install
+
+public/mix-manifest.json: node_modules
+	npm run prod
 
 node_modules:
 	npm install
