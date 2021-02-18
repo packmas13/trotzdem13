@@ -2,42 +2,58 @@ name: PHPUnit
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate
+      - name: Validate composer.json and composer.lock
+        run: composer validate
 
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v2
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
 
-    - name: Cache NPM packages
-      id: npm-cache
-      uses: actions/cache@v2
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
+      - name: Cache NPM packages
+        id: npm-cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-    # - name: Install dependencies
-    #   if: steps.composer-cache.outputs.cache-hit != 'true'
-    #   run: composer install --prefer-dist --no-progress --no-suggest
+      # - name: Install dependencies
+      #   if: steps.composer-cache.outputs.cache-hit != 'true'
+      #   run: composer install --prefer-dist --no-progress --no-suggest
 
-    - name: Run test suite
-      run: make test
+      - name: Run test suite
+        run: make test
+
+      - name: Generate Artifact
+        # if: github.ref == 'refs/heads/main'
+        run: |
+          tar czf trotzdem13.tar.gz \
+            --exclude=node_modules \
+            --exclude=storage \
+            --exclude=trotzdem13.tar.gz \
+            --exclude=.env \
+            .
+
+      - name: Upload Artifact
+        # if: github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v2
+        with:
+          name: source
+          path: trotzdem13.tar.gz
