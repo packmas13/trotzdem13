@@ -1,23 +1,36 @@
 @push('styles')
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css" integrity="sha384-uGgNReQDM4xUjyppNF69a8TECFK/SdZzFxfsfE5e09EDjV/A2ht7nAkKoWUj2dwC" crossorigin="anonymous">
 @endpush
 
 @push('scripts')
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js" integrity="sha384-0uJ3jJUASu7ZFHSwTzVO6YbgmXvr90z5LzVqYl7iVd4XJYXn94Sdm4JjVjYat8zm" crossorigin="anonymous"></script>
 
 <script>
-    var mymap = L.map('mapid').setView([48.023, 11.700], 8);
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?&access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        id: 'oliverpool/cklbak4fg2p3o17rzfkmeiytq',
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: 'pk.eyJ1Ijoib2xpdmVycG9vbCIsImEiOiJyQW82a1hjIn0.yK2FfgVuRuX-PTD-HFjueA'
-    }).addTo(mymap);
+    mapboxgl.accessToken = 'pk.eyJ1Ijoib2xpdmVycG9vbCIsImEiOiJyQW82a1hjIn0.yK2FfgVuRuX-PTD-HFjueA';
+    var map = new mapboxgl.Map({
+        container: 'main', // container ID
+        style: 'mapbox://styles/oliverpool/cklbak4fg2p3o17rzfkmeiytq', // style URL
+        center: [11.700, 48.023], // starting position [lng, lat]
+        zoom: 9, // starting zoom
+        locale: "de",
+        maxBounds: [
+            [10.667949111608197, 47.38488812426254], // Southwest coordinates
+            [13.389811884852682, 48.56617627985225] // Northeast coordinates
+        ],
+
+        // prevent rotation
+        pitchWithRotate: false,
+        dragRotate: false,
+        touchZoomRotate: true, // rotation disabled below
+    });
+    map.touchZoomRotate.disableRotation();
+
+
+    map.addControl(new mapboxgl.FullscreenControl());
+    map.addControl(new mapboxgl.NavigationControl({
+        showCompass: false
+    }));
 </script>
 @endpush
 
-<x-layout nav-main="/karte">
-    <div id="mapid" class="absolute inset-0"></div>
-</x-layout>
+<x-layout nav-main="/karte"></x-layout>

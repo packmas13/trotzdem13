@@ -49,9 +49,9 @@
             Challenges
         </a>
     </nav>
-    <div class="flex-auto relative">
+    <main class="flex-auto" id="main">
         {{ $slot }}
-    </div>
+    </main>
     <nav class="bg-teal-500 text-white shadow-xl flex flex-wrap items-center justify-center text-sm sm:text-base">
         <a class="p-2 hover:underline {{$navMain =='/impressum'?'underline':''}}" href="/impressum">Impressum</a>
         <a class="p-2 hover:underline {{$navMain =='/datenschutz'?'underline':''}}" href="/datenschutz">Datenschutz</a>
