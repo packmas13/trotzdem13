@@ -14,9 +14,8 @@ module.exports = {
             fontFamily: {
                 sans: ["Open Sans", ...defaultTheme.fontFamily.sans],
             },
-            spacing: {
+            minWidth: {
                 "1/2": "50%",
-                "1/4": "25%",
             },
             colors: {
                 teal: {
