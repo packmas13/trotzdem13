@@ -21,7 +21,13 @@ mix.js("resources/js/app.js", "public/js")
     .webpackConfig(require("./webpack.config"));
 
 if (mix.inProduction()) {
-    mix.version();
+    mix.version().then(() => {
+        const convertToFileHash = require("laravel-mix-make-file-hash");
+        convertToFileHash({
+            publicPath: "public",
+            manifestFilePath: "public/mix-manifest.json",
+        });
+    });
 } else {
     mix.browserSync("localhost:8000");
 }
