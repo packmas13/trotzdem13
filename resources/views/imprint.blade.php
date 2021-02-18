@@ -1,6 +1,6 @@
-<x-layout nav-main="/">
+<x-layout nav-main="/impressum">
     <h2 class="title my-4 mx-1/4">
-        das Projekt
+        Impressum
     </h2>
     <p class="max-w-xl mx-auto">
         orem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam

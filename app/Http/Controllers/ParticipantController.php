@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-class HomeController
+class ParticipantController
 {
     public function index()
     {
-        return view('home');
+        return view('participant.index');
     }
 }

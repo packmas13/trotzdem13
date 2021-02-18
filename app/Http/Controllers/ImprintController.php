@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-class HomeController
+class ImprintController
 {
     public function index()
     {
-        return view('home');
+        return view('imprint');
     }
 }
