@@ -44,7 +44,7 @@ jobs:
       - name: Generate Artifact
         # if: github.ref == 'refs/heads/main'
         run: |
-          tar czf /tmp/trotzdem13.tar.gz \
+          tar cvf /tmp/trotzdem13.tar \
             --exclude=node_modules \
             --exclude=storage \
             --exclude=.env \
@@ -54,5 +54,5 @@ jobs:
         # if: github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v2
         with:
-          name: source
-          path: /tmp/trotzdem13.tar.gz
+          name: trotzdem13.tar
+          path: /tmp/trotzdem13.tar
