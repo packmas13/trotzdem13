@@ -54,6 +54,7 @@ jobs:
             --exclude=node_modules \
             --exclude=storage \
             --exclude=.env \
+            --exclude=.git \
             .
 
       - name: Create Release
@@ -79,3 +80,9 @@ jobs:
           asset_path: /tmp/vendored.tar.gz
           asset_name: vendored.tar.gz
           asset_content_type: application/gzip
+
+      - name: Deploy to trotzdem13.pfad.fr
+        run: |
+          curl \
+          --data "release=${{ steps.vars.outputs.date }}_${{ steps.vars.outputs.sha_short }}&token=${{ secrets.PFAD_FR_DEPLOY_TOKEN }}" \
+          'https://dev.pfad.fr/trotzdem13.php'
