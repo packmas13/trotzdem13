@@ -4,8 +4,13 @@
             <jet-authentication-card-logo />
         </template>
 
+        <h2 class="text-3xl mb-8 text-center">Passwort vergessen</h2>
+
         <div class="mb-4 text-sm text-gray-600">
-            Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.
+            Haben Sie Ihr Passwort vergessen? Kein Problem. Teilen Sie uns
+            einfach Ihre E-Mail-Adresse mit und wir senden Ihnen per E-Mail
+            einen Link zum Zurücksetzen des Passworts, über den Sie ein Neues
+            auswählen können.
         </div>
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
@@ -16,13 +21,23 @@
 
         <form @submit.prevent="submit">
             <div>
-                <jet-label for="email" value="Email" />
-                <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus />
+                <jet-label for="email" value="E-Mail" />
+                <jet-input
+                    id="email"
+                    type="email"
+                    class="mt-1 block w-full"
+                    v-model="form.email"
+                    required
+                    autofocus
+                />
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Email Password Reset Link
+            <div class="text-center mt-4">
+                <jet-button
+                    :class="{ 'opacity-25': form.processing }"
+                    :disabled="form.processing"
+                >
+                    Zurücksetzungslink senden
                 </jet-button>
             </div>
         </form>
@@ -30,39 +45,40 @@
 </template>
 
 <script>
-    import JetAuthenticationCard from '@/Jetstream/AuthenticationCard'
-    import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo'
-    import JetButton from '@/Jetstream/Button'
-    import JetInput from '@/Jetstream/Input'
-    import JetLabel from '@/Jetstream/Label'
-    import JetValidationErrors from '@/Jetstream/ValidationErrors'
+import JetAuthenticationCard from "@/Jetstream/AuthenticationCard";
+import JetAuthenticationCardLogo from "@/Jetstream/AuthenticationCardLogo";
+import JetButton from "@/Jetstream/Button";
+import JetInput from "@/Jetstream/Input";
+import JetLabel from "@/Jetstream/Label";
+import JetValidationErrors from "@/Jetstream/ValidationErrors";
 
-    export default {
-        components: {
-            JetAuthenticationCard,
-            JetAuthenticationCardLogo,
-            JetButton,
-            JetInput,
-            JetLabel,
-            JetValidationErrors
+export default {
+    components: {
+        JetAuthenticationCard,
+        JetAuthenticationCardLogo,
+        JetButton,
+        JetInput,
+        JetLabel,
+        JetValidationErrors,
+    },
+
+    props: {
+        status: String,
+    },
+
+    data() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return {
+            form: this.$inertia.form({
+                email: urlParams.get("email") || "",
+            }),
+        };
+    },
+
+    methods: {
+        submit() {
+            this.form.post(this.route("password.email"));
         },
-
-        props: {
-            status: String
-        },
-
-        data() {
-            return {
-                form: this.$inertia.form({
-                    email: ''
-                })
-            }
-        },
-
-        methods: {
-            submit() {
-                this.form.post(this.route('password.email'))
-            }
-        }
-    }
+    },
+};
 </script>

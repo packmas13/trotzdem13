@@ -29,5 +29,5 @@ if (mix.inProduction()) {
         });
     });
 } else {
-    mix.browserSync("localhost:8000");
+    mix.browserSync({ proxy: "localhost:8000", notify: false });
 }
