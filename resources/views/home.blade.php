@@ -1,9 +1,11 @@
 <x-layout nav-main="/">
-    <h2 class="title my-4 mx-1/4">
-        das Projekt
-    </h2>
-    <p class="max-w-xl mx-auto">
-        orem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+    <div class="text-center">
+        <h2 class="title my-4 min-w-1/2">
+            das Projekt
+        </h2>
+    </div>
+    <p class="prose lg:prose-xl mx-auto px-2">
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
         nonumy eirmod tempor invidunt ut labore et dolore magna
         aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
         duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
