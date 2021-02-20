@@ -4,6 +4,8 @@
             <jet-authentication-card-logo />
         </template>
 
+        <h2 class="text-3xl mb-8 text-center">Anmeldung</h2>
+
         <jet-validation-errors class="mb-4" />
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
@@ -12,7 +14,7 @@
 
         <form @submit.prevent="submit">
             <div>
-                <jet-label for="email" value="Email" />
+                <jet-label for="email" value="E-Mail" />
                 <jet-input
                     id="email"
                     type="email"
@@ -24,7 +26,7 @@
             </div>
 
             <div class="mt-4">
-                <jet-label for="password" value="Password" />
+                <jet-label for="password" value="Passwort" />
                 <jet-input
                     id="password"
                     type="password"
@@ -38,40 +40,34 @@
             <div class="text-right">
                 <inertia-link
                     v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900"
+                    :href="route('password.request', { email: form.email })"
+                    class="text-link text-sm"
                 >
-                    Forgot your password?
+                    Passwort vergessen?
                 </inertia-link>
             </div>
 
-            <div class="block mt-4" v-if="false">
-                <label class="flex items-center">
-                    <jet-checkbox
-                        name="remember"
-                        v-model:checked="form.remember"
-                    />
-                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <inertia-link
-                    :href="route('register')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900"
-                >
-                    Not registred yet?
-                </inertia-link>
-
+            <div class="text-center mt-4">
                 <jet-button
-                    class="ml-4"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    Log in
+                    Anmelden
                 </jet-button>
             </div>
         </form>
+
+        <template #alternative>
+            <div class="text-center">
+                Noch kein Konto?
+                <inertia-link
+                    :href="route('register', { email: form.email })"
+                    class="text-link inline-block"
+                >
+                    Jetzt registrieren.
+                </inertia-link>
+            </div>
+        </template>
     </jet-authentication-card>
 </template>
 
@@ -101,9 +97,10 @@ export default {
     },
 
     data() {
+        const urlParams = new URLSearchParams(window.location.search);
         return {
             form: this.$inertia.form({
-                email: "",
+                email: urlParams.get("email") || "",
                 password: "",
                 remember: true,
             }),
