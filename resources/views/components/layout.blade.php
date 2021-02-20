@@ -15,9 +15,10 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    @stack('styles')
 </head>
 
-<body class="font-sans antialiased bg-sepiaGray-200 flex flex-col min-h-screen">
+<body class="font-sans antialiased bg-teal-500 flex flex-col min-h-screen">
     <header class="flex justify-between items-center bg-teal-500 px-2 shadow-xl">
         <a href="/" class="flex-1">LOGO</a>
         <a href="/"
@@ -48,9 +49,9 @@
             Challenges
         </a>
     </nav>
-    <div class="flex-auto">
+    <main class="flex-auto bg-sepiaGray-200" id="main">
         {{ $slot }}
-    </div>
+    </main>
     <nav class="bg-teal-500 text-white shadow-xl flex flex-wrap items-center justify-center text-sm sm:text-base">
         <a class="p-2 hover:underline {{$navMain =='/impressum'?'underline':''}}" href="/impressum">Impressum</a>
         <a class="p-2 hover:underline {{$navMain =='/datenschutz'?'underline':''}}" href="/datenschutz">Datenschutz</a>
@@ -58,6 +59,8 @@
         <a class="p-2 hover:underline" href="#">Youtube</a>
         <a class="p-2 hover:underline" href="#">Instragram</a>
     </nav>
+
+    @stack('scripts')
 </body>
 
 </html>
