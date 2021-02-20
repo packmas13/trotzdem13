@@ -18,7 +18,7 @@
     @stack('styles')
 </head>
 
-<body class="font-sans antialiased bg-sepiaGray-200 flex flex-col min-h-screen">
+<body class="font-sans antialiased bg-teal-500 flex flex-col min-h-screen">
     <header class="flex justify-between items-center bg-teal-500 px-2 shadow-xl">
         <a href="/" class="flex-1">LOGO</a>
         <a href="/"
@@ -49,7 +49,7 @@
             Challenges
         </a>
     </nav>
-    <main class="flex-auto" id="main">
+    <main class="flex-auto bg-sepiaGray-200" id="main">
         {{ $slot }}
     </main>
     <nav class="bg-teal-500 text-white shadow-xl flex flex-wrap items-center justify-center text-sm sm:text-base">
