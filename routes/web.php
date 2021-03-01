@@ -6,28 +6,19 @@ use App\Http\Controllers\ImprintController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\PrivacyController;
+use App\Http\Controllers\TeamController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/', [HomeController::class, 'index']);
-Route::get('karte', [MapController::class,'index']);
-Route::get('teilnehmer', [ParticipantController::class,'index']);
-Route::get('challenges', [ChallengeController::class,'index']);
-Route::get('impressum', [ImprintController::class,'index']);
-Route::get('datenschutz', [PrivacyController::class,'index']);
+Route::get('karte', [MapController::class, 'index']);
+Route::get('teilnehmer', [ParticipantController::class, 'index']);
+Route::get('challenges', [ChallengeController::class, 'index']);
+Route::get('impressum', [ImprintController::class, 'index']);
+Route::get('datenschutz', [PrivacyController::class, 'index']);
 
 // TODO below
 //  function () {
@@ -38,6 +29,8 @@ Route::get('datenschutz', [PrivacyController::class,'index']);
 //         'phpVersion' => PHP_VERSION,
 //     ]);
 // });
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->group(function () {
+    Route::get('team', [TeamController::class, 'index'])->name('team.index');
+    Route::get('team/create', [TeamController::class, 'create'])->name('team.create');
+    Route::post('team', [TeamController::class, 'store'])->name('team.store');
+});
