@@ -14,7 +14,7 @@
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"> -->
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/style.css') }}">
     @stack('styles')
 
     <!-- ****** faviconit.com favicons ****** -->
@@ -43,15 +43,19 @@
 
 <body class="font-sans antialiased bg-teal-500 flex flex-col min-h-screen">
     <header class="flex justify-between items-center bg-teal-500 px-2 shadow-xl">
-        <a href="/" class="flex-1">LOGO</a>
+        <a href="/" class="flex-1"><img src="{{asset('img/logo_192.png')}}" class="w-24" /></a>
         <a href="/"
             class="text-center sm:text-5xl text-xl px-3 py-2 my-3 sm:mb-5 text-mango-700 bg-white rounded-xl shadow-lg font-black">
             Trotzdem ’13
         </a>
-        <div class="flex-1 text-right">
-            <a href="/dashboard"
-                class="text-white border-white rounded-full text-center group px-2 border text-sm sm:text-base">
+        <div class="flex-1 text-right ml-1">
+            <a href="{{route('app.team.index')}}"
+                class="inline-block text-white border-white rounded-full text-center group px-2 border text-sm sm:text-base">
+                @auth
+                Mitglieder-Bereich
+                @else
                 Anmelden
+                @endauth
             </a>
         </div>
     </header>
