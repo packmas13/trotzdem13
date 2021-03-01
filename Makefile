@@ -26,3 +26,6 @@ node_modules:
 
 dev: node_modules
 	npm run dev
+
+lint:
+	npm run lint
