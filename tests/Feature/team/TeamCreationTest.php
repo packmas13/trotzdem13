@@ -27,7 +27,7 @@ class TeamCreationTest extends TestCase
             'stamm_id' => '132010',
             'stufe_id' => 1, // Wölflinge
             'size' => 5,
-            'location' => ["name" => "Franzmühle", "lat" => 47.76116644679894, "lng" => 11.562785434513446],
+            'location' => ["lat" => 47.76116644679894, "lng" => 11.562785434513446],
             'radius' => 4,
         ]);
         $response->assertStatus(302);
@@ -40,7 +40,6 @@ class TeamCreationTest extends TestCase
         $this->assertEquals($team->stufe->name, 'Wölflinge');
         $this->assertEquals($team->size, 5);
         $this->assertEquals($team->location, [
-            'name' => 'Franzmühle',
             "lat" => 47.76116644679894,
             "lng" => 11.562785434513446,
         ]);

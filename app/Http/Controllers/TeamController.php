@@ -56,7 +56,6 @@ class TeamController extends Controller
             'stufe_id' => ['required', 'exists:stufen,id'],
             'size' => ['required', 'integer', 'min:1'],
             'location' => ['required', 'array'],
-            'location.name' => ['required', 'string'],
             'location.lat' => ['required', 'numeric'],
             'location.lng' => ['required', 'numeric'],
             'radius' => ['required', 'integer', 'min:1'],
