@@ -63,25 +63,17 @@ class TeamController extends Controller
     public function join(Request $request)
     {
         $data = $this->validate($request, [
-            'code' => ['required', 'string'],
+            'code' => ['required', 'string', 'exists:teams,join_code'],
         ]);
 
         $team = Team::where('join_code', $data['code'])->first();
-        if(!$team){
-            // TODO: error 'Es existiert keine Gruppe mit diesem Code. Hast du dich vielleicht vertippt?'
-            throw new \Exception('error');
-        }
 
         $user = $request->user();
 
-        if($user->teams->contains($team->id)){
-            // TODO: error 'Du bist bereits Mitglied dieser Gruppe'
-        }else{
+        if(!$user->teams->contains($team->id)){
             $user->teams()->attach([$team->id]);
-            return redirect()->route('app.team.index');
         }
-
-        return Inertia::render('team/Join');
+        return redirect()->route('app.team.index');
     }
 
     /**
