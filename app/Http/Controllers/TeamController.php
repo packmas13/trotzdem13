@@ -6,8 +6,10 @@ use App\Models\Stamm;
 use App\Models\Stufe;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
+use Inertia\Response;
 
 class TeamController extends Controller
 {
@@ -20,7 +22,7 @@ class TeamController extends Controller
     {
         $user = $request->user();
         return Inertia::render('team/Index', [
-            'teams' => $user->teams->map->only(['id', 'name']),
+            'teams' => $user->teams->map->only(['id', 'name', 'join_code']),
         ]);
     }
 
@@ -40,6 +42,46 @@ class TeamController extends Controller
                 1000 => 'weit',
             ],
         ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function joinForm()
+    {
+        return Inertia::render('team/Join');
+    }
+
+    /**
+     * Background Route for joining Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function join(Request $request)
+    {
+        $data = $this->validate($request, [
+            'code' => ['required', 'string'],
+        ]);
+
+        $team = Team::where('join_code', $data['code'])->first();
+        if(!$team){
+            // TODO: error 'Es existiert keine Gruppe mit diesem Code. Hast du dich vielleicht vertippt?'
+            throw new \Exception('error');
+        }
+
+        $user = $request->user();
+
+        if($user->teams->contains($team->id)){
+            // TODO: error 'Du bist bereits Mitglied dieser Gruppe'
+        }else{
+            $user->teams()->attach([$team->id]);
+            return redirect()->route('app.team.index');
+        }
+
+        return Inertia::render('team/Join');
     }
 
     /**
