@@ -1,5 +1,5 @@
 <template>
-  <app-layout current-route="app.team.joinForm">
+  <app-layout current-route="app.team.join">
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         Gruppe beitreten
@@ -83,17 +83,7 @@ export default {
     joinTeam() {
       this.form.post(route("app.team.join"), {
         onSuccess: () => this.form.reset(),
-        onError: () => {
-          if (this.form.errors.password) {
-            this.form.reset("password", "password_confirmation");
-            this.$refs.password.focus();
-          }
-
-          if (this.form.errors.current_password) {
-            this.form.reset("current_password");
-            this.$refs.current_password.focus();
-          }
-        },
+        onError: () => {},
       });
     },
   },

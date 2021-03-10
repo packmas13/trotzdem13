@@ -28,7 +28,7 @@
 
                     <div class="bg-gray-50 py-6 px-6 sm:px-20 text-right">
                         <inertia-link
-                            :href="route('app.team.joinForm')"
+                            :href="route('app.team.join')"
                             class="secondary-button"
                             >Gruppe beitreten</inertia-link
                         >
