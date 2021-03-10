@@ -10,4 +10,6 @@ class Stufe extends Model
     use HasFactory;
 
     protected $table = 'stufen';
+
+    public $timestamps = false;
 }

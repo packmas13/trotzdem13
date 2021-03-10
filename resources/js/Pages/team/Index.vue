@@ -20,14 +20,15 @@
                                 class="border-b pb-4"
                             >
                                 <h3 v-text="team.name" class="text-2xl" />
-                                Status: created / submitted / accepted
+                                Status: created / submitted / accepted<br>
+                                Code: <span v-text="team.join_code" />
                             </li>
                         </ul>
                     </div>
 
                     <div class="bg-gray-50 py-6 px-6 sm:px-20 text-right">
                         <inertia-link
-                            :href="route('app.team.create')"
+                            :href="route('app.team.join')"
                             class="secondary-button"
                             >Gruppe beitreten</inertia-link
                         >

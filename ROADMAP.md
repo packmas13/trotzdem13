@@ -3,20 +3,23 @@
 - Wo speichern wir Medien (Bilder)?
 - Webhosting aussuchen
 
+
 ## Frontend
 - Projekt-Beschreibung einpflegen
 - Impressum einpflegen
 - Datenschutzerklärung einpflegen
 - vorgegebene Challenges in DB einpflegen
+- Plausible Analytics einbauen
 
 ## Backend
 - Maske: Neues Team anlegen
 - Maske: Team verwalten
+  - Karte oder Adress-Eingabe mit automatischer Koordinaten-Berechnung
 - Maske: neue Challenge vorschlagen
 - Admin-Liste: Challenges
   - Filtern nach Status
   - Edit-Button bei jedem Eintrag
-  -   
+  - 
 - Admin-Maske: Challenge erstellen
 - Admin-Maske: Challenge bearbeiten (inklusive Status)
 
@@ -33,7 +36,7 @@
 
 ## Backend
 - Ansicht: Unser Partner-Team
-- Ansicht: 
+- Maske: Team beitreten (mit Code) 
 
 
 # Phase 3

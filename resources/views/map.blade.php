@@ -14,8 +14,8 @@
         zoom: 9, // starting zoom
         locale: "de",
         maxBounds: [
-            [10.667949111608197, 47.38488812426254], // Southwest coordinates
-            [13.389811884852682, 48.56617627985225] // Northeast coordinates
+            [10.66794, 47.38488], // Southwest coordinates
+            [13.38981, 48.56617] // Northeast coordinates
         ],
 
         // prevent rotation

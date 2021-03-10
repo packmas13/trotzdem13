@@ -12,6 +12,8 @@ class Stamm extends Model
 
     protected $table = 'staemme';
 
+    public $timestamps = false;
+
     public static function groupedByBezirk(): Collection
     {
         return static::pluck('name', 'id')

@@ -20,7 +20,7 @@ class TeamController extends Controller
     {
         $user = $request->user();
         return Inertia::render('team/Index', [
-            'teams' => $user->teams->map->only(['id', 'name']),
+            'teams' => $user->teams->map->only(['id', 'name', 'join_code']),
         ]);
     }
 

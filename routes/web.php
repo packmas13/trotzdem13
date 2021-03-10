@@ -7,6 +7,7 @@ use App\Http\Controllers\MapController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\TeamJoinController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -31,6 +32,10 @@ Route::get('datenschutz', [PrivacyController::class, 'index']);
 // });
 Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->group(function () {
     Route::get('team', [TeamController::class, 'index'])->name('team.index');
+
     Route::get('team/create', [TeamController::class, 'create'])->name('team.create');
     Route::post('team', [TeamController::class, 'store'])->name('team.store');
+
+    Route::get('team/join', [TeamJoinController::class, 'show'])->name('team.join');
+    Route::post('team/join', [TeamJoinController::class, 'store']);
 });
