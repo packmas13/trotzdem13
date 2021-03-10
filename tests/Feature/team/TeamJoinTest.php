@@ -15,7 +15,7 @@ class TeamJoinTest extends TestCase
     public function test_get_form()
     {
         $this->actingAs($user = User::factory()->create());
-        $response = $this->get('/app/team/join-form');
+        $response = $this->get('/app/team/join');
 
         $response->assertStatus(200);
     }

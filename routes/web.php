@@ -32,8 +32,10 @@ Route::get('datenschutz', [PrivacyController::class, 'index']);
 // });
 Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->group(function () {
     Route::get('team', [TeamController::class, 'index'])->name('team.index');
+
     Route::get('team/create', [TeamController::class, 'create'])->name('team.create');
-    Route::post('team/join', [TeamJoinController::class, 'store'])->name('team.join');
-    Route::get('team/join', [TeamJoinController::class, 'show'])->name('team.join');
     Route::post('team', [TeamController::class, 'store'])->name('team.store');
+
+    Route::get('team/join', [TeamJoinController::class, 'show'])->name('team.join');
+    Route::post('team/join', [TeamJoinController::class, 'store']);
 });
