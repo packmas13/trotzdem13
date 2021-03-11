@@ -27,5 +27,8 @@ node_modules:
 dev: node_modules
 	npm run dev
 
+dev-hot: node_modules
+	npm run dev-hot
+
 lint:
 	npm run lint
