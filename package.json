@@ -30,6 +30,7 @@
         "mapbox-gl": "^2.1.1",
         "postcss": "^8.2.8",
         "postcss-import": "^14.0.0",
+        "qrcode": "^1.4.4",
         "tailwindcss": "^2.0.1",
         "vue": "^3.0.7",
         "vue-loader": "^16.1.2"

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserTeam;
 use App\Models\Stamm;
 use App\Models\Stufe;
 use App\Models\Team;
@@ -19,8 +20,11 @@ class TeamController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
+        $teams = $user->teams;
+        $teams->load('users');
+        UserTeam::withoutWrapping();
         return Inertia::render('team/Index', [
-            'teams' => $user->teams->map->only(['id', 'name', 'join_code']),
+            'teams' => UserTeam::collection($teams),
         ]);
     }
 

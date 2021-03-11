@@ -1,5 +1,6 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
+// eslint-disable-next-line no-undef
 module.exports = {
     purge: [
         "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
@@ -17,6 +18,10 @@ module.exports = {
             minWidth: {
                 "1/2": "50%",
             },
+            listStyleType: {
+                dash: "'– '",
+            },
+
             colors: {
                 teal: {
                     50: "#eef9f9",

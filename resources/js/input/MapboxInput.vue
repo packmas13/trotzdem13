@@ -62,6 +62,7 @@ export default {
             touchZoomRotate: true, // rotation disabled below
         });
         map.touchZoomRotate.disableRotation();
+        map.touchPitch.disable();
 
         const geocoder = new MapboxGeocoder({
             accessToken: mapboxgl.accessToken,
