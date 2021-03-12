@@ -7,38 +7,51 @@
             <span class="text-gray-600" v-text="team.bezirk.name" />
         </small>
     </div>
-    <span>created / submitted / accepted</span>
-    <details
-        class="mt-4 bg-gray-50 border rounded"
-        :open="team.users.length == 1"
-    >
-        <summary class="text-gray-700 text-sm cursor-pointer p-2">
-            Team-Mitglieder ({{ team.users.length }})
-        </summary>
-        <ul class="ml-5 my-2 text-sm list-dash list-inside">
-            <li v-for="(user, i) in team.users" :key="i">{{ user.name }}</li>
-        </ul>
-        <div class="ml-5">
-            Du kannst weitere Team-Mitglieder einladen<br />
-            <ul class="list-disc list-inside">
-                <li>
-                    mit dem Code:
-                    <code
-                        class="select-all text-link"
-                        v-text="team.join_code"
-                    />
-                </li>
-                <li>
-                    mit dem Link:
-                    <a :href="joinLink" class="text-link">{{ joinLink }}</a>
-                </li>
-                <li v-if="joinQrcode">
-                    mit dem QRCode:
-                    <img :src="joinQrcode" class="m-4 inline-block" />
-                </li>
-            </ul>
+    <div class="md:flex mt-4">
+        <div class="md:w-48 w-full flex-shrink-0 mr-2">
+            <img :src="team.image" />
         </div>
-    </details>
+        <div class="flex-auto bg-gray-50 border rounded">
+            <details :open="team.users.length == 1">
+                <summary class="text-gray-700 text-sm cursor-pointer p-2">
+                    Status (TODO)
+                </summary>
+                <div>created / submitted / accepted</div>
+            </details>
+            <details :open="team.users.length == 1">
+                <summary class="text-gray-700 text-sm cursor-pointer p-2">
+                    Team-Mitglieder ({{ team.users.length }})
+                </summary>
+                <ul class="ml-5 my-2 text-sm list-dash list-inside">
+                    <li v-for="(user, i) in team.users" :key="i">
+                        {{ user.name }}
+                    </li>
+                </ul>
+                <div class="ml-5">
+                    Du kannst weitere Team-Mitglieder einladen<br />
+                    <ul class="list-disc list-inside">
+                        <li>
+                            mit dem Code:
+                            <code
+                                class="select-all text-link"
+                                v-text="team.join_code"
+                            />
+                        </li>
+                        <li>
+                            mit dem Link:
+                            <a :href="joinLink" class="text-link">{{
+                                joinLink
+                            }}</a>
+                        </li>
+                        <li v-if="joinQrcode">
+                            mit dem QRCode:
+                            <img :src="joinQrcode" class="m-4 inline-block" />
+                        </li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+    </div>
 </template>
 
 <script>

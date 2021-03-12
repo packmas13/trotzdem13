@@ -1,6 +1,6 @@
 <template>
     <div class="col-span-6 sm:col-span-4">
-        <span v-text="label" />
+        <span v-text="label" class="text-gray-600" />
         <div class="pt-2 flex flex-wrap justify-betweenm">
             <label
                 class="pr-3 flex items-center"
@@ -12,7 +12,7 @@
                     :name="inputName"
                     :value="id"
                     :required="required"
-                    class="mr-1"
+                    class="mr-1 focus:ring focus:ring-indigo-200"
                     :checked="modelValue == id"
                     @change="emit(id)"
                 />

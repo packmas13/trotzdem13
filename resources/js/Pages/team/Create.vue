@@ -8,15 +8,114 @@
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <jet-form-section @submitted="updatePassword">
+                <jet-form-section @submitted="submit">
                     <template #title>Neue Gruppe erstellen</template>
 
                     <template #description> TODOTEXT: Beschreibung </template>
 
                     <template #form>
+                        <InputLabel
+                            label="Wie heißt eure Gruppe?"
+                            :error="form.errors.name"
+                        >
+                            <input
+                                type="text"
+                                class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                                v-model="form.name"
+                                required
+                            />
+                        </InputLabel>
+
+                        <InputLabel
+                            label="Wollt ihr ein Bild hochladen?"
+                            :error="form.errors.image"
+                            help="Dieses Bild wird veröffentlicht"
+                        >
+                            <input
+                                v-show="!imagePreview"
+                                type="file"
+                                accept="image/*"
+                                class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                                ref="image"
+                                @change="updatePreview"
+                            />
+                            <div v-if="imagePreview">
+                                <div
+                                    class="block w-full h-48 my-1 bg-contain bg-no-repeat bg-center"
+                                    :style="
+                                        'background-image: url(\'' +
+                                        imagePreview +
+                                        '\');'
+                                    "
+                                />
+                                <label class="text-sm">
+                                    <input
+                                        type="checkbox"
+                                        required
+                                        class="mr-1"
+                                    />Eine
+                                    <a
+                                        class="text-link"
+                                        target="_blank"
+                                        href="https://dpsg.de/fileadmin/daten/dokumente/infopool/corporatedesign/Oeffentlichkeitsarbeit/DPSG_Einwilligung_Foto_Video.pdf"
+                                        >schriftliche Vereinbarung</a
+                                    >
+                                    über die Online-Nutzung von diesem Foto für
+                                    die Aktion
+                                    <strong>Trotzem13</strong>
+                                    liegt vor.
+                                </label>
+                                <div class="text-right text-sm text-red-800">
+                                    <button
+                                        class="hover:text-red-600 hover:underline"
+                                        @click="removeImage"
+                                        type="button"
+                                    >
+                                        Bild entfernen
+                                    </button>
+                                </div>
+                            </div>
+                        </InputLabel>
+
+                        <InputLabel
+                            label="Wie viel seid ihr in der Gruppe?"
+                            :error="form.errors.size"
+                        >
+                            <input
+                                type="number"
+                                class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                                v-model="form.size"
+                                min="1"
+                                required
+                            />
+                        </InputLabel>
+
+                        <RadioInput
+                            label="Wie weit würdet ihr für das Banner laufen?"
+                            :error="form.errors.radius"
+                            name="radius"
+                            :required="true"
+                            :options="distances"
+                            v-model="form.radius"
+                            v-slot="distance"
+                        >
+                            <span v-text="distance" class="mr-4" />
+                        </RadioInput>
+
+                        <InputLabel
+                            label="Woher kommt ihr?"
+                            :error="locationError"
+                            :help="form.location"
+                        >
+                            <mapbox-input
+                                class="mt-1"
+                                v-model="form.location"
+                            />
+                        </InputLabel>
+
                         <InputLabel label="Stamm" :error="form.errors.stamm_id">
                             <select
-                                class="mt-1 w-full rounded-md border-gray-300"
+                                class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
                                 v-model="form.stamm_id"
                                 required
                             >
@@ -53,54 +152,6 @@
                                 "
                             />
                         </RadioInput>
-
-                        <InputLabel
-                            label="Wie heißt eure Gruppe?"
-                            :error="form.errors.name"
-                        >
-                            <input
-                                type="text"
-                                class="mt-1 w-full rounded-md border-gray-300"
-                                v-model="form.name"
-                                required
-                            />
-                        </InputLabel>
-
-                        <InputLabel
-                            label="Wie viel seid ihr in der Gruppe?"
-                            :error="form.errors.size"
-                        >
-                            <input
-                                type="number"
-                                class="mt-1 w-full rounded-md border-gray-300"
-                                v-model="form.size"
-                                min="1"
-                                required
-                            />
-                        </InputLabel>
-
-                        <RadioInput
-                            label="Wie weit würdet ihr für das Banner laufen?"
-                            :error="form.errors.radius"
-                            name="radius"
-                            :required="true"
-                            :options="distances"
-                            v-model="form.radius"
-                            v-slot="distance"
-                        >
-                            <span v-text="distance" class="mr-4" />
-                        </RadioInput>
-
-                        <InputLabel
-                            label="Woher kommt ihr?"
-                            :error="locationError"
-                            :help="form.location"
-                        >
-                            <mapbox-input
-                                class="mt-1"
-                                v-model="form.location"
-                            />
-                        </InputLabel>
                     </template>
 
                     <template #actions>
@@ -170,7 +221,9 @@ export default {
                 size: "",
                 location: null,
                 radius: "",
+                image: null,
             }),
+            imagePreview: null,
         };
     },
 
@@ -186,7 +239,11 @@ export default {
     },
 
     methods: {
-        updatePassword() {
+        submit() {
+            this.form.image = null;
+            if (this.imagePreview) {
+                this.form.image = this.$refs.image.files[0];
+            }
             this.form.post(route("app.team.store"), {
                 onSuccess: () => this.form.reset(),
                 onError: () => {
@@ -201,6 +258,17 @@ export default {
                     }
                 },
             });
+        },
+        updatePreview() {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                this.imagePreview = e.target.result;
+            };
+            reader.readAsDataURL(this.$refs.image.files[0]);
+        },
+        removeImage() {
+            this.$refs.image.value = null;
+            this.imagePreview = null;
         },
     },
 };
