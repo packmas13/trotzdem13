@@ -7,8 +7,10 @@ use App\Models\Stamm;
 use App\Models\Stufe;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class TeamController extends Controller
 {
@@ -71,7 +73,13 @@ class TeamController extends Controller
         $data['leader_id'] = $creator->id;
 
         if (!empty($data['image'])) {
-            $data['image'] = $data['image']->store('team/profile', 'upload');
+            // resize image before storing
+            $image = Image::make($data['image'])->resize(512, 512, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+            $data['image'] = 'team/profile/' . $data['image']->hashName();
+            Storage::disk('upload')->put($data['image'], $image->encode());
         } else {
             $data['image'] = '';
         }

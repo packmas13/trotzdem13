@@ -8,8 +8,8 @@
         </small>
     </div>
     <div class="md:flex mt-4">
-        <div class="md:w-48 w-full flex-shrink-0 mr-2">
-            <img :src="team.image" />
+        <div class="md:w-48 w-full flex-shrink-0 mr-2 text-center mb-2">
+            <img :src="team.image" class="inline" />
         </div>
         <div class="flex-auto bg-gray-50 border rounded">
             <details :open="team.users.length == 1">
