@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class UserTeam extends JsonResource
 {
@@ -18,6 +19,7 @@ class UserTeam extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'join_code' => $this->join_code,
+            'image' => empty($this->image) ? null : Storage::disk('upload')->url($this->image),
 
             'users' => OtherUser::collection($this->whenLoaded('users')),
             'stamm' => Stamm::make($this->whenLoaded('stamm')),

@@ -63,11 +63,18 @@ class TeamController extends Controller
             'location.lat' => ['required', 'numeric'],
             'location.lng' => ['required', 'numeric'],
             'radius' => ['required', 'integer', 'min:1'],
+            'image' => ['nullable', 'file', 'image'],
         ]);
         $data['join_code'] = Str::lower(Str::random(8));
 
         $creator = $request->user();
         $data['leader_id'] = $creator->id;
+
+        if (!empty($data['image'])) {
+            $data['image'] = $data['image']->store('team/profile', 'upload');
+        } else {
+            $data['image'] = '';
+        }
 
         $creator->teams()->create($data);
 

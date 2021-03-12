@@ -5,6 +5,8 @@ namespace Tests\Feature\team;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class TeamCreationTest extends TestCase
@@ -31,6 +33,7 @@ class TeamCreationTest extends TestCase
             'radius' => 4,
         ]);
         $response->assertStatus(302);
+        $response->assertSessionHasNoErrors();
 
         // team was created
         $team = Team::latest()->firstOrFail();
@@ -55,5 +58,50 @@ class TeamCreationTest extends TestCase
         $teams = $user->teams;
         $this->assertCount(1, $teams);
         $this->assertEquals($team->id, $teams->first()->id);
+    }
+
+    public function test_post_new_team_with_image()
+    {
+        Storage::fake('public');
+
+        $this->actingAs($user = User::factory()->create());
+        $response = $this->post('/app/team', [
+            'name' => 'Polarfüchse',
+            'stamm_id' => '132010',
+            'stufe_id' => 1,
+            'size' => 5,
+            'location' => ["lat" => 47.76116644679894, "lng" => 11.562785434513446],
+            'radius' => 4,
+            'image' => $file = UploadedFile::fake()->image('random.jpg')
+        ]);
+        $response->assertStatus(302);
+        $response->assertSessionHasNoErrors();
+
+        // team was created
+        $team = Team::latest()->firstOrFail();
+
+        Storage::disk('upload')->assertExists('team/profile/' . $file->hashName());
+        $this->assertEquals($team->image, 'team/profile/' . $file->hashName());
+    }
+
+    public function test_post_new_team_with_null_image()
+    {
+
+        $this->actingAs($user = User::factory()->create());
+        $response = $this->post('/app/team', [
+            'name' => 'Polarfüchse',
+            'stamm_id' => '132010',
+            'stufe_id' => 1,
+            'size' => 5,
+            'location' => ["lat" => 47.76116644679894, "lng" => 11.562785434513446],
+            'radius' => 4,
+            'image' => null
+        ]);
+        $response->assertStatus(302);
+        $response->assertSessionHasNoErrors();
+
+        // team was created
+        $team = Team::latest()->firstOrFail();
+        $this->assertEquals('', $team->image);
     }
 }
