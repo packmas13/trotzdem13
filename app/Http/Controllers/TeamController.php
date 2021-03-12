@@ -21,7 +21,7 @@ class TeamController extends Controller
     {
         $user = $request->user();
         $teams = $user->teams;
-        $teams->load('users');
+        $teams->load('users', 'stamm', 'bezirk', 'stufe');
         UserTeam::withoutWrapping();
         return Inertia::render('team/Index', [
             'teams' => UserTeam::collection($teams),
@@ -37,7 +37,7 @@ class TeamController extends Controller
     {
         return Inertia::render('team/Create', [
             'bezirke' => Stamm::groupedByBezirk(),
-            'stufen' => Stufe::pluck('name', 'id'),
+            'stufen' => Stufe::all()->keyBy('id'),
             'distances' => [
                 10 => 'nah',
                 100 => 'mittel',

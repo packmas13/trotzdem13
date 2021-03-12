@@ -20,6 +20,9 @@ class UserTeam extends JsonResource
             'join_code' => $this->join_code,
 
             'users' => OtherUser::collection($this->whenLoaded('users')),
+            'stamm' => Stamm::make($this->whenLoaded('stamm')),
+            'bezirk' => Stamm::make($this->whenLoaded('bezirk')),
+            'stufe' => Stufe::make($this->whenLoaded('stufe')),
         ];
     }
 }

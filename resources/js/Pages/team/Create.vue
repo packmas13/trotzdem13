@@ -35,20 +35,24 @@
                             </select>
                         </InputLabel>
 
-                        <InputLabel label="Stufe" :error="form.errors.stufe_id">
-                            <select
-                                class="mt-1 w-full rounded-md border-gray-300"
-                                v-model="form.stufe_id"
-                                required
-                            >
-                                <option
-                                    v-for="(stufe, id) in stufen"
-                                    :key="id"
-                                    :value="id"
-                                    v-text="stufe"
-                                />
-                            </select>
-                        </InputLabel>
+                        <RadioInput
+                            label="Stufe"
+                            :error="form.errors.stufe_id"
+                            name="stufe_id"
+                            :required="true"
+                            :options="stufen"
+                            v-model="form.stufe_id"
+                            v-slot="option"
+                        >
+                            <StufenPill
+                                :stufe="option"
+                                :class="
+                                    form.stufe_id && form.stufe_id != option.id
+                                        ? 'bg-opacity-25'
+                                        : ''
+                                "
+                            />
+                        </RadioInput>
 
                         <InputLabel
                             label="Wie heißt eure Gruppe?"
@@ -75,23 +79,17 @@
                             />
                         </InputLabel>
 
-                        <InputLabel
+                        <RadioInput
                             label="Wie weit würdet ihr für das Banner laufen?"
                             :error="form.errors.radius"
+                            name="radius"
+                            :required="true"
+                            :options="distances"
+                            v-model="form.radius"
+                            v-slot="distance"
                         >
-                            <select
-                                class="mt-1 w-full rounded-md border-gray-300"
-                                v-model="form.radius"
-                                required
-                            >
-                                <option
-                                    v-for="(name, id) in distances"
-                                    :key="id"
-                                    :value="id"
-                                    v-text="name"
-                                />
-                            </select>
-                        </InputLabel>
+                            <span v-text="distance" class="mr-4" />
+                        </RadioInput>
 
                         <InputLabel
                             label="Woher kommt ihr?"
@@ -138,6 +136,8 @@ import JetActionMessage from "@/Jetstream/ActionMessage";
 import JetButton from "@/Jetstream/Button";
 import JetFormSection from "@/Jetstream/FormSection";
 import MapboxInput from "../../input/MapboxInput.vue";
+import RadioInput from "../../input/RadioInput.vue";
+import StufenPill from "../../components/StufenPill.vue";
 
 export default {
     components: {
@@ -146,6 +146,8 @@ export default {
         JetFormSection,
         AppLayout,
         MapboxInput,
+        RadioInput,
+        StufenPill,
     },
     props: {
         bezirke: {

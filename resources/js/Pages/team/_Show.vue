@@ -1,6 +1,13 @@
 <template>
-    <h3 v-text="team.name" class="text-2xl" />
-    Status: created / submitted / accepted<br />
+    <div class="flex justify-between">
+        <h3 v-text="team.name" class="text-2xl" />
+        <small class="text-right pr-2">
+            <StufenPill :stufe="team.stufe" class="-mr-2" /><br />
+            {{ team.stamm.name }} <br />
+            <span class="text-gray-600" v-text="team.bezirk.name" />
+        </small>
+    </div>
+    <span>created / submitted / accepted</span>
     <details
         class="mt-4 bg-gray-50 border rounded"
         :open="team.users.length == 1"
@@ -36,6 +43,7 @@
 
 <script>
 import QRCode from "qrcode";
+import StufenPill from "../../components/StufenPill.vue";
 
 export default {
     props: {
@@ -43,6 +51,7 @@ export default {
             type: Object,
         },
     },
+    components: { StufenPill },
     data() {
         return {
             joinQrcode: null,
@@ -54,7 +63,6 @@ export default {
         },
     },
     mounted() {
-        console.log(this.joinLink);
         QRCode.toDataURL(this.joinLink, {
             margin: 0,
             color: {
