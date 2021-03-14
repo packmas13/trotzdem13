@@ -37,7 +37,7 @@ class CreateStaemmeTable extends Migration
             ['id' => 131304, 'name' => 'Camilo Torres'],
             ['id' => 131305, 'name' => 'Galileo Galilei'],
             ['id' => 131306, 'name' => 'Unterhaching 1'],
-            ['id' => 131307, 'name' => 'Neukeferloh'],
+            ['id' => 131307, 'name' => 'Columbus'],
             ['id' => 131308, 'name' => 'Condor'],
             ['id' => 131309, 'name' => 'Arche Noah'],
             ['id' => 131312, 'name' => 'St. Michael Perlach'],
@@ -58,16 +58,16 @@ class CreateStaemmeTable extends Migration
             ['id' => 131500, 'name' => 'Bezirk Freising'],
             ['id' => 131501, 'name' => 'Freising'],
             ['id' => 131503, 'name' => 'St. Kastulus'],
-            ['id' => 131506, 'name' => 'Langenbach'],
+            ['id' => 131506, 'name' => 'Wolfsspur'],
 
             ['id' => 131600, 'name' => 'Bezirk Ruperti-Mühldorf'],
             ['id' => 131601, 'name' => 'St. Rupert'],
             ['id' => 131602, 'name' => 'Tilly'],
             ['id' => 131604, 'name' => 'St. Christopherus'],
-            ['id' => 131605, 'name' => 'Laufen'],
+            ['id' => 131605, 'name' => 'Mariä Himmelfahrt'],
             ['id' => 131606, 'name' => 'Don Bosco'],
-            ['id' => 131608, 'name' => 'Surberg'],
-            ['id' => 131611, 'name' => 'Berchtesgaden'],
+            ['id' => 131608, 'name' => 'Stoabock'],
+            ['id' => 131611, 'name' => 'Steinadler'],
 
             ['id' => 131700, 'name' => 'Bezirk Ebersberg'],
             ['id' => 131701, 'name' => 'Marinus'],
@@ -90,11 +90,11 @@ class CreateStaemmeTable extends Migration
             ['id' => 131915, 'name' => 'St. Quirinus'],
 
             ['id' => 132000, 'name' => 'Bezirk Oberland'],
-            ['id' => 132001, 'name' => 'Holzkirchen'],
+            ['id' => 132001, 'name' => 'St. Laurentius'],
             ['id' => 132003, 'name' => 'Ägypten'],
             ['id' => 132005, 'name' => 'St. Sixtus'],
             ['id' => 132006, 'name' => 'St. Vitus'],
-            ['id' => 132008, 'name' => 'Benediktbeuern'],
+            ['id' => 132008, 'name' => 'Dominikus Savio'],
             ['id' => 132010, 'name' => 'Bad Tölz'],
         ]);
     }
