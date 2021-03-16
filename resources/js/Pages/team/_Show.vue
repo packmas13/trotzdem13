@@ -2,8 +2,8 @@
     <div class="flex justify-between">
         <h3 v-text="team.name" class="text-2xl" />
         <small class="text-right pr-2">
-            <StufenPill :stufe="team.stufe" class="-mr-2" /><br />
-            {{ team.stamm.name }} <br />
+            <BannerPill :banner="team.banner" class="-mr-2" /><br />
+            {{ team.troop.name }} <br />
             <span class="text-gray-600" v-text="team.bezirk.name" />
         </small>
     </div>
@@ -56,7 +56,7 @@
 
 <script>
 import QRCode from "qrcode";
-import StufenPill from "../../components/StufenPill.vue";
+import BannerPill from "../../components/BannerPill.vue";
 
 export default {
     props: {
@@ -64,7 +64,7 @@ export default {
             type: Object,
         },
     },
-    components: { StufenPill },
+    components: { BannerPill },
     data() {
         return {
             joinQrcode: null,

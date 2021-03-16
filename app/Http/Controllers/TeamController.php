@@ -23,7 +23,7 @@ class TeamController extends Controller
     {
         $user = $request->user();
         $teams = $user->teams;
-        $teams->load('users', 'Troop', 'bezirk', 'banner');
+        $teams->load('users', 'troop', 'bezirk', 'banner');
         UserTeam::withoutWrapping();
         return Inertia::render('team/Index', [
             'teams' => UserTeam::collection($teams),

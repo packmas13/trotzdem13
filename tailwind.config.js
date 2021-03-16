@@ -44,6 +44,10 @@ module.exports = {
                     dark: "#cc1f2f",
                     light: "#FEE2E2",
                 },
+                lilie: {
+                    dark: "#6f1aa1",
+                    light: "#F3E8FF",
+                },
                 teal: {
                     50: "#eef9f9",
                     100: "#d7f7f5",

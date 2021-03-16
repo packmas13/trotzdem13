@@ -1,17 +1,17 @@
 <template>
     <span
         :class="
-            'bg-' + stufe.color + '-light' + ' text-' + stufe.color + '-dark'
+            'bg-' + banner.color + '-light' + ' text-' + banner.color + '-dark'
         "
         class="px-2 py-1 rounded-full inline-block"
-        v-text="stufe.name"
+        v-text="banner.name"
     />
 </template>
 
 <script>
 export default {
     props: {
-        stufe: {
+        banner: {
             type: Object,
             required: true,
         },
