@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Stamm;
-use App\Models\Stufe;
+use App\Models\Troop;
+use App\Models\Banner;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -27,8 +27,8 @@ class TeamFactory extends Factory
         return [
             'name' => $this->faker->name,
             'leader_id' => User::factory(),
-            'stamm_id' => Stamm::factory(),
-            'stufe_id' => Stufe::factory(),
+            'troop_id' => Troop::factory(),
+            'banner_id' => Banner::factory(),
             'size' => $this->faker->numberBetween(1, 15),
             'location' => [
                 'lat' => $this->faker->randomFloat(5, 47.38488, 48.56617),

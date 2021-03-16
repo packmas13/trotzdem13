@@ -22,9 +22,9 @@ class UserTeam extends JsonResource
             'image' => empty($this->image) ? null : Storage::disk('upload')->url($this->image),
 
             'users' => OtherUser::collection($this->whenLoaded('users')),
-            'stamm' => Stamm::make($this->whenLoaded('stamm')),
-            'bezirk' => Stamm::make($this->whenLoaded('bezirk')),
-            'stufe' => Stufe::make($this->whenLoaded('stufe')),
+            'troop' => Troop::make($this->whenLoaded('troop')),
+            'bezirk' => Troop::make($this->whenLoaded('bezirk')),
+            'banner' => Banner::make($this->whenLoaded('banner')),
         ];
     }
 }

@@ -26,8 +26,8 @@ class TeamCreationTest extends TestCase
         $this->actingAs($user = User::factory()->create());
         $response = $this->post('/app/team', [
             'name' => 'Polarfüchse',
-            'stamm_id' => '132010',
-            'stufe_id' => 1, // Wölflinge
+            'troop_id' => '132010',
+            'banner_id' => 1, // Wölflinge
             'size' => 5,
             'location' => ["lat" => 47.76116644679894, "lng" => 11.562785434513446],
             'radius' => 4,
@@ -39,8 +39,8 @@ class TeamCreationTest extends TestCase
         $team = Team::latest()->firstOrFail();
         $this->assertEquals($team->leader->id, $user->id);
         $this->assertEquals($team->name, 'Polarfüchse');
-        $this->assertEquals($team->stamm->name, 'Bad Tölz');
-        $this->assertEquals($team->stufe->name, 'Wölflinge');
+        $this->assertEquals($team->troop->name, 'Bad Tölz');
+        $this->assertEquals($team->banner->name, 'Wölflingsbanner');
         $this->assertEquals($team->size, 5);
         $this->assertEquals($team->location, [
             "lat" => 47.76116644679894,
@@ -67,8 +67,8 @@ class TeamCreationTest extends TestCase
         $this->actingAs($user = User::factory()->create());
         $response = $this->post('/app/team', [
             'name' => 'Polarfüchse',
-            'stamm_id' => '132010',
-            'stufe_id' => 1,
+            'troop_id' => '132010',
+            'banner_id' => 1,
             'size' => 5,
             'location' => ["lat" => 47.76116644679894, "lng" => 11.562785434513446],
             'radius' => 4,
@@ -81,7 +81,7 @@ class TeamCreationTest extends TestCase
         $team = Team::latest()->firstOrFail();
 
         Storage::disk('upload')->assertExists('team/profile/' . $file->hashName());
-        $this->assertEquals($team->image, 'team/profile/' . $file->hashName());
+        $this->assertEquals('team/profile/' . $file->hashName(), $team->image);
     }
 
     public function test_post_new_team_with_null_image()
@@ -90,8 +90,8 @@ class TeamCreationTest extends TestCase
         $this->actingAs($user = User::factory()->create());
         $response = $this->post('/app/team', [
             'name' => 'Polarfüchse',
-            'stamm_id' => '132010',
-            'stufe_id' => 1,
+            'troop_id' => '132010',
+            'banner_id' => 1,
             'size' => 5,
             'location' => ["lat" => 47.76116644679894, "lng" => 11.562785434513446],
             'radius' => 4,

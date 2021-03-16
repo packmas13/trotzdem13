@@ -6,11 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-class Stamm extends Model
+class Troop extends Model
 {
     use HasFactory;
-
-    protected $table = 'staemme';
 
     public $timestamps = false;
 
@@ -21,17 +19,17 @@ class Stamm extends Model
                 // bezirk id
                 return intdiv($id, 100) * 100;
             }, true)
-            ->map(function ($troops, $bezirkId) {
-                $staemme = [];
+            ->map(function ($item, $bezirkId) {
+                $troops = [];
                 $name = '';
-                foreach ($troops as $id => $n) {
+                foreach ($item as $id => $n) {
                     if ($id == $bezirkId) {
                         $name = $n;
                     } else {
-                        $staemme[$id] = $n;
+                        $troops[$id] = $n;
                     }
                 }
-                return compact('name', 'staemme');
+                return compact('name', 'troops');
             });
     }
 }
