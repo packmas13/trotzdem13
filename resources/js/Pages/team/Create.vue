@@ -1,155 +1,183 @@
 <template>
-  <app-layout current-route="app.team.index">
-    <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Neue Gruppe
-      </h2>
-    </template>
+    <app-layout current-route="app.team.index">
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Neue Gruppe
+            </h2>
+        </template>
 
-    <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <jet-form-section @submitted="updatePassword">
-          <template #title>Neue Gruppe erstellen</template>
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <jet-form-section @submitted="submit">
+                    <template #title>Neue Gruppe erstellen</template>
 
-          <template #description> TODOTEXT: Beschreibung </template>
+                    <template #description> TODOTEXT: Beschreibung </template>
 
-          <template #form>
-            <label class="col-span-6 sm:col-span-4">
-              <span>Stamm</span>
-              <select
-                class="mt-1 w-full rounded-md border-gray-300"
-                v-model="form.stamm_id"
-                required
-              >
-                <optgroup
-                  v-for="(bezirk, bid) in bezirke"
-                  :key="bid"
-                  :label="bezirk.name"
-                >
-                  <option
-                    v-for="(stamm, sid) in bezirk.staemme"
-                    :key="sid"
-                    :value="sid"
-                    v-text="stamm"
-                  />
-                </optgroup>
-              </select>
-              <p
-                v-if="form.errors.stamm_id"
-                v-text="form.errors.stamm_id"
-                class="text-sm text-red-600 mt-2"
-              />
-            </label>
+                    <template #form>
+                        <InputLabel
+                            label="Wie heißt eure Gruppe?"
+                            :error="form.errors.name"
+                        >
+                            <input
+                                type="text"
+                                class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                                v-model="form.name"
+                                required
+                            />
+                        </InputLabel>
 
-            <label class="col-span-6 sm:col-span-4">
-              <span>Stufe</span>
-              <select
-                class="mt-1 w-full rounded-md border-gray-300"
-                v-model="form.stufe_id"
-                required
-              >
-                <option
-                  v-for="(stufe, id) in stufen"
-                  :key="id"
-                  :value="id"
-                  v-text="stufe"
-                />
-              </select>
-              <p
-                v-if="form.errors.stufe_id"
-                v-text="form.errors.stufe_id"
-                class="text-sm text-red-600 mt-2"
-              />
-            </label>
+                        <InputLabel
+                            label="Wollt ihr ein Bild hochladen?"
+                            :error="form.errors.image"
+                            help="Dieses Bild wird veröffentlicht"
+                        >
+                            <input
+                                v-show="!imagePreview"
+                                type="file"
+                                accept="image/*"
+                                class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                                ref="image"
+                                @change="updatePreview"
+                            />
+                            <div v-if="imagePreview">
+                                <div
+                                    class="block w-full h-48 my-1 bg-contain bg-no-repeat bg-center"
+                                    :style="
+                                        'background-image: url(\'' +
+                                        imagePreview +
+                                        '\');'
+                                    "
+                                />
+                                <label class="text-sm">
+                                    <input
+                                        type="checkbox"
+                                        required
+                                        class="mr-1"
+                                    />Eine
+                                    <a
+                                        class="text-link"
+                                        target="_blank"
+                                        href="https://dpsg.de/fileadmin/daten/dokumente/infopool/corporatedesign/Oeffentlichkeitsarbeit/DPSG_Einwilligung_Foto_Video.pdf"
+                                        >schriftliche Vereinbarung</a
+                                    >
+                                    über die Online-Nutzung von diesem Foto für
+                                    die Aktion
+                                    <strong>Trotzem13</strong>
+                                    liegt vor.
+                                </label>
+                                <div class="text-right text-sm text-red-800">
+                                    <button
+                                        class="hover:text-red-600 hover:underline"
+                                        @click="removeImage"
+                                        type="button"
+                                    >
+                                        Bild entfernen
+                                    </button>
+                                </div>
+                            </div>
+                        </InputLabel>
 
-            <label class="col-span-6 sm:col-span-4">
-              <span>Wie heißt eure Gruppe?</span>
-              <input
-                type="text"
-                class="mt-1 w-full rounded-md border-gray-300"
-                v-model="form.name"
-                required
-              />
-              <p
-                v-if="form.errors.name"
-                v-text="form.errors.name"
-                class="text-sm text-red-600 mt-2"
-              />
-            </label>
+                        <InputLabel
+                            label="Wie viel seid ihr in der Gruppe?"
+                            :error="form.errors.size"
+                        >
+                            <input
+                                type="number"
+                                class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                                v-model="form.size"
+                                min="1"
+                                required
+                            />
+                        </InputLabel>
 
-            <label class="col-span-6 sm:col-span-4">
-              <span>Wie viel seid ihr in der Gruppe?</span>
-              <input
-                type="number"
-                class="mt-1 w-full rounded-md border-gray-300"
-                v-model="form.size"
-                min="1"
-                required
-              />
-              <p
-                v-if="form.errors.size"
-                v-text="form.errors.size"
-                class="text-sm text-red-600 mt-2"
-              />
-            </label>
+                        <RadioInput
+                            label="Wie weit würdet ihr für das Banner laufen?"
+                            :error="form.errors.radius"
+                            name="radius"
+                            :required="true"
+                            :options="distances"
+                            v-model="form.radius"
+                            v-slot="distance"
+                        >
+                            <span v-text="distance" class="mr-4" />
+                        </RadioInput>
 
-            <label class="col-span-6 sm:col-span-4">
-              <span>Wie weit würdet ihr für das Banner laufen?</span>
-              <select
-                class="mt-1 w-full rounded-md border-gray-300"
-                v-model="form.radius"
-                required
-              >
-                <option
-                  v-for="(name, id) in distances"
-                  :key="id"
-                  :value="id"
-                  v-text="name"
-                />
-              </select>
-              <p
-                v-if="form.errors.radius"
-                v-text="form.errors.radius"
-                class="text-sm text-red-600 mt-2"
-              />
-            </label>
+                        <InputLabel
+                            label="Woher kommt ihr?"
+                            :error="locationError"
+                            :help="form.location"
+                        >
+                            <mapbox-input
+                                class="mt-1"
+                                v-model="form.location"
+                            />
+                        </InputLabel>
 
-            <label class="col-span-6 sm:col-span-4">
-              <span>Woher kommt ihr?</span>
-              <mapbox-input v-model="form.location" />
-              <small
-                class="text-gray-600 whitespace-nowrap overflow-ellipsis"
-                v-text="form.location"
-              />
-              <p
-                v-if="locationError"
-                v-text="locationError"
-                class="text-sm text-red-600 mt-2"
-              />
-            </label>
-          </template>
+                        <InputLabel label="Stamm" :error="form.errors.stamm_id">
+                            <select
+                                class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                                v-model="form.stamm_id"
+                                required
+                            >
+                                <optgroup
+                                    v-for="(bezirk, bid) in bezirke"
+                                    :key="bid"
+                                    :label="bezirk.name"
+                                >
+                                    <option
+                                        v-for="(stamm, sid) in bezirk.staemme"
+                                        :key="sid"
+                                        :value="sid"
+                                        v-text="stamm"
+                                    />
+                                </optgroup>
+                            </select>
+                        </InputLabel>
 
-          <template #actions>
-            <inertia-link
-              :href="route('app.team.index')"
-              class="secondary-button mr-3"
-              >Abbrechen</inertia-link
-            >
-            <jet-action-message :on="form.recentlySuccessful" class="mr-3">
-              Gruppe erstellt.
-            </jet-action-message>
+                        <RadioInput
+                            label="Stufe"
+                            :error="form.errors.stufe_id"
+                            name="stufe_id"
+                            :required="true"
+                            :options="stufen"
+                            v-model="form.stufe_id"
+                            v-slot="option"
+                        >
+                            <StufenPill
+                                :stufe="option"
+                                :class="
+                                    form.stufe_id && form.stufe_id != option.id
+                                        ? 'bg-opacity-25'
+                                        : ''
+                                "
+                            />
+                        </RadioInput>
+                    </template>
 
-            <jet-button
-              :class="{ 'opacity-25': form.processing }"
-              :disabled="form.processing"
-            >
-              Gruppe erstellen
-            </jet-button>
-          </template>
-        </jet-form-section>
-      </div>
-    </div>
-  </app-layout>
+                    <template #actions>
+                        <inertia-link
+                            :href="route('app.team.index')"
+                            class="secondary-button mr-3"
+                            >Abbrechen</inertia-link
+                        >
+                        <jet-action-message
+                            :on="form.recentlySuccessful"
+                            class="mr-3"
+                        >
+                            Gruppe erstellt.
+                        </jet-action-message>
+
+                        <jet-button
+                            :class="{ 'opacity-25': form.processing }"
+                            :disabled="form.processing"
+                        >
+                            Gruppe erstellen
+                        </jet-button>
+                    </template>
+                </jet-form-section>
+            </div>
+        </div>
+    </app-layout>
 </template>
 
 <script>
@@ -159,68 +187,89 @@ import JetActionMessage from "@/Jetstream/ActionMessage";
 import JetButton from "@/Jetstream/Button";
 import JetFormSection from "@/Jetstream/FormSection";
 import MapboxInput from "../../input/MapboxInput.vue";
+import RadioInput from "../../input/RadioInput.vue";
+import StufenPill from "../../components/StufenPill.vue";
 
 export default {
-  components: {
-    JetActionMessage,
-    JetButton,
-    JetFormSection,
-    AppLayout,
-    MapboxInput,
-  },
-  props: {
-    bezirke: {
-      type: Object,
+    components: {
+        JetActionMessage,
+        JetButton,
+        JetFormSection,
+        AppLayout,
+        MapboxInput,
+        RadioInput,
+        StufenPill,
     },
-    stufen: {
-      type: Object,
-    },
-    distances: {
-      type: Object,
-    },
-  },
-
-  data() {
-    return {
-      form: this.$inertia.form({
-        name: "",
-        stamm_id: "",
-        stufe_id: "",
-        size: "",
-        location: null,
-        radius: "",
-      }),
-    };
-  },
-
-  computed: {
-    locationError() {
-      return (
-        this.form.errors["location"] ||
-        this.form.errors["location.name"] ||
-        this.form.errors["location.lat"] ||
-        this.form.errors["location.lng"]
-      );
-    },
-  },
-
-  methods: {
-    updatePassword() {
-      this.form.post(route("app.team.store"), {
-        onSuccess: () => this.form.reset(),
-        onError: () => {
-          if (this.form.errors.password) {
-            this.form.reset("password", "password_confirmation");
-            this.$refs.password.focus();
-          }
-
-          if (this.form.errors.current_password) {
-            this.form.reset("current_password");
-            this.$refs.current_password.focus();
-          }
+    props: {
+        bezirke: {
+            type: Object,
         },
-      });
+        stufen: {
+            type: Object,
+        },
+        distances: {
+            type: Object,
+        },
     },
-  },
+
+    data() {
+        return {
+            form: this.$inertia.form({
+                name: "",
+                stamm_id: "",
+                stufe_id: "",
+                size: "",
+                location: null,
+                radius: "",
+                image: null,
+            }),
+            imagePreview: null,
+        };
+    },
+
+    computed: {
+        locationError() {
+            return (
+                this.form.errors["location"] ||
+                this.form.errors["location.name"] ||
+                this.form.errors["location.lat"] ||
+                this.form.errors["location.lng"]
+            );
+        },
+    },
+
+    methods: {
+        submit() {
+            this.form.image = null;
+            if (this.imagePreview) {
+                this.form.image = this.$refs.image.files[0];
+            }
+            this.form.post(route("app.team.store"), {
+                onSuccess: () => this.form.reset(),
+                onError: () => {
+                    if (this.form.errors.password) {
+                        this.form.reset("password", "password_confirmation");
+                        this.$refs.password.focus();
+                    }
+
+                    if (this.form.errors.current_password) {
+                        this.form.reset("current_password");
+                        this.$refs.current_password.focus();
+                    }
+                },
+            });
+        },
+        updatePreview() {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                this.imagePreview = e.target.result;
+            };
+            reader.readAsDataURL(this.$refs.image.files[0]);
+        },
+        removeImage() {
+            this.$refs.image.value = null;
+            this.imagePreview = null;
+        },
+    },
 };
 </script>

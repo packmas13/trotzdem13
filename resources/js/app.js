@@ -7,6 +7,8 @@ import {
     plugin as InertiaPlugin,
 } from "@inertiajs/inertia-vue3";
 
+import InputLabel from "./input/InputLabel.vue";
+
 const el = document.getElementById("app");
 
 createApp({
@@ -16,6 +18,6 @@ createApp({
             resolveComponent: (name) => require(`./Pages/${name}`).default,
         }),
 })
-    .mixin({ methods: { route } })
+    .mixin({ methods: { route }, components: { InputLabel } })
     .use(InertiaPlugin)
     .mount(el);

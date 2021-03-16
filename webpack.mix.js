@@ -29,5 +29,20 @@ if (mix.inProduction()) {
         });
     });
 } else {
-    mix.browserSync({ proxy: "localhost:8000", notify: false });
+    // eslint-disable-next-line no-undef
+    if (process.argv.includes("--hot")) {
+        // hot module reload
+        mix.webpackConfig({
+            devServer: {
+                open: true,
+                host: "0.0.0.0", // host machine ip
+                port: 8080,
+                proxy: {
+                    "/": "http://localhost:8000",
+                },
+            },
+        });
+    } else {
+        mix.browserSync({ proxy: "localhost:8000", notify: false });
+    }
 }

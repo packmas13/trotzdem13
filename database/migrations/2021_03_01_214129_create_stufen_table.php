@@ -21,10 +21,10 @@ class CreateStufenTable extends Migration
         });
 
         DB::table('stufen')->insert([
-            ['name' => 'Wölflinge', 'color' => '#ff6400'],
-            ['name' => 'Jungpfadfinder', 'color' => '#2f53a7'],
-            ['name' => 'Pfadfinder', 'color' => '#00823c'],
-            ['name' => 'Rover', 'color' => '#cc1f2f'],
+            ['name' => 'Wölflinge', 'color' => 'woelfling'],
+            ['name' => 'Jungpfadfinder', 'color' => 'jupfi'],
+            ['name' => 'Pfadfinder', 'color' => 'pfadi'],
+            ['name' => 'Rover', 'color' => 'rover'],
         ]);
     }
 

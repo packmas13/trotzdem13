@@ -1,13 +1,19 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
+// eslint-disable-next-line no-undef
 module.exports = {
-    purge: [
-        "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
-        "./vendor/laravel/jetstream/**/*.blade.php",
-        "./storage/framework/views/*.php",
-        "./resources/views/**/*.blade.php",
-        "./resources/js/**/*.vue",
-    ],
+    purge: {
+        content: [
+            "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
+            "./vendor/laravel/jetstream/**/*.blade.php",
+            "./storage/framework/views/*.php",
+            "./resources/views/**/*.blade.php",
+            "./resources/js/**/*.vue",
+        ],
+        safelist: {
+            greedy: [/-woelfling-/, /-jupfi-/, /-pfadi-/, /-rover-/],
+        },
+    },
 
     theme: {
         extend: {
@@ -17,7 +23,27 @@ module.exports = {
             minWidth: {
                 "1/2": "50%",
             },
+            listStyleType: {
+                dash: "'– '",
+            },
+
             colors: {
+                woelfling: {
+                    dark: "#C14305",
+                    light: "#FFEDD5",
+                },
+                jupfi: {
+                    dark: "#2f53a7",
+                    light: "#E0F2FE",
+                },
+                pfadi: {
+                    dark: "#00823c",
+                    light: "#D4FEEA",
+                },
+                rover: {
+                    dark: "#cc1f2f",
+                    light: "#FEE2E2",
+                },
                 teal: {
                     50: "#eef9f9",
                     100: "#d7f7f5",

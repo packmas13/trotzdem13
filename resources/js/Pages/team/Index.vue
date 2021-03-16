@@ -17,11 +17,9 @@
                             <li
                                 v-for="team in teams"
                                 :key="team.id"
-                                class="border-b pb-4"
+                                class="border-b py-4"
                             >
-                                <h3 v-text="team.name" class="text-2xl" />
-                                Status: created / submitted / accepted<br>
-                                Code: <span v-text="team.join_code" />
+                                <TeamDetail :team="team" />
                             </li>
                         </ul>
                     </div>
@@ -51,14 +49,16 @@
 
 <script>
 import AppLayout from "@/Layouts/AppLayout";
+import TeamDetail from "./_Show";
 
 export default {
     components: {
         AppLayout,
+        TeamDetail,
     },
     props: {
         teams: {
-            type: Array,
+            type: Object,
         },
     },
 };

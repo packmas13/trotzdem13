@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserTeam;
 use App\Models\Stamm;
 use App\Models\Stufe;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class TeamController extends Controller
 {
@@ -19,8 +22,11 @@ class TeamController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
+        $teams = $user->teams;
+        $teams->load('users', 'stamm', 'bezirk', 'stufe');
+        UserTeam::withoutWrapping();
         return Inertia::render('team/Index', [
-            'teams' => $user->teams->map->only(['id', 'name', 'join_code']),
+            'teams' => UserTeam::collection($teams),
         ]);
     }
 
@@ -33,7 +39,7 @@ class TeamController extends Controller
     {
         return Inertia::render('team/Create', [
             'bezirke' => Stamm::groupedByBezirk(),
-            'stufen' => Stufe::pluck('name', 'id'),
+            'stufen' => Stufe::all()->keyBy('id'),
             'distances' => [
                 10 => 'nah',
                 100 => 'mittel',
@@ -59,11 +65,24 @@ class TeamController extends Controller
             'location.lat' => ['required', 'numeric'],
             'location.lng' => ['required', 'numeric'],
             'radius' => ['required', 'integer', 'min:1'],
+            'image' => ['nullable', 'file', 'image'],
         ]);
         $data['join_code'] = Str::lower(Str::random(8));
 
         $creator = $request->user();
         $data['leader_id'] = $creator->id;
+
+        if (!empty($data['image'])) {
+            // resize image before storing
+            $image = Image::make($data['image'])->resize(512, 512, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+            $data['image'] = 'team/profile/' . $data['image']->hashName();
+            Storage::disk('upload')->put($data['image'], $image->encode());
+        } else {
+            $data['image'] = '';
+        }
 
         $creator->teams()->create($data);
 
