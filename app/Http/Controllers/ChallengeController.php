@@ -74,13 +74,13 @@ class ChallengeController extends Controller
         $data = $this->validate($request, [
             'title' => ['required', 'string'],
             'description' => ['required', 'string'],
-            'category_id' => ['required', 'exists:categories,id'],
             'image' => ['string']
         ]);
         $data['author_id'] = Str::lower(Str::random(8));
 
         $creator = $request->user();
         $data['author_id'] = $creator->id;
+        $data['team_id'] = 0;
 
         $data['source'] = 'Orga';
         // TODO: set source to "Orga" if User is Orga-Member

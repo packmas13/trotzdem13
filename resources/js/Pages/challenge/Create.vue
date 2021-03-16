@@ -72,35 +72,14 @@
                          v-for="(title, id) in categories"
                          :key="id"
                          :value="id"
-                         v-text="title"
                     >
-                        <label :for="id" class="form-check-label">
                             <input type="checkbox"
                                    :id="id"
+                                   v-text="title"
                                    class="form-check-input"
-                                   :value="id"
-                                   v-model="challenge.categories" />
-                            Joe
-                        </label>
+                                   :value="id" />
                     </div>
                 </div>
-              <select
-                class="mt-1 w-full rounded-md border-gray-300"
-                v-model="form.category_id"
-                required
-              >
-                <option
-                  v-for="(title, id) in categories"
-                  :key="id"
-                  :value="id"
-                  v-text="title"
-                />
-              </select>
-              <p
-                v-if="form.errors.category_id"
-                v-text="form.errors.category_id"
-                class="text-sm text-red-600 mt-2"
-              />
             </label>
           </template>
 
