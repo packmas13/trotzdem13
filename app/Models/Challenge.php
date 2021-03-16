@@ -12,16 +12,21 @@ class Challenge extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $guarded = ['id'];
-
-    public function category(): BelongsTo
-    {
-        return $this->belongsTo(Category::class, 'category_id');
-    }
+    protected $guarded = ['id', 'published_at'];
 
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(Team::class, 'team_id');
+    }
+
+    public function category(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class, 'challenge_category');
     }
 
     public function stufen(): BelongsToMany

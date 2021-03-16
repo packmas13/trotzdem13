@@ -27,6 +27,12 @@
                                 >
                                     Gruppe
                                 </jet-nav-link>
+                                <jet-nav-link
+                                    :href="route('app.challenge.list')"
+                                    :active="'app.challenge.list' == currentRoute"
+                                >
+                                    Challenges
+                                </jet-nav-link>
                             </div>
                         </div>
 

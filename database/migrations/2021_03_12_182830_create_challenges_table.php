@@ -17,15 +17,17 @@ class CreateChallengesTable extends Migration
             $table->id();
             $table->string('title', 255);
             $table->string('description', 65536);
-            $table->integer('category_id');
             $table->string('image', 255)->default('');
             $table->integer('author_id');
             $table->string('source', 255);
+            $table->integer('team_id');
+            $table->timestamp('submitted_at')->nullable();
+            $table->timestamp('published_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('author_id')->references('id')->on('users');
+            $table->foreign('team_id')->references('id')->on('teams');
         });
     }
 
