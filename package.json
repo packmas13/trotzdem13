@@ -22,7 +22,7 @@
         "browser-sync": "^2.26.14",
         "browser-sync-webpack-plugin": "^2.3.0",
         "concurrently": "^6.0.0",
-        "eslint": "^7.21.0",
+        "eslint": "^7.22.0",
         "eslint-plugin-vue": "^7.7.0",
         "laravel-mix": "^6.0.13",
         "laravel-mix-make-file-hash": "^2.2.0",
