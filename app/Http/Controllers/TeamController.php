@@ -23,7 +23,7 @@ class TeamController extends Controller
     {
         $user = $request->user();
         $teams = $user->teams;
-        $teams->load('users', 'troop', 'bezirk', 'banner');
+        $teams->load('users', 'troop', 'district', 'banner');
         UserTeam::withoutWrapping();
         return Inertia::render('team/Index', [
             'teams' => UserTeam::collection($teams),
@@ -38,7 +38,7 @@ class TeamController extends Controller
     public function create()
     {
         return Inertia::render('team/Create', [
-            'bezirke' => Troop::groupedByBezirk(),
+            'districts' => Troop::groupedByDistrict(),
             'banners' => Banner::all()->keyBy('id'),
             'distances' => [
                 10 => 'nah',

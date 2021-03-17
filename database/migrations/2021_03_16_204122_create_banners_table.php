@@ -23,7 +23,7 @@ class CreateBannersTable extends Migration
         DB::table('banners')->insert([
             ['name' => 'Wölflingsbanner', 'color' => 'woelfling'],
             ['name' => 'Jupfibanner', 'color' => 'jupfi'],
-            ['name' => 'Pfadfibanner', 'color' => 'pfadi'],
+            ['name' => 'Pfadibanner', 'color' => 'pfadi'],
             ['name' => 'Roverbanner', 'color' => 'rover'],
             ['name' => 'Lilienbanner', 'color' => 'lilie'],
         ]);

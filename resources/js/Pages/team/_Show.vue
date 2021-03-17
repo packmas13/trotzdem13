@@ -4,7 +4,7 @@
         <small class="text-right pr-2">
             <BannerPill :banner="team.banner" class="-mr-2" /><br />
             {{ team.troop.name }} <br />
-            <span class="text-gray-600" v-text="team.bezirk.name" />
+            <span class="text-gray-600" v-text="team.district.name" />
         </small>
     </div>
     <div class="md:flex mt-4">

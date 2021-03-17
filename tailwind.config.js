@@ -11,7 +11,7 @@ module.exports = {
             "./resources/js/**/*.vue",
         ],
         safelist: {
-            greedy: [/-woelfling-/, /-jupfi-/, /-pfadi-/, /-rover-/],
+            greedy: [/-woelfling-/, /-jupfi-/, /-pfadi-/, /-rover-/, /-lilie-/],
         },
     },
 

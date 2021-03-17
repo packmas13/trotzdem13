@@ -23,11 +23,11 @@ class Team extends Model
 
     protected static function booted()
     {
-        static::addGlobalScope('with_bezirk', function (Builder $builder) {
+        static::addGlobalScope('with_district', function (Builder $builder) {
             if (is_null($builder->getQuery()->columns)) {
                 $builder->addSelect('*');
             }
-            $builder->selectRaw('(troop_id / 100)*100 as bezirk_id');
+            $builder->selectRaw('(troop_id / 100)*100 as district_id');
         });
     }
 
@@ -41,9 +41,9 @@ class Team extends Model
         return $this->belongsTo(Troop::class, 'troop_id');
     }
 
-    public function bezirk(): BelongsTo
+    public function district(): BelongsTo
     {
-        return $this->belongsTo(Troop::class, 'bezirk_id');
+        return $this->belongsTo(Troop::class, 'district_id');
     }
 
     public function banner(): BelongsTo

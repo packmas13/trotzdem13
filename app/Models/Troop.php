@@ -12,18 +12,18 @@ class Troop extends Model
 
     public $timestamps = false;
 
-    public static function groupedByBezirk(): Collection
+    public static function groupedByDistrict(): Collection
     {
         return static::pluck('name', 'id')
             ->groupBy(function ($name, $id) {
-                // bezirk id
+                // district id
                 return intdiv($id, 100) * 100;
             }, true)
-            ->map(function ($item, $bezirkId) {
+            ->map(function ($item, $districtId) {
                 $troops = [];
                 $name = '';
                 foreach ($item as $id => $n) {
-                    if ($id == $bezirkId) {
+                    if ($id == $districtId) {
                         $name = $n;
                     } else {
                         $troops[$id] = $n;

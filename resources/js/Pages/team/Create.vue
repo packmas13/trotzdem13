@@ -120,20 +120,20 @@
                                 required
                             >
                                 <optgroup
-                                    v-for="(bezirk, bid) in bezirke"
-                                    :key="bid"
-                                    :label="'[' + bezirk.name + ']'"
+                                    v-for="(district, districtID) in districts"
+                                    :key="districtID"
+                                    :label="'[' + district.name + ']'"
                                 >
                                     <option
-                                        v-for="(troop, sid) in bezirk.troops"
+                                        v-for="(troop, sid) in district.troops"
                                         :key="sid"
                                         :value="sid"
                                         v-text="troop"
                                     />
                                     <option
-                                        :value="bid"
+                                        :value="districtID"
                                         class="italic"
-                                        v-text="bezirk.name"
+                                        v-text="district.name"
                                     />
                                 </optgroup>
                             </select>
@@ -208,7 +208,7 @@ export default {
         BannerPill,
     },
     props: {
-        bezirke: {
+        districts: {
             type: Object,
         },
         banners: {

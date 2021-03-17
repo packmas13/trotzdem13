@@ -23,7 +23,7 @@ class UserTeam extends JsonResource
 
             'users' => OtherUser::collection($this->whenLoaded('users')),
             'troop' => Troop::make($this->whenLoaded('troop')),
-            'bezirk' => Troop::make($this->whenLoaded('bezirk')),
+            'district' => Troop::make($this->whenLoaded('district')),
             'banner' => Banner::make($this->whenLoaded('banner')),
         ];
     }
