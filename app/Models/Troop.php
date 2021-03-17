@@ -6,32 +6,30 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-class Stamm extends Model
+class Troop extends Model
 {
     use HasFactory;
 
-    protected $table = 'staemme';
-
     public $timestamps = false;
 
-    public static function groupedByBezirk(): Collection
+    public static function groupedByDistrict(): Collection
     {
         return static::pluck('name', 'id')
             ->groupBy(function ($name, $id) {
-                // bezirk id
+                // district id
                 return intdiv($id, 100) * 100;
             }, true)
-            ->map(function ($troops, $bezirkId) {
-                $staemme = [];
+            ->map(function ($item, $districtId) {
+                $troops = [];
                 $name = '';
-                foreach ($troops as $id => $n) {
-                    if ($id == $bezirkId) {
+                foreach ($item as $id => $n) {
+                    if ($id == $districtId) {
                         $name = $n;
                     } else {
-                        $staemme[$id] = $n;
+                        $troops[$id] = $n;
                     }
                 }
-                return compact('name', 'staemme');
+                return compact('name', 'troops');
             });
     }
 }

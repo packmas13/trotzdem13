@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\UserTeam;
-use App\Models\Stamm;
-use App\Models\Stufe;
+use App\Models\Banner;
+use App\Models\Troop;
 use App\Models\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -23,7 +23,7 @@ class TeamController extends Controller
     {
         $user = $request->user();
         $teams = $user->teams;
-        $teams->load('users', 'stamm', 'bezirk', 'stufe');
+        $teams->load('users', 'troop', 'district', 'banner');
         UserTeam::withoutWrapping();
         return Inertia::render('team/Index', [
             'teams' => UserTeam::collection($teams),
@@ -38,8 +38,8 @@ class TeamController extends Controller
     public function create()
     {
         return Inertia::render('team/Create', [
-            'bezirke' => Stamm::groupedByBezirk(),
-            'stufen' => Stufe::all()->keyBy('id'),
+            'districts' => Troop::groupedByDistrict(),
+            'banners' => Banner::all()->keyBy('id'),
             'distances' => [
                 10 => 'nah',
                 100 => 'mittel',
@@ -58,8 +58,8 @@ class TeamController extends Controller
     {
         $data = $this->validate($request, [
             'name' => ['required', 'string'],
-            'stamm_id' => ['required', 'exists:staemme,id'],
-            'stufe_id' => ['required', 'exists:stufen,id'],
+            'troop_id' => ['required', 'exists:troops,id'],
+            'banner_id' => ['required', 'exists:banners,id'],
             'size' => ['required', 'integer', 'min:1'],
             'location' => ['required', 'array'],
             'location.lat' => ['required', 'numeric'],

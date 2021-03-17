@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Stamm;
+use App\Models\Troop;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class StammFactory extends Factory
+class TroopFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Stamm::class;
+    protected $model = Troop::class;
 
     /**
      * Define the model's default state.

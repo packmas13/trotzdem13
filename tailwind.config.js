@@ -11,7 +11,7 @@ module.exports = {
             "./resources/js/**/*.vue",
         ],
         safelist: {
-            greedy: [/-woelfling-/, /-jupfi-/, /-pfadi-/, /-rover-/],
+            greedy: [/-woelfling-/, /-jupfi-/, /-pfadi-/, /-rover-/, /-lilie-/],
         },
     },
 
@@ -43,6 +43,10 @@ module.exports = {
                 rover: {
                     dark: "#cc1f2f",
                     light: "#FEE2E2",
+                },
+                lilie: {
+                    dark: "#6f1aa1",
+                    light: "#F3E8FF",
                 },
                 teal: {
                     50: "#eef9f9",

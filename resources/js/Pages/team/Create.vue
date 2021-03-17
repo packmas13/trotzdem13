@@ -113,40 +113,46 @@
                             />
                         </InputLabel>
 
-                        <InputLabel label="Stamm" :error="form.errors.stamm_id">
+                        <InputLabel label="Stamm" :error="form.errors.troop_id">
                             <select
                                 class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
-                                v-model="form.stamm_id"
+                                v-model="form.troop_id"
                                 required
                             >
                                 <optgroup
-                                    v-for="(bezirk, bid) in bezirke"
-                                    :key="bid"
-                                    :label="bezirk.name"
+                                    v-for="(district, districtID) in districts"
+                                    :key="districtID"
+                                    :label="'[' + district.name + ']'"
                                 >
                                     <option
-                                        v-for="(stamm, sid) in bezirk.staemme"
+                                        v-for="(troop, sid) in district.troops"
                                         :key="sid"
                                         :value="sid"
-                                        v-text="stamm"
+                                        v-text="troop"
+                                    />
+                                    <option
+                                        :value="districtID"
+                                        v-text="district.name"
                                     />
                                 </optgroup>
                             </select>
                         </InputLabel>
 
                         <RadioInput
-                            label="Stufe"
-                            :error="form.errors.stufe_id"
-                            name="stufe_id"
+                            label="Stufenbanner"
+                            :error="form.errors.banner_id"
+                            name="banner_id"
                             :required="true"
-                            :options="stufen"
-                            v-model="form.stufe_id"
+                            :options="banners"
+                            v-model="form.banner_id"
                             v-slot="option"
                         >
-                            <StufenPill
-                                :stufe="option"
+                            <BannerPill
+                                :banner="option"
+                                class="mb-1"
                                 :class="
-                                    form.stufe_id && form.stufe_id != option.id
+                                    form.banner_id &&
+                                    form.banner_id != option.id
                                         ? 'bg-opacity-25'
                                         : ''
                                 "
@@ -188,7 +194,7 @@ import JetButton from "@/Jetstream/Button";
 import JetFormSection from "@/Jetstream/FormSection";
 import MapboxInput from "../../input/MapboxInput.vue";
 import RadioInput from "../../input/RadioInput.vue";
-import StufenPill from "../../components/StufenPill.vue";
+import BannerPill from "../../components/BannerPill.vue";
 
 export default {
     components: {
@@ -198,13 +204,13 @@ export default {
         AppLayout,
         MapboxInput,
         RadioInput,
-        StufenPill,
+        BannerPill,
     },
     props: {
-        bezirke: {
+        districts: {
             type: Object,
         },
-        stufen: {
+        banners: {
             type: Object,
         },
         distances: {
@@ -216,8 +222,8 @@ export default {
         return {
             form: this.$inertia.form({
                 name: "",
-                stamm_id: "",
-                stufe_id: "",
+                troop_id: "",
+                banner_id: "",
                 size: "",
                 location: null,
                 radius: "",
