@@ -29,8 +29,8 @@ class Challenge extends Model
         return $this->belongsToMany(Category::class, 'challenge_category');
     }
 
-    public function stufen(): BelongsToMany
+    public function banners(): BelongsToMany
     {
-        return $this->belongsToMany(Stufe::class, 'challenge_stufe');
+        return $this->belongsToMany(Stufe::class, 'banner_challenge');
     }
 }

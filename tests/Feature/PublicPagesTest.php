@@ -34,12 +34,13 @@ class PublicPagesTest extends TestCase
     public function public_pages():array
     {
         return [
-            ['/'],
-            ['/karte'],
-            ['/teilnehmer'],
-            ['/challenges'],
-            ['/impressum'],
-            ['/datenschutz'],
+            // name => arguments
+            '/' => ['/'],
+            '/karte' => ['/karte'],
+            '/teilnehmer' => ['/teilnehmer'],
+            '/challenges' => ['/challenges'],
+            '/impressum' => ['/impressum'],
+            '/datenschutz' => ['/datenschutz'],
         ];
     }
 }

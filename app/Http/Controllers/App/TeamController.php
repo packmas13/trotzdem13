@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\App;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\UserTeam;
 use App\Models\Banner;
 use App\Models\Troop;
