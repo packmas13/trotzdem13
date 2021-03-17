@@ -10,8 +10,16 @@ module.exports = {
             "./resources/views/**/*.blade.php",
             "./resources/js/**/*.vue",
         ],
-        safelist: {
-            greedy: [/-woelfling-/, /-jupfi-/, /-pfadi-/, /-rover-/, /-lilie-/],
+        options: {
+            safelist: {
+                greedy: [
+                    /-woelfling-/,
+                    /-jupfi-/,
+                    /-pfadi-/,
+                    /-rover-/,
+                    /-lilie-/,
+                ],
+            },
         },
     },
 
