@@ -132,7 +132,6 @@
                                     />
                                     <option
                                         :value="districtID"
-                                        class="italic"
                                         v-text="district.name"
                                     />
                                 </optgroup>
