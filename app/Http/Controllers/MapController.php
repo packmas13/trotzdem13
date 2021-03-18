@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\MapHelper;
+
 class MapController
 {
     public function index()
     {
-        return view('map');
+        $map = new MapHelper;
+        return view('map', [
+            'center' => $map->center(),
+            'boundNorthEast' => $map->boundNorthEast(),
+            'boundSouthWest' => $map->boundSouthWest(),
+        ]);
     }
 }
