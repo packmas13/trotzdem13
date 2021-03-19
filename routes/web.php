@@ -12,7 +12,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/', [HomeController::class, 'index']);
 Route::get('karte', [MapController::class, 'index']);
@@ -31,6 +30,7 @@ Route::get('datenschutz', [PrivacyController::class, 'index']);
 //     ]);
 // });
 Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->group(function () {
+    Route::redirect('/', '/app/team');
     Route::get('team', [TeamController::class, 'index'])->name('team.index');
 
     Route::get('team/create', [TeamController::class, 'create'])->name('team.create');

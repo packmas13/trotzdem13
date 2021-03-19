@@ -2,7 +2,7 @@
     <div class="h-96 bg-teal-500 mx-auto max-w-3xl sm:mt-2 flex flex-col justify-between bg-cover bg-top"
         style="background-image:url('/img/dpsg.de_banner.jpg')">
         <div class="bg-mango-600 text-white p-4 text-center font-black text-2xl mx-6 mt-3">Bannerlauf startet in
-            {{ $days_left }} Tage
+            {{ $days_left }} Tagen
         </div>
 
         <div class="bg-mango-600 text-white p-4 text-center font-black text-2xl mx-6 mb-3">
@@ -18,10 +18,8 @@
         <p>
             Nachdem unser Diözesanlager “Pack Ma’s 13” mit weit über 2000 Teilnehmer:innen aufgrund der Aktuellen
             Situation
-            abgesagt werden musste, wollen wir <strong>TROTZDEM</strong> zeigen, dass es ist möglich auch in diesen
-            komplizierten Zeiten
-            die
-            Vielfalt unserer grandiosen Diözese erlebbar zu machen.
+            abgesagt werden musste, wollen wir <strong>TROTZDEM</strong> zeigen, dass es möglich ist, auch in diesen
+            komplizierten Zeiten die Vielfalt unserer grandiosen Diözese erlebbar zu machen.
         </p>
         <p>
             Daher haben wir uns die Aktion „Trotzdem ’13“ überlegt, mit der wir gemeinsam ganz hygienekonform den Sommer
@@ -36,7 +34,7 @@
             den
             wir über die gesamte Diözese München und Freising verteilt mit so vielen Gruppen wie möglich
             stattfinden
-            lassen wollen. Der Bannerlauf wird dabei von individuellen Herausforderungen) begleitet, die jede Gruppe
+            lassen wollen. Der Bannerlauf wird dabei von individuellen Herausforderungen begleitet, die jede Gruppe
             durchführen und dokumentieren sollen. Das Ziel der Aktion ist, gemeinsam neue Dinge auszuprobieren, neue
             Pfadfinder:innen kennen zu lernen und insgesamt die Welt ein bisschen besser zu machen.
 

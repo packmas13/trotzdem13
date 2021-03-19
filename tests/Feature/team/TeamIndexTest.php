@@ -12,6 +12,15 @@ class TeamIndexTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_redirect_to_index_page()
+    {
+        $this->actingAs($user = User::factory()->hasTeams(1)->create());
+
+        $response = $this->get('/app/');
+
+        $response->assertStatus(302);
+    }
+
     public function test_get_index_page()
     {
         $this->actingAs($user = User::factory()->hasTeams(1)->create());
