@@ -70,4 +70,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Challenge::class, 'author_id');
     }
+
+    public function isOrga(): bool {
+        return $this->teams->contains(42);
+    }
 }
