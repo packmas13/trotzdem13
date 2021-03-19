@@ -10,8 +10,16 @@ module.exports = {
             "./resources/views/**/*.blade.php",
             "./resources/js/**/*.vue",
         ],
-        safelist: {
-            greedy: [/-woelfling-/, /-jupfi-/, /-pfadi-/, /-rover-/, /-lilie-/],
+        options: {
+            safelist: {
+                greedy: [
+                    /-woelfling-/,
+                    /-jupfi-/,
+                    /-pfadi-/,
+                    /-rover-/,
+                    /-lilie-/,
+                ],
+            },
         },
     },
 
@@ -55,7 +63,7 @@ module.exports = {
                     300: "#70e4df",
                     400: "#2acfcc",
                     500: "#57afad", // Hauptfarbe
-                    600: "#0c9597",
+                    600: "#1F8389",
                     700: "#12787a",
                     800: "#145d5e",
                     900: "#134b4b",
@@ -79,7 +87,7 @@ module.exports = {
                     300: "#f6c56d",
                     400: "#f39e31",
                     500: "#f27615",
-                    600: "#e6520e",
+                    600: "#D93F0C", // "#ff5d15", // new design without enough contrast
                     700: "#ba4b18", // Akzentfarbe 1
                     800: "#9e3118",
                     900: "#802818",
@@ -108,6 +116,16 @@ module.exports = {
                     700: "#6c4a45",
                     800: "#533a3c",
                     900: "#422f32",
+                },
+            },
+
+            typography: {
+                DEFAULT: {
+                    css: {
+                        a: {
+                            color: "#ba4b18",
+                        },
+                    },
                 },
             },
         },

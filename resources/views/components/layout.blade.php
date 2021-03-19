@@ -10,7 +10,7 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" rel="stylesheet">
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"> -->
 
     <!-- Styles -->
@@ -42,49 +42,57 @@
 </head>
 
 <body class="font-sans antialiased bg-teal-500 flex flex-col min-h-screen">
-    <header class="flex justify-between items-center bg-teal-500 px-2 shadow-xl">
-        <a href="/" class="flex-1"><img src="{{asset('img/logo_192.png')}}" class="w-24" /></a>
+    <div class="relative">
+        &nbsp;
+        @if ($showLoginLink)
+        <a href="{{route('app.team.index')}}"
+            class="float-right block text-white font-bold text-center group py-1 px-2  text-sm sm:text-base shadow-lg bg-mango-600 mr-2 -mb-2">
+            @auth
+            Mitglieder-Bereich
+            @else
+            Anmeldung
+            @endauth
+        </a>
+        @endif
+    </div>
+    <header class="clear-both flex justify-between items-center bg-teal-500 px-2">
+        <a href="/" class="sm:flex-1"><img src="{{asset('img/logo_192.png')}}" class="w-24" /></a>
         <a href="/"
-            class="text-center sm:text-5xl text-xl px-3 py-2 my-3 sm:mb-5 text-mango-700 bg-white rounded-xl shadow-lg font-black">
+            class="text-center sm:text-5xl text-2xl px-1 sm:px-3 sm:py-1 sm:mb-3 text-mango-600 bg-white shadow-lg font-black uppercase">
             Trotzdem ’13
         </a>
-        <div class="flex-1 text-right ml-1">
-            <a href="{{route('app.team.index')}}"
-                class="inline-block text-white border-white rounded-full text-center group px-2 border text-sm sm:text-base">
-                @auth
-                Mitglieder-Bereich
-                @else
-                Anmelden
-                @endauth
-            </a>
-        </div>
+        <div class="sm:flex-1"></div>
     </header>
 
-    <nav class="bg-teal-600 text-white shadow-xl flex flex-wrap items-center justify-center text-sm sm:text-base">
-        <a class="block px-3 py-2 mx-2 hover:bg-teal-500 {{$navMain =='/'?'bg-teal-500':''}}" href="/">
+    <nav class="bg-teal-600 text-white shadow-xl flex flex-wrap items-center justify-center sm:text-lg">
+        <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/'?'border-mango-500':''}}"
+            href="/">
             Projekt
         </a>
-        <a class="block px-3 py-2 mx-2 hover:bg-teal-500 {{$navMain =='/karte'?'bg-teal-500':''}}" href="/karte">
+        <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/karte'?'border-mango-500':''}}"
+            href="/karte">
             Karte
         </a>
-        <a class="block px-3 py-2 mx-2 hover:bg-teal-500 {{$navMain =='/teilnehmer'?'bg-teal-500':''}}"
+        @if(false)
+        <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/teilnehmer'?'border-mango-500':''}}"
             href="/teilnehmer">
             Teilnehmer
         </a>
-        <a class="block px-3 py-2 mx-2 hover:bg-teal-500 {{$navMain =='/challenges'?'bg-teal-500':''}}"
+        <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/challenges'?'border-mango-500':''}}"
             href="/challenges">
             Challenges
         </a>
+        @endif
     </nav>
-    <main class="flex-auto bg-sepiaGray-200" id="main">
+    <main class="flex-auto bg-sepiaGray-100" id="main">
         {{ $slot }}
     </main>
     <nav class="bg-teal-500 text-white shadow-xl flex flex-wrap items-center justify-center text-sm sm:text-base">
         <a class="p-2 hover:underline {{$navMain =='/impressum'?'underline':''}}" href="/impressum">Impressum</a>
-        <a class="p-2 hover:underline {{$navMain =='/datenschutz'?'underline':''}}" href="/datenschutz">Datenschutz</a>
-        <a class="p-2 hover:underline" href="#">Facebook</a>
-        <a class="p-2 hover:underline" href="#">Youtube</a>
-        <a class="p-2 hover:underline" href="#">Instragram</a>
+        <a class="p-2 hover:underline {{$navMain =='/datenschutz'?'underline':''}}" hreftodo="/datenschutz"
+            href="https://www.dpsg1300.de/datenschutz/">Datenschutz</a>
+        <a class="p-2 hover:underline" target="_blank" rel="noopener noreferrer"
+            href="https://www.instagram.com/trotzdem_13/">Instragram</a>
     </nav>
 
     @stack('scripts')

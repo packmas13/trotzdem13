@@ -13,12 +13,12 @@
     var map = new mapboxgl.Map({
         container: 'main', // container ID
         style: 'mapbox://styles/oliverpool/cklbak4fg2p3o17rzfkmeiytq', // style URL
-        center: [11.700, 48.023], // starting position [lng, lat]
-        zoom: 9, // starting zoom
+        center: [{{$center[1]}}, {{$center[0]}}], // starting position [lng, lat]
+        zoom: 7, // starting zoom
         locale: "de",
         maxBounds: [
-            [10.66794, 47.38488], // Southwest coordinates
-            [13.38981, 48.56617] // Northeast coordinates
+            [{{$boundSouthWest[1]}}, {{$boundSouthWest[0]}}], // Southwest coordinates
+            [{{$boundNorthEast[1]}}, {{$boundNorthEast[0]}}] // Northeast coordinates
         ],
 
         // prevent rotation
