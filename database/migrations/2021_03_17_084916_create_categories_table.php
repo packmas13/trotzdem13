@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('title', 255);
             $table->string('description', 65536);
+            $table->string('icon_path', 255);
             $table->timestamps();
         });
 
@@ -25,22 +26,26 @@ class CreateCategoriesTable extends Migration
             [
                 'id' => 1,
                 'title' => 'Networking & Identität',
-                'description' => 'Was ist dir wichtig? Was macht dich aus? Was sind deine Traditionen? Was machen andere Gruppen gleich? Was anders? Lernt euch kennen. Vernetzt euch. Erlebt das Wir und sei dir deiner selbst bewusst.'
+                'description' => 'Was ist dir wichtig? Was macht dich aus? Was sind deine Traditionen? Was machen andere Gruppen gleich? Was anders? Lernt euch kennen. Vernetzt euch. Erlebt das Wir und sei dir deiner selbst bewusst.',
+                'icon_path' => '/img/category-1.svg'
             ],
             [
                 'id' => 2,
                 'title' => 'Für Geist & Seele',
-                'description' => 'Was tut dir gut? Was beschäftigt dich? Was brauchst du? Wie siehst du die Welt? Was kann die Kirche für dich tun? Lass deine Bim Bam Seele Baumeln. Atme ruhig durch die Hose. Lass dich auf Spiritualität ein und von Kirche inspirieren.'
+                'description' => 'Was tut dir gut? Was beschäftigt dich? Was brauchst du? Wie siehst du die Welt? Was kann die Kirche für dich tun? Lass deine Bim Bam Seele Baumeln. Atme ruhig durch die Hose. Lass dich auf Spiritualität ein und von Kirche inspirieren.',
+                'icon_path' => '/img/category-2.svg'
             ],
             [
                 'id' => 3,
                 'title' => '(Pfadfinderisches) Handwerk',
-                'description' => 'Können wir das schaffen? Segen, Hämmern, kleben, tippen, programmieren, spielen, knoten, wegweisen, kleben, sporteln, jurten,… Wir packen an! Hand drauf.'
+                'description' => 'Können wir das schaffen? Segen, Hämmern, kleben, tippen, programmieren, spielen, knoten, wegweisen, kleben, sporteln, jurten,… Wir packen an! Hand drauf.',
+                'icon_path' => '/img/category-3.svg'
             ],
             [
                 'id' => 4,
                 'title' => 'Umwelt & Miteinander',
-                'description' => 'Gesellschaftliches, politisches, soziales, Fridays for future, Demokratie – Gemeinsam für ein nachhaltiges Miteinander. Es liegt an dir. Mach mit. Sei dabei. Deine Stimme zählt.'
+                'description' => 'Gesellschaftliches, politisches, soziales, Fridays for future, Demokratie – Gemeinsam für ein nachhaltiges Miteinander. Es liegt an dir. Mach mit. Sei dabei. Deine Stimme zählt.',
+                'icon_path' => '/img/category-4.svg'
             ]
         ]);
     }

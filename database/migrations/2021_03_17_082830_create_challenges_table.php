@@ -20,6 +20,7 @@ class CreateChallengesTable extends Migration
             $table->string('image', 255)->default('');
             $table->integer('author_id');
             $table->string('source', 255);
+            $table->integer('quantity');
             $table->integer('team_id')->nullable();
             $table->integer('category_id');
             $table->timestamp('submitted_at')->nullable();

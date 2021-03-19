@@ -12,7 +12,10 @@
             @endempty
             @foreach ($challenges as $challenge)
                 <li>
-                    <h2>{{$challenge->title}}</h2>
+                    <h2>
+                        <x-category-icon :category="$challenge->category"/>
+                        {{$challenge->title}}
+                    </h2>
                     <span>{{$challenge->description}}</span>
                 </li>
             @endforeach

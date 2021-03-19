@@ -48,7 +48,8 @@ class ChallengeController extends Controller
             'description' => ['required', 'string'],
             'image' => ['string'],
             'banners' => ['array', 'min:1'],
-            'category_id' => ['required', 'exists:categories,id']
+            'category_id' => ['required', 'exists:categories,id'],
+            'quantity' => ['required', 'numeric', 'min:1']
         ]);
         $data['author_id'] = Str::lower(Str::random(8));
 
@@ -57,8 +58,6 @@ class ChallengeController extends Controller
         $data['team_id'] = null;
 
         $data['source'] = 'Orga';
-        // TODO: set source to "Orga" if User is Orga-Member
-
         $challenge = Challenge::create($data);
 
         $challenge->banners()->sync($data['banners']);
@@ -69,7 +68,7 @@ class ChallengeController extends Controller
     /**
      * Show the form for editing an existing resource.
      *
-     * @param Request $request
+     * @param int $id
      * @return Response
      */
     public function edit(int $id)
@@ -95,7 +94,8 @@ class ChallengeController extends Controller
             'title' => ['required', 'string'],
             'description' => ['required', 'string'],
             'banners' => ['array', 'min:1'],
-            'category_id' => ['required', 'exists:categories,id']
+            'category_id' => ['required', 'exists:categories,id'],
+            'quantity' => ['required', 'numeric', 'min:1']
         ]);
 
         $challenge = Challenge::findOrFail($data['id']);
@@ -103,8 +103,39 @@ class ChallengeController extends Controller
         $challenge->title = $data['title'];
         $challenge->description = $data['description'];
         $challenge->category_id = $data['category_id'];
+        $challenge->quantity = $data['quantity'];
         $challenge->save();
         $challenge->banners()->sync($data['banners']);
+
+        return redirect()->route('app.challenge.index');
+    }
+
+    /**
+     * Publish the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function publish(int $id)
+    {
+        $challenge = Challenge::findOrFail($id);
+        $challenge->published_at = now();
+        $challenge->save();
+
+        return redirect()->route('app.challenge.index');
+    }
+
+    /**
+     * Publish the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function unpublish(int $id)
+    {
+        $challenge = Challenge::findOrFail($id);
+        $challenge->published_at = null;
+        $challenge->save();
 
         return redirect()->route('app.challenge.index');
     }

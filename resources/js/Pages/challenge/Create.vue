@@ -64,20 +64,31 @@
                         </label>
 
                         <label class="col-span-6 sm:col-span-4">
-                            <span>Zu welchen Kategorien gehört die Challenge?</span>
-                            <div class="form-group">
-                                <div class="form-check"
-                                     v-for="(title, id) in categories"
-                                     :key="id"
-                                     :value="id"
-                                >
-                                    <input type="checkbox"
-                                           :id="id"
-                                           :v-text="title"
-                                           class="form-check-input"
-                                           :value="id"/>
-                                </div>
+                            <span>Zu welcher Kategorie gehört die Challenge?</span>
+                            <div v-for="(title, id) in categories">
+                                <input type="radio" v-bind:id="'category-' + id" v-bind:value="id" v-model="form.category_id" />
+                                <label v-bind:for="'category-' + id" v-text="title"/>
                             </div>
+                            <p
+                                v-if="form.errors.category_id"
+                                v-text="form.errors.category_id"
+                                class="text-sm text-red-600 mt-2"
+                            />
+                        </label>
+
+                        <label class="col-span-6 sm:col-span-4">
+                            <span>Wie oft kann die Challenge gemacht werden?</span>
+                            <input
+                                type="text"
+                                class="mt-1 w-full rounded-md border-gray-300"
+                                v-model.number="form.quantity"
+                                required
+                            />
+                            <p
+                                v-if="form.errors.quantity"
+                                v-text="form.errors.quantity"
+                                class="text-sm text-red-600 mt-2"
+                            />
                         </label>
                     </template>
 
@@ -135,8 +146,9 @@ export default {
             form: this.$inertia.form({
                 title: "",
                 description: "",
-                category_ids: [],
-                banners: []
+                category_id: "",
+                banners: [1,2,3,4,5],
+                quantity: 5
             }),
         };
     },
