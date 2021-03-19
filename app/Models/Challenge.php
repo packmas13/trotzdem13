@@ -24,13 +24,13 @@ class Challenge extends Model
         return $this->belongsTo(Team::class, 'team_id');
     }
 
-    public function category(): BelongsToMany
+    public function category(): BelongsTo
     {
-        return $this->belongsToMany(Category::class, 'challenge_category');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     public function banners(): BelongsToMany
     {
-        return $this->belongsToMany(Stufe::class, 'banner_challenge');
+        return $this->belongsToMany(Banner::class, 'banner_challenge');
     }
 }

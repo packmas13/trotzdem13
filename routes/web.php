@@ -38,5 +38,6 @@ Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->gr
     Route::post('challenge', [App\ChallengeController::class, 'store'])->name('challenge.store');
 
     Route::get('challenge/edit/{id}', [App\ChallengeController::class, 'edit'])->name('challenge.edit');
+    Route::post('challenge/update', [App\ChallengeController::class, 'update'])->name('challenge.update');
     Route::get('challenge/delete/{id}', [App\ChallengeController::class, 'delete'])->name('challenge.delete');
 });

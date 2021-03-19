@@ -28,8 +28,8 @@
                                     Gruppe
                                 </jet-nav-link>
                                 <jet-nav-link
-                                    :href="route('app.challenge.list')"
-                                    :active="'app.challenge.list' == currentRoute"
+                                    :href="route('app.challenge.index')"
+                                    :active="'app.challenge.index' == currentRoute"
                                 >
                                     Challenges
                                 </jet-nav-link>

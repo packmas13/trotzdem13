@@ -20,7 +20,8 @@ class CreateChallengesTable extends Migration
             $table->string('image', 255)->default('');
             $table->integer('author_id');
             $table->string('source', 255);
-            $table->integer('team_id');
+            $table->integer('team_id')->nullable();
+            $table->integer('category_id');
             $table->timestamp('submitted_at')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->softDeletes();
@@ -28,6 +29,7 @@ class CreateChallengesTable extends Migration
 
             $table->foreign('author_id')->references('id')->on('users');
             $table->foreign('team_id')->references('id')->on('teams');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 

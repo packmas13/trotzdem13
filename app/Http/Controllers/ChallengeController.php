@@ -8,16 +8,7 @@ class ChallengeController extends Controller
 {
     public function index()
     {
-        // TODO: reduce to only published
-        $list = Challenge::whereNotNull('published_at');
-
-        $challenges = [];
-        foreach ($list as $challenge) {
-            $challenges[] = [
-                'title' => $challenge->title,
-                'description' => $challenge->description,
-            ];
-        }
+        $challenges = Challenge::with('banners')->with('category')->whereNotNull('published_at');
 
         return view('challenge.index', [
             'challenges' => $challenges
