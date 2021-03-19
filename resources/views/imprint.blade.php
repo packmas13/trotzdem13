@@ -4,40 +4,44 @@
             Impressum
         </h2>
     </div>
-    <p class="prose lg:prose-xl mx-auto px-2">
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-        nonumy eirmod tempor invidunt ut labore et dolore magna
-        aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
-        duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata
-        sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit
-        amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-        invidunt ut labore et dolore magna aliquyam erat, sed diam
-        voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-        Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
-        dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
-        elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-        magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
-        justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-        takimata sanctus est Lorem ipsum dolor sit amet.
-        Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse
-        molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero
-        eros et accumsan et iusto odio dignissim qui blandit praesent
-        luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-        nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-        erat volutpat.
-        Ut wisi enim ad minim veniam, quis nostrud exerci tation
-        ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-        consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate
-        velit esse molestie consequat, vel illum dolore eu feugiat nulla
-        facilisis at vero eros et accumsan et iusto odio dignissim qui blandit
-        praesent luptatum zzril delenit augue duis dolore te feugait nulla
-        facilisi.
-        Nam liber tempor cum soluta nobis eleifend option congue nihil
-        imperdiet doming id quod mazim placerat facer possim assum.
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-        nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-        erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-        tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-    </p>
+    <div class="prose lg:prose-xl mx-auto px-2 pb-8">
+        <h4>Die Webseite www.trotzdem13.de ist ein Online-Angebot des</h4>
+
+        <p class="whitespace-pre-line">
+            Jugendwerk St. Georg e.V.
+            Preysingstraße 93, 81667 München
+            Telefon 089-48092-2114
+            Telefax 089-20239613
+            Email buero [at] dpsg1300.de
+        </p>
+        <p>
+            vertreten durch die Vorstandsmitglieder Lukas Glockner, Andreas Pröhl, Mathias Fazekas, allesamt
+            geschäftlich
+            ansässig am Sitz des Vereins,
+        </p>
+        <p>
+            Das Jugendwerk St. Georg e. V. ist eingetragen im Vereinsregister des Amtsgerichts München unter Nr. VR
+            6708.
+        </p>
+        <p>
+            Umsatzsteuer-Identifikationsnummer: DE 152944816
+        </p>
+        <p>
+            Inhaltlich Verantwortlicher gemäß § 55 Abs. 2 RStV: Der Vereinsvorstand, ladungsfähige Anschrift wie oben.
+        </p>
+        <p>
+            Nach § 28 Abs.3 Bundesdatenschutzgesetz widersprechen wir der Nutzung unserer Daten für Werbezwecke oder für
+            die
+            Markt- und Meinungsforschung.
+        </p>
+        <p>
+            Der Inhalt dieser Seite ist unter einer Creative Commons-Lizenz ("Namensnennung - NichtKommerziell -
+            Weitergabe
+            unter gleichen Bedingungen 2.0 Deutschland") lizenziert.
+        </p>
+        <p>
+            Haftungshinweis: Trotz sorgfältiger inhaltlicher Kontrolle übernehmen
+            wir keine Haftung für die Inhalte externer Links. Für den Inhalt der
+            verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
+    </div>
 </x-layout>

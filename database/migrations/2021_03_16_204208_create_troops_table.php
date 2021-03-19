@@ -56,7 +56,7 @@ class CreateTroopsTable extends Migration
             ['id' => 131409, 'name' => 'Oscar A. Romero'],
             ['id' => 131413, 'name' => 'St. Willibald'],
             ['id' => 131414, 'name' => 'St. Rupert'],
-            ['id' => 131415, 'name' => 'St. Marold'],
+            // ['id' => 131415, 'name' => 'St. Marold'],
 
             ['id' => 131500, 'name' => 'Bezirk Freising'],
             ['id' => 131501, 'name' => 'Freising'],
