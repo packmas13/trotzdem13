@@ -33,4 +33,9 @@ class Challenge extends Model
     {
         return $this->belongsToMany(Banner::class, 'banner_challenge');
     }
+
+    public function teams(): BelongsToMany
+    {
+        return $this->belongsToMany(Team::class, 'team_challenge')->withTimestamps();
+    }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class BannerChallenge extends Migration
+class TeamChallenge extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class BannerChallenge extends Migration
      */
     public function up()
     {
-        Schema::create('banner_challenge', function (Blueprint $table) {
+        Schema::create('team_challenge', function (Blueprint $table) {
             $table->bigInteger('challenge_id');
-            $table->bigInteger('banner_id');
+            $table->bigInteger('team_id');
+            $table->timestamp('completed_at')->nullable();
+            $table->timestamps();
 
-            $table->primary(['challenge_id', 'banner_id']);
+            $table->primary(['team_id', 'challenge_id']);
 
             $table->foreign('challenge_id')->references('id')->on('challenges');
-            $table->foreign('banner_id')->references('id')->on('banners');
+            $table->foreign('team_id')->references('id')->on('teams');
         });
     }
 
@@ -31,6 +33,6 @@ class BannerChallenge extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('banner_challenge');
+        Schema::dropIfExists('team_challenge');
     }
 }

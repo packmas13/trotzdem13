@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Banner;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -38,7 +40,7 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'global' => [
-                'isOrga' => $request->user() ? $request->user()->isOrga() : false
+                'isOrga' => $request->user() ? $request->user()->isOrga() : false,
             ]
         ]);
     }

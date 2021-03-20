@@ -25,6 +25,7 @@ class UserTeam extends JsonResource
             'troop' => Troop::make($this->whenLoaded('troop')),
             'district' => Troop::make($this->whenLoaded('district')),
             'banner' => Banner::make($this->whenLoaded('banner')),
+            'currentChallenges' => Challenge::collection($this->whenLoaded('currentChallenges')),
         ];
     }
 }

@@ -19,36 +19,37 @@
                   :key="challenge.id"
                   class="border-b pb-4"
               >
-                <h3 class="text-2xl">
-                  <CategoryIcon :category="challenge.category"/>
-                  {{ challenge.title }}
-                </h3>
-                <span>Beschreibung: {{ challenge.description }}</span>
-                <span>Status: {{challenge.published_at ? 'Öffentlich' : 'Entwurf'}} </span>
-                <div>
-                  <inertia-link
-                      :href="route('app.challenge.edit', {id: challenge.id})"
-                      class="secondary-button"
-                  >Editieren
-                  </inertia-link>
-                  <inertia-link
-                      v-if="challenge.published_at"
-                      :href="route('app.challenge.unpublish', {id: challenge.id})"
-                      class="secondary-button"
-                  >zu Entwurf
-                  </inertia-link>
-                  <inertia-link
-                      v-else
-                      :href="route('app.challenge.publish', {id: challenge.id})"
-                      class="secondary-button"
-                  >Veröffentlichen
-                  </inertia-link>
-                  <inertia-link
-                      :href="route('app.challenge.delete', {id: challenge.id})"
-                      class="secondary-button"
-                  >Löschen
-                  </inertia-link>
-                </div>
+                  <ChallengeDetail :challenge="challenge">
+                      <template v-slot:info>
+                          <small>Verfügbar: {{ challenge.quantity }}</small><br>
+                      </template>
+                      <template v-slot:actions>
+                          <div>
+                              <inertia-link
+                                  :href="route('app.challenge.edit', {id: challenge.id})"
+                                  class="m-1 secondary-button"
+                              >Editieren
+                              </inertia-link>
+                              <inertia-link
+                                  v-if="challenge.published_at"
+                                  :href="route('app.challenge.unpublish', {id: challenge.id})"
+                                  class="m-1 secondary-button"
+                              >zu Entwurf
+                              </inertia-link>
+                              <inertia-link
+                                  v-else
+                                  :href="route('app.challenge.publish', {id: challenge.id})"
+                                  class="m-1 secondary-button"
+                              >Veröffentlichen
+                              </inertia-link>
+                              <inertia-link
+                                  :href="route('app.challenge.delete', {id: challenge.id})"
+                                  class="m-1 secondary-button"
+                              >Löschen
+                              </inertia-link>
+                          </div>
+                      </template>
+                  </ChallengeDetail>
               </li>
             </ul>
           </div>
@@ -70,11 +71,13 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import CategoryIcon from "@/components/CategoryIcon";
+import ChallengeDetail from "./_Show";
 
 export default {
   components: {
     AppLayout,
-    CategoryIcon
+    CategoryIcon,
+      ChallengeDetail
   },
   props: {
     challenges: {

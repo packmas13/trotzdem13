@@ -15,7 +15,7 @@ class ChallengeController extends Controller
 {
     public function index()
     {
-        $challenges = Challenge::with('banners')->with('category')->get();
+        $challenges = Challenge::with(['banners', 'category'])->get();
 
         return Inertia::render('challenge/List', [
             'challenges' => $challenges
@@ -30,8 +30,8 @@ class ChallengeController extends Controller
     public function create()
     {
         return Inertia::render('challenge/Create', [
-            'banners' => Banner::pluck('name', 'id'),
-            'categories' => Category::pluck('title', 'id'),
+            'banners' => Banner::all(),
+            'categories' => Category::all(),
         ]);
     }
 
@@ -79,7 +79,8 @@ class ChallengeController extends Controller
 
         return Inertia::render('challenge/Edit', [
             'challenge' => $challenge,
-            'categories' => Category::pluck('title', 'id'),
+            'banners' => Banner::all(),
+            'categories' => Category::all(),
         ]);
     }
 

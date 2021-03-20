@@ -17,16 +17,10 @@
 
                         <label class="col-span-6 sm:col-span-4">
                             <span>Für welche Stufen ist die Challenge geeignet?</span><br>
-                            <input type="checkbox" id="woelflinge" value="1" v-model="form.banners" />
-                            <label for="woelflinge"> Wölflinge</label><br>
-                            <input type="checkbox" id="jupfis" value="2" v-model="form.banners" />
-                            <label for="jupfis"> Jupfis</label><br>
-                            <input type="checkbox" id="pfadis" value="3" v-model="form.banners" />
-                            <label for="pfadis"> Pfadis</label><br>
-                            <input type="checkbox" id="rover" value="4" v-model="form.banners" />
-                            <label for="rover"> Rover</label><br>
-                            <input type="checkbox" id="leiter" value="5" v-model="form.banners" />
-                            <label for="leiter"> Leiter</label><br>
+                            <label :for="banner.stufe" v-for="banner in banners">
+                              <input type="checkbox" :id="banner.stufe" :value="banner.id" v-model="form.banners" />
+                              <BannerPill :banner="banner" print-stufe /><br>
+                            </label>
                             <p
                                 v-if="form.errors.banners"
                                 v-text="form.errors.banners"
@@ -64,26 +58,33 @@
                         </label>
 
                         <label class="col-span-6 sm:col-span-4">
-                            <span>Zu welcher Kategorie gehört die Challenge?</span>
-                            <div v-for="(title, id) in categories">
-                                <input type="radio" v-bind:id="'category-' + id" v-bind:value="id" v-model="form.category_id" />
-                                <label v-bind:for="'category-' + id" v-text="title"/>
-                            </div>
-                            <p
-                                v-if="form.errors.category_id"
-                                v-text="form.errors.category_id"
-                                class="text-sm text-red-600 mt-2"
-                            />
+                          <RadioInput
+                              label="Zu welcher Kategorie gehört die Challenge?"
+                              :error="form.errors.category_id"
+                              name="category_id"
+                              :required="true"
+                              :options="categories"
+                              v-model="form.category_id"
+                              v-slot="option"
+                          >
+                            <CategoryIcon :category="option" />{{option.title}}
+                          </RadioInput>
+                          <p
+                              v-if="form.errors.category_id"
+                              v-text="form.errors.category_id"
+                              class="text-sm text-red-600 mt-2"
+                          />
                         </label>
 
                         <label class="col-span-6 sm:col-span-4">
                             <span>Wie oft kann die Challenge gemacht werden?</span>
-                            <input
-                                type="text"
-                                class="mt-1 w-full rounded-md border-gray-300"
-                                v-model.number="form.quantity"
-                                required
-                            />
+                          <input
+                              type="number"
+                              class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                              v-model="form.quantity"
+                              min="0"
+                              required
+                          />
                             <p
                                 v-if="form.errors.quantity"
                                 v-text="form.errors.quantity"
@@ -123,14 +124,20 @@ import JetActionMessage from "@/Jetstream/ActionMessage";
 import JetButton from "@/Jetstream/Button";
 import JetFormSection from "@/Jetstream/FormSection";
 import MapboxInput from "../../input/MapboxInput.vue";
+import BannerPill from "@/components/BannerPill";
+import CategoryIcon from "@/components/CategoryIcon";
+import RadioInput from "@/input/RadioInput";
 
 export default {
     components: {
+      CategoryIcon,
+      BannerPill,
         JetActionMessage,
         JetButton,
         JetFormSection,
         AppLayout,
-        MapboxInput
+        MapboxInput,
+      RadioInput,
     },
     props: {
         banners: {

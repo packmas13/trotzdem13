@@ -11,7 +11,7 @@ class ChallengesController extends Controller
         $challenges = Challenge::with('banners')->with('category')->whereNotNull('published_at');
 
         return view('challenge.index', [
-            'challenges' => $challenges->getModels()
+            'challenges' => $challenges->get()
         ]);
     }
 }

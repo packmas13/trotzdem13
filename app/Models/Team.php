@@ -53,6 +53,21 @@ class Team extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withTimestamps();
+    }
+
+    public function challenges(): BelongsToMany
+    {
+        return $this->belongsToMany(Challenge::class, 'team_challenge')->withPivot('completed_at')->withTimestamps();
+    }
+
+    public function completedChallenge(): BelongsToMany
+    {
+        return $this->belongsToMany(Challenge::class, 'team_challenge')->wherePivotNotNull('completed_at')->withTimestamps();
+    }
+
+    public function currentChallenges(): BelongsToMany
+    {
+        return $this->belongsToMany(Challenge::class, 'team_challenge')->wherePivotNull('completed_at')->withTimestamps();
     }
 }

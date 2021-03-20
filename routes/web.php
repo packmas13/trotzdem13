@@ -43,4 +43,7 @@ Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->gr
     Route::get('challenge/unpublish/{id}', [ChallengeController::class, 'unpublish'])->name('challenge.unpublish');
     Route::post('challenge/update', [ChallengeController::class, 'update'])->name('challenge.update');
     Route::get('challenge/delete/{id}', [ChallengeController::class, 'delete'])->name('challenge.delete');
+
+    Route::get('challenge/selection/{team_id}', [ChallengeSelectController::class, 'selection'])->name('challenge.selection');
+    Route::get('challenge/select/{team_id}/{challenge_id}', [ChallengeSelectController::class, 'select'])->name('challenge.select');
 });

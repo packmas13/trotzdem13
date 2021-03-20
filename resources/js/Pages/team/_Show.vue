@@ -1,15 +1,16 @@
 <template>
     <div class="flex justify-between">
-        <h3 v-text="team.name" class="text-2xl" />
+        <h3 v-text="team.name" class="text-2xl"/>
         <small class="text-right pr-2">
-            <BannerPill :banner="team.banner" class="-mr-2" /><br />
-            {{ team.troop.name }} <br />
-            <span class="text-gray-600" v-text="team.district.name" />
+            <BannerPill :banner="team.banner" class="-mr-2"/>
+            <br/>
+            {{ team.troop.name }} <br/>
+            <span class="text-gray-600" v-text="team.district.name"/>
         </small>
     </div>
     <div class="md:flex mt-4">
         <div class="md:w-48 w-full flex-shrink-0 mr-2 text-center mb-2">
-            <img :src="team.image" class="inline" />
+            <img :src="team.image" class="inline"/>
         </div>
         <div class="flex-auto bg-gray-50 border rounded">
             <details :open="team.users.length == 1">
@@ -28,7 +29,7 @@
                     </li>
                 </ul>
                 <div class="ml-5">
-                    Du kannst weitere Team-Mitglieder einladen<br />
+                    Du kannst weitere Team-Mitglieder einladen<br/>
                     <ul class="list-disc list-inside">
                         <li>
                             mit dem Code:
@@ -40,14 +41,31 @@
                         <li>
                             mit dem Link:
                             <a :href="joinLink" class="text-link">{{
-                                joinLink
-                            }}</a>
+                                    joinLink
+                                }}</a>
                         </li>
                         <li v-if="joinQrcode">
                             mit dem QRCode:
-                            <img :src="joinQrcode" class="m-4 inline-block" />
+                            <img :src="joinQrcode" class="m-4 inline-block"/>
                         </li>
                     </ul>
+                </div>
+            </details>
+            <details :open="true">
+                <summary class="text-gray-700 text-sm cursor-pointer p-2">
+                    Challenges
+                </summary>
+                <div v-if="!team.currentChallenges.length" class="italic text-gray-600">
+                  <inertia-link
+                      :href="route('app.challenge.selection', {id: team.id})"
+                      class="m-1 secondary-button"
+                  >Challenge auswählen
+                  </inertia-link>
+                </div>
+                <div v-else>
+                    <h2>Aktuelle Challenge:</h2>
+                    <ChallengeDetail v-for="challenge in team.currentChallenges" :challenge="challenge">
+                    </ChallengeDetail>
                 </div>
             </details>
         </div>
@@ -57,6 +75,7 @@
 <script>
 import QRCode from "qrcode";
 import BannerPill from "../../components/BannerPill.vue";
+import ChallengeDetail from "../challenge/_Show";
 
 export default {
     props: {
@@ -64,7 +83,10 @@ export default {
             type: Object,
         },
     },
-    components: { BannerPill },
+    components: {
+        BannerPill,
+        ChallengeDetail
+    },
     data() {
         return {
             joinQrcode: null,
@@ -72,7 +94,7 @@ export default {
     },
     computed: {
         joinLink() {
-            return this.route("app.team.join", { code: this.team.join_code });
+            return this.route("app.team.join", {code: this.team.join_code});
         },
     },
     mounted() {
