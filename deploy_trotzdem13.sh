@@ -23,6 +23,7 @@ rm vendored.tar.gz
 # create symlinks
 rm -rf storage && ln -s ../../storage ./
 ln -s ../../.env ./
+ln -s ../../../storage/app/public ./public/storage
 
 # migrate and make it current
 php artisan migrate --no-interaction --force
