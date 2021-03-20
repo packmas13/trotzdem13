@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Challenge;
 
-class ChallengeController extends Controller
+class ChallengesController extends Controller
 {
     public function index()
     {
