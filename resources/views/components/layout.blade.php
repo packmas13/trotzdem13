@@ -96,6 +96,9 @@
     </nav>
 
     @stack('scripts')
+    @production
+        <script async defer data-domain="trotzdem13.de" src="https://plausible.io/js/plausible.js"></script>
+    @endproduction
 </body>
 
 </html>
