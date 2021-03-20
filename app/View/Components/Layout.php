@@ -6,18 +6,17 @@ use Illuminate\View\Component;
 
 class Layout extends Component
 {
-
     /**
      * navMain that should be selected
      */
-    public string $navMain;
+    public $navMain;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($navMain)
+    public function __construct(string $navMain)
     {
         $this->navMain = $navMain;
     }
