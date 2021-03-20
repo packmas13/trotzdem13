@@ -8,10 +8,20 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.operating-system }}
+
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-versions: ['7.3'] # version of the production server
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
 
       - name: Validate composer.json and composer.lock
         run: composer validate
