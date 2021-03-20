@@ -8,14 +8,14 @@
 
     <title>{{ isset($title) ? $title.' - Trotzdem ’13' : 'Trotzdem ’13' }}</title>
 
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ mix('css/style.css') }}">
+    @stack('styles')
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" rel="stylesheet">
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"> -->
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="{{ mix('css/style.css') }}">
-    @stack('styles')
 
     <!-- ****** faviconit.com favicons ****** -->
     <link rel="shortcut icon" href="/favicon/favicon.ico">

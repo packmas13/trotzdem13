@@ -1,12 +1,13 @@
 <?php
 
 use App\Http\Controllers\ChallengeController;
-use App\Http\Controllers\App;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImprintController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\PrivacyController;
+use App\Http\Controllers\TeamController;
+use App\Http\Controllers\TeamJoinController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -22,14 +23,14 @@ Route::get('datenschutz', [PrivacyController::class, 'index']);
 
 
 Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->group(function () {
-    // Team
-    Route::get('team', [App\TeamController::class, 'index'])->name('team.index');
+    Route::redirect('/', '/app/team');
+    Route::get('team', [TeamController::class, 'index'])->name('team.index');
 
-    Route::get('team/create', [App\TeamController::class, 'create'])->name('team.create');
-    Route::post('team', [App\TeamController::class, 'store'])->name('team.store');
+    Route::get('team/create', [TeamController::class, 'create'])->name('team.create');
+    Route::post('team', [TeamController::class, 'store'])->name('team.store');
 
-    Route::get('team/join', [App\TeamJoinController::class, 'show'])->name('team.join');
-    Route::post('team/join', [App\TeamJoinController::class, 'store']);
+    Route::get('team/join', [TeamJoinController::class, 'show'])->name('team.join');
+    Route::post('team/join', [TeamJoinController::class, 'store']);
 
     // Challenge
     Route::get('challenge', [App\ChallengeController::class, 'index'])->name('challenge.index');
