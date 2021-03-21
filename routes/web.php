@@ -8,8 +8,10 @@ use App\Http\Controllers\ChallengesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImprintController;
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\Orga\TeamApprovalController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\PrivacyController;
+use App\Http\Middleware\OnlyOrgaTeam;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
@@ -31,6 +33,11 @@ Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->gr
 
     Route::get('team/join', [TeamJoinController::class, 'show'])->name('team.join');
     Route::post('team/join', [TeamJoinController::class, 'store']);
+
+    Route::prefix('orga')->middleware(OnlyOrgaTeam::class)->name('orga.')->group(function () {
+        Route::get('team/approval/pending', [TeamApprovalController::class, 'pending'])->name('team.pending');
+        Route::post('team/approval', [TeamApprovalController::class, 'store'])->name('team.approve');
+    });
 
     // Challenge
     Route::get('challenge', [ChallengeController::class, 'index'])->name('challenge.index');

@@ -20,6 +20,7 @@ class UserTeam extends JsonResource
             'name' => $this->name,
             'join_code' => $this->join_code,
             'image' => empty($this->image) ? null : Storage::disk('upload')->url($this->image),
+            'is_approved' => !is_null($this->approved_at),
 
             'users' => OtherUser::collection($this->whenLoaded('users')),
             'troop' => Troop::make($this->whenLoaded('troop')),

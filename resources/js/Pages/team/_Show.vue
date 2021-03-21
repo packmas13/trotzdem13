@@ -1,27 +1,25 @@
 <template>
     <div class="flex justify-between">
-        <h3 v-text="team.name" class="text-2xl"/>
+        <h3 v-text="team.name" class="text-2xl" />
         <small class="text-right pr-2">
-            <BannerPill :banner="team.banner" class="-mr-2"/>
-            <br/>
-            {{ team.troop.name }} <br/>
-            <span class="text-gray-600" v-text="team.district.name"/>
+            <BannerPill :banner="team.banner" class="-mr-2" />
+            <br />
+            {{ team.troop.name }} <br />
+            <span class="text-gray-600" v-text="team.district.name" />
         </small>
     </div>
     <div class="md:flex mt-4">
         <div class="md:w-48 w-full flex-shrink-0 mr-2 text-center mb-2">
-            <img :src="team.image" class="inline"/>
+            <img :src="team.image" class="inline" />
         </div>
         <div class="flex-auto bg-gray-50 border rounded">
+            <div v-if="!team.is_approved" class="p-5 bg-blue-100 text-blue-800">
+                Deine Gruppe wird verifiziert. Sobald es freigegeben ist, wird
+                sie auf der öffentliche Seite presentiert!
+            </div>
             <details :open="team.users.length == 1">
                 <summary class="text-gray-700 text-sm cursor-pointer p-2">
-                    Status (TODO)
-                </summary>
-                <div>created / submitted / accepted</div>
-            </details>
-            <details :open="team.users.length == 1">
-                <summary class="text-gray-700 text-sm cursor-pointer p-2">
-                    Team-Mitglieder ({{ team.users.length }})
+                    Gruppen-Mitglieder ({{ team.users.length }})
                 </summary>
                 <ul class="ml-5 my-2 text-sm list-dash list-inside">
                     <li v-for="(user, i) in team.users" :key="i">
@@ -29,7 +27,7 @@
                     </li>
                 </ul>
                 <div class="ml-5">
-                    Du kannst weitere Team-Mitglieder einladen<br/>
+                    Du kannst weitere Mitglieder einladen<br />
                     <ul class="list-disc list-inside">
                         <li>
                             mit dem Code:
@@ -41,12 +39,12 @@
                         <li>
                             mit dem Link:
                             <a :href="joinLink" class="text-link">{{
-                                    joinLink
-                                }}</a>
+                                joinLink
+                            }}</a>
                         </li>
                         <li v-if="joinQrcode">
                             mit dem QRCode:
-                            <img :src="joinQrcode" class="m-4 inline-block"/>
+                            <img :src="joinQrcode" class="m-4 inline-block" />
                         </li>
                     </ul>
                 </div>
@@ -55,16 +53,25 @@
                 <summary class="text-gray-700 text-sm cursor-pointer p-2">
                     Challenges
                 </summary>
-                <div v-if="!team.currentChallenges.length" class="italic text-gray-600">
-                  <inertia-link
-                      :href="route('app.challenge.selection', {id: team.id})"
-                      class="m-1 secondary-button"
-                  >Challenge auswählen
-                  </inertia-link>
+                <div
+                    v-if="!team.currentChallenges.length"
+                    class="italic text-gray-600"
+                >
+                    <inertia-link
+                        :href="
+                            route('app.challenge.selection', { id: team.id })
+                        "
+                        class="m-1 secondary-button"
+                        >Challenge auswählen
+                    </inertia-link>
                 </div>
                 <div v-else>
                     <h2>Aktuelle Challenge:</h2>
-                    <ChallengeDetail v-for="challenge in team.currentChallenges" :challenge="challenge">
+                    <ChallengeDetail
+                        v-for="challenge in team.currentChallenges"
+                        :key="challenge.id"
+                        :challenge="challenge"
+                    >
                     </ChallengeDetail>
                 </div>
             </details>
@@ -85,7 +92,7 @@ export default {
     },
     components: {
         BannerPill,
-        ChallengeDetail
+        ChallengeDetail,
     },
     data() {
         return {
@@ -94,7 +101,7 @@ export default {
     },
     computed: {
         joinLink() {
-            return this.route("app.team.join", {code: this.team.join_code});
+            return this.route("app.team.join", { code: this.team.join_code });
         },
     },
     mounted() {

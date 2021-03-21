@@ -29,12 +29,30 @@
                                 </jet-nav-link>
                                 <jet-nav-link
                                     :href="route('app.challenge.index')"
-                                    :active="'app.challenge.index' == currentRoute"
+                                    :active="
+                                        'app.challenge.index' == currentRoute
+                                    "
                                     v-if="$page.props.global.isOrga"
                                 >
                                     Challenges
                                 </jet-nav-link>
                             </div>
+                        </div>
+
+                        <div
+                            class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex px-4 bg-gradient-to-b from-lilie-light --via-transparent"
+                            v-if="$page.props.orga"
+                        >
+                            <jet-nav-link
+                                :href="route('app.orga.team.pending')"
+                                :active="
+                                    'app.orga.team.pending' == currentRoute
+                                "
+                            >
+                                Neue Gruppen ({{
+                                    $page.props.orga.teams_pending
+                                }})
+                            </jet-nav-link>
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
