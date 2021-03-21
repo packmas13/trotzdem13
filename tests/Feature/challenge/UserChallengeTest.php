@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\challenge;
 
+use App\Models\Category;
 use App\Models\Challenge;
 use App\Models\Team;
 use App\Models\User;
@@ -36,11 +37,15 @@ class UserChallengeTest extends TestCase
 
     public function test_post_new_challenge()
     {
-        // $this->withExceptionHandling();
-        $this->actingAs($user = User::factory()->create());
+        $this->withExceptionHandling();
+        $this->actingAs($user = User::factory()->belongingToOrgaTeam()->create());
         $response = $this->post('/app/challenge', [
             'title' => 'My mega challenge',
-            'description' => 'Develop a full website in a couple of days'
+            'description' => 'Develop a full website in a couple of days',
+            'category_id' => 1,
+            'quantity' => 1,
+            'banners' => [1, 3], // Wölfling + Pfadi
+
         ]);
         $response->assertSessionHasNoErrors();
         $response->assertStatus(302);
@@ -49,6 +54,6 @@ class UserChallengeTest extends TestCase
         $challenge = Challenge::latest()->firstOrFail();
         $this->assertEquals($challenge->author_id, $user->id);
 
-        $this->assertEquals($challenge->name, 'Polarfüchse');
+        $this->assertEquals($challenge->title, 'My mega challenge');
     }
 }

@@ -43,26 +43,26 @@ class ChallengeController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->user()->isOrga()) {
-            $data = $this->validate($request, [
-                'title' => ['required', 'string'],
-                'description' => ['required', 'string'],
-                'image' => ['string'],
-                'banners' => ['array', 'min:1'],
-                'category_id' => ['required', 'exists:categories,id'],
-                'quantity' => ['required', 'numeric', 'min:1']
-            ]);
-            $data['author_id'] = Str::lower(Str::random(8));
+        abort_if(! $request->user()->isOrga(), 403);
 
-            $creator = $request->user();
-            $data['author_id'] = $creator->id;
-            $data['team_id'] = null;
+        $data = $this->validate($request, [
+            'title' => ['required', 'string'],
+            'description' => ['required', 'string'],
+            'image' => ['string'],
+            'banners' => ['required', 'array', 'min:1'],
+            'category_id' => ['required', 'exists:categories,id'],
+            'quantity' => ['required', 'numeric', 'min:1']
+        ]);
+        $data['author_id'] = Str::lower(Str::random(8));
 
-            $data['source'] = 'Orga';
-            $challenge = Challenge::create($data);
+        $creator = $request->user();
+        $data['author_id'] = $creator->id;
+        $data['team_id'] = null;
 
-            $challenge->banners()->sync($data['banners']);
-        }
+        $data['source'] = 'Orga';
+        $challenge = Challenge::create($data);
+
+        $challenge->banners()->sync($data['banners']);
 
         return redirect()->route('app.challenge.index');
     }
@@ -92,25 +92,25 @@ class ChallengeController extends Controller
      */
     public function update(Request $request)
     {
-        if($request->user()->isOrga()) {
-            $data = $this->validate($request, [
-                'id' => ['required', 'exists:challenges,id'],
-                'title' => ['required', 'string'],
-                'description' => ['required', 'string'],
-                'banners' => ['array', 'min:1'],
-                'category_id' => ['required', 'exists:categories,id'],
-                'quantity' => ['required', 'numeric', 'min:1']
-            ]);
+        abort_if(! $request->user()->isOrga(), 403);
 
-            $challenge = Challenge::findOrFail($data['id']);
+        $data = $this->validate($request, [
+            'id' => ['required', 'exists:challenges,id'],
+            'title' => ['required', 'string'],
+            'description' => ['required', 'string'],
+            'banners' => ['array', 'min:1'],
+            'category_id' => ['required', 'exists:categories,id'],
+            'quantity' => ['required', 'numeric', 'min:1']
+        ]);
 
-            $challenge->title = $data['title'];
-            $challenge->description = $data['description'];
-            $challenge->category_id = $data['category_id'];
-            $challenge->quantity = $data['quantity'];
-            $challenge->save();
-            $challenge->banners()->sync($data['banners']);
-        }
+        $challenge = Challenge::findOrFail($data['id']);
+
+        $challenge->title = $data['title'];
+        $challenge->description = $data['description'];
+        $challenge->category_id = $data['category_id'];
+        $challenge->quantity = $data['quantity'];
+        $challenge->save();
+        $challenge->banners()->sync($data['banners']);
 
         return redirect()->route('app.challenge.index');
     }
@@ -124,11 +124,11 @@ class ChallengeController extends Controller
      */
     public function publish(Request $request, int $id)
     {
-        if($request->user()->isOrga()){
-            $challenge = Challenge::findOrFail($id);
-            $challenge->published_at = now();
-            $challenge->save();
-        }
+        abort_if(! $request->user()->isOrga(), 403);
+
+        $challenge = Challenge::findOrFail($id);
+        $challenge->published_at = now();
+        $challenge->save();
 
         return redirect()->route('app.challenge.index');
     }
@@ -142,11 +142,11 @@ class ChallengeController extends Controller
      */
     public function unpublish(Request $request, int $id)
     {
-        if($request->user()->isOrga()) {
-            $challenge = Challenge::findOrFail($id);
-            $challenge->published_at = null;
-            $challenge->save();
-        }
+        abort_if(! $request->user()->isOrga(), 403);
+
+        $challenge = Challenge::findOrFail($id);
+        $challenge->published_at = null;
+        $challenge->save();
 
         return redirect()->route('app.challenge.index');
     }

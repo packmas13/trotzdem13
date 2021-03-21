@@ -67,7 +67,7 @@ class TeamCreationTest extends TestCase
         $this->assertNull($team->approved_at);
 
         // user is associated to the team
-        $teams = $user->teams;
+        $teams = $user->fresh()->teams;
         $this->assertCount(1, $teams);
         $this->assertEquals($team->id, $teams->first()->id);
     }
