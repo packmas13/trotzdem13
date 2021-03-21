@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\App;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\UserTeam;
 use App\Models\Banner;
 use App\Models\Troop;
@@ -23,7 +24,8 @@ class TeamController extends Controller
     {
         $user = $request->user();
         $teams = $user->teams;
-        $teams->load('users', 'troop', 'district', 'banner');
+        $teams->load('users', 'troop', 'district', 'banner', 'currentChallenges.banners', 'currentChallenges.category');
+
         UserTeam::withoutWrapping();
         return Inertia::render('team/Index', [
             'teams' => UserTeam::collection($teams),

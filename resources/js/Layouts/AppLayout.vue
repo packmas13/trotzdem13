@@ -27,6 +27,13 @@
                                 >
                                     Gruppe
                                 </jet-nav-link>
+                                <jet-nav-link
+                                    :href="route('app.challenge.index')"
+                                    :active="'app.challenge.index' == currentRoute"
+                                    v-if="$page.props.global.isOrga"
+                                >
+                                    Challenges
+                                </jet-nav-link>
                             </div>
                         </div>
 

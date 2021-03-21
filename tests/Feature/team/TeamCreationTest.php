@@ -13,6 +13,18 @@ class TeamCreationTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_get_index_page()
+    {
+        $this->actingAs($user = User::factory()->hasTeams(1)->create());
+
+        $response = $this->get('/app/team');
+
+        $response->assertStatus(200);
+
+        $data = $response->viewData('page')['props'];
+        $this->assertArrayHasKey('teams', $data);
+    }
+
     public function test_get_create_page()
     {
         $this->actingAs($user = User::factory()->create());
@@ -55,7 +67,7 @@ class TeamCreationTest extends TestCase
         $this->assertNull($team->approved_at);
 
         // user is associated to the team
-        $teams = $user->teams;
+        $teams = $user->fresh()->teams;
         $this->assertCount(1, $teams);
         $this->assertEquals($team->id, $teams->first()->id);
     }
@@ -86,7 +98,6 @@ class TeamCreationTest extends TestCase
 
     public function test_post_new_team_with_null_image()
     {
-
         $this->actingAs($user = User::factory()->create());
         $response = $this->post('/app/team', [
             'name' => 'Polarfüchse',
