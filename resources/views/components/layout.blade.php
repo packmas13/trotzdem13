@@ -44,7 +44,7 @@
 <body class="font-sans antialiased bg-teal-500 flex flex-col min-h-screen">
     <div class="relative">
         &nbsp;
-        @if ($showLoginLink)
+        @if ($showLoginLink || auth()->user())
         <a href="{{route('app.team.index')}}"
             class="float-right block text-white font-bold text-center group py-1 px-2  text-sm sm:text-base shadow-lg bg-mango-600 mr-2 -mb-2">
             @auth
