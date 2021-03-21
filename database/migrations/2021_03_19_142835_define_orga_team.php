@@ -1,8 +1,11 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 class DefineOrgaTeam extends Migration
 {
@@ -13,26 +16,22 @@ class DefineOrgaTeam extends Migration
      */
     public function up()
     {
-        DB::table('users')->insert([
-            [
-                'id' => 42,
-                'name' => 'Administrator',
-                'email' => 'trotzdem13@dpsg1300.de',
-                'password' => '$2y$10$5sQe9Rp4s7dOan9lxMj2UObERszOMjQxCvjBujPbITmSFQvDykTvu' // Un7K%II+hC9XlCRV
-            ],
-        ]);
-
+        $root_id = User::firstOrCreate(['id' => 1], [
+            'name' => 'root',
+            'email' => 'trotzdem13.web@dpsg1300.de',
+            'password' => '',
+        ])->id;
         DB::table('teams')->insert([
             [
                 'id' => 42,
                 'name' => 'Orga-Team',
-                'leader_id' => 42,
+                'leader_id' => $root_id,
                 'troop_id' => 130000,
                 'banner_id' => 5,
                 'size' => 10,
                 'location' => '{"lat":"48.13206","lng":"11.60278"}',
                 'radius' => 1000,
-                'join_code' => 't13orga'
+                'join_code' => Str::lower(Str::random(18))
             ],
         ]);
     }
