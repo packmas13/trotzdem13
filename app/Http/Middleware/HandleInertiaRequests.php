@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Models\Banner;
 use App\Models\Category;
+use App\Models\Team;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -39,9 +40,20 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request)
     {
         return array_merge(parent::share($request), [
+            'orga' => $this->orgaData($request),
             'global' => [
                 'isOrga' => $request->user() ? $request->user()->isOrga() : false,
             ]
         ]);
+    }
+
+    private function orgaData(Request $request)
+    {
+        if (!$request->user() || !$request->user()->isOrga()) {
+            return null;
+        }
+        return [
+            'teams_pending' => Team::whereNull('approved_at')->count(),
+        ];
     }
 }
