@@ -27,22 +27,19 @@
                                 >
                                     Gruppe
                                 </jet-nav-link>
-                                <jet-nav-link
-                                    :href="route('app.challenge.index')"
-                                    :active="
-                                        'app.challenge.index' == currentRoute
-                                    "
-                                    v-if="$page.props.global.isOrga"
-                                >
-                                    Challenges
-                                </jet-nav-link>
                             </div>
                         </div>
 
                         <div
-                            class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex px-4 bg-gradient-to-b from-lilie-light --via-transparent"
+                            class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex px-4 bg-gradient-to-b from-lilie-light"
                             v-if="$page.props.orga"
                         >
+                            <jet-nav-link
+                                :href="route('app.challenge.index')"
+                                :active="'app.challenge.index' == currentRoute"
+                            >
+                                Challenges
+                            </jet-nav-link>
                             <jet-nav-link
                                 :href="route('app.orga.team.pending')"
                                 :active="
@@ -332,6 +329,24 @@
                             :active="'app.team.index' == currentRoute"
                         >
                             Gruppe
+                        </jet-responsive-nav-link>
+                    </div>
+
+                    <div
+                        class="pt-2 pb-3 space-y-1 bg-gradient-to-l from-lilie-light"
+                        v-if="$page.props.orga"
+                    >
+                        <jet-responsive-nav-link
+                            :href="route('app.challenge.index')"
+                            :active="'app.challenge.index' == currentRoute"
+                        >
+                            Challenges
+                        </jet-responsive-nav-link>
+                        <jet-responsive-nav-link
+                            :href="route('app.orga.team.pending')"
+                            :active="'app.orga.team.pending' == currentRoute"
+                        >
+                            Neue Gruppen ({{ $page.props.orga.teams_pending }})
                         </jet-responsive-nav-link>
                     </div>
 

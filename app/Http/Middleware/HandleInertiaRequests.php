@@ -41,9 +41,6 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'orga' => $this->orgaData($request),
-            'global' => [
-                'isOrga' => $request->user() ? $request->user()->isOrga() : false,
-            ]
         ]);
     }
 

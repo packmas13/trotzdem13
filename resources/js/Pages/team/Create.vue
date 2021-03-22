@@ -57,7 +57,7 @@
                                     <a
                                         class="text-link"
                                         target="_blank"
-                                        href="https://dpsg.de/fileadmin/daten/dokumente/infopool/corporatedesign/Oeffentlichkeitsarbeit/DPSG_Einwilligung_Foto_Video.pdf"
+                                        href="/datenschutz/einwilligung-foto"
                                         >schriftliche Vereinbarung</a
                                     >
                                     über die Online-Nutzung von diesem Foto für

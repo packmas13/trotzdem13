@@ -2,7 +2,7 @@
 @tailwind components;
 
 .title {
-    @apply font-bold sm:text-5xl text-4xl text-teal-500 bg-white rounded-xl p-3 shadow-lg inline-block;
+    @apply font-bold sm:text-5xl text-3xl text-teal-500 bg-white rounded-xl p-3 shadow-lg inline-block;
 }
 
 .text-link {
