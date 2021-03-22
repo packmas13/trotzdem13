@@ -9,12 +9,7 @@
             am {{ $banner_start->format('d.m.Y') }}
         </div>
     </div>
-    <div class="text-center">
-        <h2 class="title my-4 min-w-1/2">
-            Projekt
-        </h2>
-    </div>
-    <div class="prose lg:prose-xl mx-auto px-2 sm:px-0 pb-8 text-center">
+    <div class="prose lg:prose-xl mx-auto px-2 sm:px-0 py-8 text-center">
         <p>
             Nachdem unser Diözesanlager “Pack Ma’s 13” mit weit über 2000 Teilnehmer:innen aufgrund der Aktuellen
             Situation

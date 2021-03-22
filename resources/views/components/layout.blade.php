@@ -67,7 +67,7 @@
     <nav class="bg-teal-600 text-white shadow-xl flex flex-wrap items-center justify-center sm:text-lg">
         <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/'?'border-mango-500':''}}"
             href="/">
-            Projekt
+            Bannerlauf
         </a>
         <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/ablauf'?'border-mango-500':''}}"
             href="/ablauf">
