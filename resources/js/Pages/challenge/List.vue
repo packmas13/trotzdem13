@@ -2,7 +2,7 @@
   <app-layout current-route="app.challenge.index">
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Challenges
+        Projekte
       </h2>
     </template>
 
@@ -11,7 +11,7 @@
         <div class="bg-white shadow-xl sm:rounded-lg">
           <div class="p-6 sm:px-20">
             <div v-if="!challenges.length" class="italic text-gray-600">
-              Keine Challenges verfügbar!
+              Keine Projekte verfügbar!
             </div>
             <ul v-else>
               <li
@@ -58,7 +58,7 @@
             <inertia-link
                 :href="route('app.challenge.create')"
                 class="ml-2 primary-button"
-            >Neue Challenge
+            >Neues Projekt
             </inertia-link
             >
           </div>

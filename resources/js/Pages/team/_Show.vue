@@ -15,11 +15,11 @@
         <div class="flex-auto bg-gray-50 border rounded">
             <div v-if="!team.is_approved" class="p-5 bg-blue-100 text-blue-800">
                 Deine Gruppe wird verifiziert. Sobald sie freigegeben ist, wird
-                sie auf der öffentliche Seite presentiert.
+                sie auf der öffentlichen Seite präsentiert.
             </div>
             <div v-else class="p-5 bg-green-100 text-green-800">
-                Deine Gruppe wurde verifiziert. Sobald der Zeitplan vom
-                Bannerlauf steht werden wir dich informieren.
+                Deine Gruppe wurde verifiziert. Sobald der Zeitplan des
+                Bannerlaufs steht werden wir dich informieren.
             </div>
             <details :open="team.users.length == 1">
                 <summary class="text-gray-700 text-sm cursor-pointer p-2">
@@ -55,7 +55,7 @@
             </details>
             <details :open="true">
                 <summary class="text-gray-700 text-sm cursor-pointer p-2">
-                    Challenges
+                  Projekte
                 </summary>
                 <div
                     v-if="!team.currentChallenges.length"
@@ -66,11 +66,11 @@
                             route('app.challenge.selection', { id: team.id })
                         "
                         class="m-1 secondary-button"
-                        >Challenge auswählen
+                        >Projekt auswählen
                     </inertia-link>
                 </div>
                 <div v-else>
-                    <h2>Aktuelle Challenge:</h2>
+                    <h2>Aktuelles Projekt:</h2>
                     <ChallengeDetail
                         v-for="challenge in team.currentChallenges"
                         :key="challenge.id"
