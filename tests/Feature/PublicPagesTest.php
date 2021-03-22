@@ -37,8 +37,9 @@ class PublicPagesTest extends TestCase
             // name => arguments
             '/' => ['/'],
             '/karte' => ['/karte'],
+            '/ablauf' => ['/ablauf'],
             '/teilnehmer' => ['/teilnehmer'],
-            '/challenges' => ['/challenges'],
+            '/projekte' => ['/projekte'],
             '/impressum' => ['/impressum'],
             '/datenschutz' => ['/datenschutz'],
         ];

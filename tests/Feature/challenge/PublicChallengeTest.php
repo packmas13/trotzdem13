@@ -14,7 +14,7 @@ class PublicChallengeTest extends TestCase
     public function test_public_index()
     {
         Challenge::factory(3)->create();
-        $response = $this->get('/challenges');
+        $response = $this->get('/projekte');
 
         $response->assertStatus(200);
     }

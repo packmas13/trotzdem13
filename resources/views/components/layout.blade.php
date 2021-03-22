@@ -69,6 +69,14 @@
             href="/">
             Projekt
         </a>
+        <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/ablauf'?'border-mango-500':''}}"
+            href="/ablauf">
+            Ablauf
+        </a>
+        <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/projekte'?'border-mango-500':''}}"
+            href="/projekte">
+            Projekte
+        </a>
         <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/karte'?'border-mango-500':''}}"
             href="/karte">
             Karte
@@ -77,10 +85,6 @@
         <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/teilnehmer'?'border-mango-500':''}}"
             href="/teilnehmer">
             Teilnehmer
-        </a>
-        <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/challenges'?'border-mango-500':''}}"
-            href="/challenges">
-            Challenges
         </a>
         @endif
     </nav>
@@ -97,7 +101,7 @@
 
     @stack('scripts')
     @production
-        <script async defer data-domain="trotzdem13.de" src="https://plausible.io/js/plausible.js"></script>
+    <script async defer data-domain="trotzdem13.de" src="https://plausible.io/js/plausible.js"></script>
     @endproduction
 </body>
 
