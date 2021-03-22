@@ -52,7 +52,7 @@ export default {
             type: Boolean,
             default: false,
         },
-        modelValue: String,
+        modelValue: [String, Number],
     },
 
     emits: ["update:modelValue"],

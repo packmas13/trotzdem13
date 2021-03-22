@@ -14,12 +14,26 @@
                     <template #description> TODOTEXT: Beschreibung</template>
 
                     <template #form>
-
                         <label class="col-span-6 sm:col-span-4">
-                            <span>Für welche Stufen ist die Challenge geeignet?</span><br>
-                            <label :for="banner.stufe" v-for="banner in banners">
-                              <input type="checkbox" :id="banner.stufe" :value="banner.id" v-model="form.banners" />
-                              <BannerPill :banner="banner" print-stufe /><br>
+                            <span
+                                >Für welche Stufen ist die Challenge
+                                geeignet?</span
+                            ><br />
+                            <label
+                                :for="banner.stufe"
+                                v-for="banner in banners"
+                                :key="banner.id"
+                            >
+                                <input
+                                    type="checkbox"
+                                    :id="banner.stufe"
+                                    :value="banner.id"
+                                    v-model="form.banners"
+                                />
+                                <BannerPill
+                                    :banner="banner"
+                                    print-stufe
+                                /><br />
                             </label>
                             <p
                                 v-if="form.errors.banners"
@@ -58,33 +72,33 @@
                         </label>
 
                         <label class="col-span-6 sm:col-span-4">
-                          <RadioInput
-                              label="Zu welcher Kategorie gehört die Challenge?"
-                              :error="form.errors.category_id"
-                              name="category_id"
-                              :required="true"
-                              :options="categories"
-                              v-model="form.category_id"
-                              v-slot="option"
-                          >
-                            <CategoryIcon :category="option" />{{option.title}}
-                          </RadioInput>
-                          <p
-                              v-if="form.errors.category_id"
-                              v-text="form.errors.category_id"
-                              class="text-sm text-red-600 mt-2"
-                          />
+                            <RadioInput
+                                label="Zu welcher Kategorie gehört die Challenge?"
+                                :error="form.errors.category_id"
+                                name="category_id"
+                                :required="true"
+                                :options="categories"
+                                v-model="form.category_id"
+                                v-slot="option"
+                            >
+                                <CategoryIcon :category="option" />{{
+                                    option.title
+                                }}
+                            </RadioInput>
                         </label>
 
                         <label class="col-span-6 sm:col-span-4">
-                            <span>Wie oft kann die Challenge gemacht werden?</span>
-                          <input
-                              type="number"
-                              class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
-                              v-model="form.quantity"
-                              min="0"
-                              required
-                          />
+                            <span
+                                >Wie oft kann die Challenge gemacht
+                                werden?</span
+                            >
+                            <input
+                                type="number"
+                                class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                                v-model="form.quantity"
+                                min="0"
+                                required
+                            />
                             <p
                                 v-if="form.errors.quantity"
                                 v-text="form.errors.quantity"
@@ -97,10 +111,12 @@
                         <inertia-link
                             :href="route('app.challenge.index')"
                             class="secondary-button mr-3"
-                        >Abbrechen
-                        </inertia-link
+                            >Abbrechen
+                        </inertia-link>
+                        <jet-action-message
+                            :on="form.recentlySuccessful"
+                            class="mr-3"
                         >
-                        <jet-action-message :on="form.recentlySuccessful" class="mr-3">
                             Challenge erstellt.
                         </jet-action-message>
 
@@ -123,21 +139,19 @@ import AppLayout from "@/Layouts/AppLayout";
 import JetActionMessage from "@/Jetstream/ActionMessage";
 import JetButton from "@/Jetstream/Button";
 import JetFormSection from "@/Jetstream/FormSection";
-import MapboxInput from "../../input/MapboxInput.vue";
 import BannerPill from "@/components/BannerPill";
 import CategoryIcon from "@/components/CategoryIcon";
 import RadioInput from "@/input/RadioInput";
 
 export default {
     components: {
-      CategoryIcon,
-      BannerPill,
+        CategoryIcon,
+        BannerPill,
         JetActionMessage,
         JetButton,
         JetFormSection,
         AppLayout,
-        MapboxInput,
-      RadioInput,
+        RadioInput,
     },
     props: {
         banners: {
@@ -153,9 +167,9 @@ export default {
             form: this.$inertia.form({
                 title: "",
                 description: "",
-                category_id: "",
-                banners: [1,2,3,4,5],
-                quantity: 5
+                category_id: null,
+                banners: [1, 2, 3, 4, 5],
+                quantity: 5,
             }),
         };
     },
@@ -164,8 +178,7 @@ export default {
         createChallenge() {
             this.form.post(route("app.challenge.store"), {
                 onSuccess: () => this.form.reset(),
-                onError: () => {
-                },
+                onError: () => {},
             });
         },
     },

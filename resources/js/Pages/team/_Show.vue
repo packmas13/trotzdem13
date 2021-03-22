@@ -14,8 +14,12 @@
         </div>
         <div class="flex-auto bg-gray-50 border rounded">
             <div v-if="!team.is_approved" class="p-5 bg-blue-100 text-blue-800">
-                Deine Gruppe wird verifiziert. Sobald es freigegeben ist, wird
-                sie auf der öffentliche Seite presentiert!
+                Deine Gruppe wird verifiziert. Sobald sie freigegeben ist, wird
+                sie auf der öffentliche Seite presentiert.
+            </div>
+            <div v-else class="p-5 bg-green-100 text-green-800">
+                Deine Gruppe wurde verifiziert. Sobald der Bannerlauf Zeitplan
+                steht werden wir dich informieren.
             </div>
             <details :open="team.users.length == 1">
                 <summary class="text-gray-700 text-sm cursor-pointer p-2">

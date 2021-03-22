@@ -31,7 +31,7 @@ class ChallengeController extends Controller
     {
         return Inertia::render('challenge/Create', [
             'banners' => Banner::all(),
-            'categories' => Category::all(),
+            'categories' => Category::all()->keyBy('id'),
         ]);
     }
 
@@ -80,7 +80,7 @@ class ChallengeController extends Controller
         return Inertia::render('challenge/Edit', [
             'challenge' => $challenge,
             'banners' => Banner::all(),
-            'categories' => Category::all(),
+            'categories' => Category::all()->keyBy('id'),
         ]);
     }
 
