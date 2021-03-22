@@ -18,8 +18,8 @@
                 sie auf der öffentliche Seite presentiert.
             </div>
             <div v-else class="p-5 bg-green-100 text-green-800">
-                Deine Gruppe wurde verifiziert. Sobald der Bannerlauf Zeitplan
-                steht werden wir dich informieren.
+                Deine Gruppe wurde verifiziert. Sobald der Zeitplan vom
+                Bannerlauf steht werden wir dich informieren.
             </div>
             <details :open="team.users.length == 1">
                 <summary class="text-gray-700 text-sm cursor-pointer p-2">

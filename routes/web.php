@@ -24,6 +24,9 @@ Route::get('ablauf', [ConditionsController::class, 'index']);
 
 Route::get('impressum', [ImprintController::class, 'index']);
 Route::get('datenschutz', [PrivacyController::class, 'index']);
+Route::get('datenschutz/leader', [PrivacyController::class, 'leader']);
+
+Route::redirect('datenschutz/einwilligung-foto', 'https://dpsg.de/fileadmin/daten/dokumente/infopool/corporatedesign/Oeffentlichkeitsarbeit/DPSG_Einwilligung_Foto_Video.pdf');
 
 
 

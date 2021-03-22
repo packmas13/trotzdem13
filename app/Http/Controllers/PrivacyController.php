@@ -8,4 +8,8 @@ class PrivacyController
     {
         return view('privacy');
     }
+    public function leader()
+    {
+        return view('privacy.leader');
+    }
 }
