@@ -11,7 +11,7 @@
     </div>
     <div class="text-center">
         <h2 class="title my-4 min-w-1/2">
-            das Projekt
+            Projekt
         </h2>
     </div>
     <div class="prose lg:prose-xl mx-auto px-2 sm:px-0 pb-8 text-center">
@@ -44,6 +44,10 @@
             Lasst euch den Spaß nicht entgehen, und <a href="{{route('app.team.index')}}">
                 meldet euch gleich an
             </a>.
+        </h4>
+        @else
+        <h4>
+            Hier geht’s <a href="/ablauf">zum Ablauf</a>
         </h4>
         @endif
     </div>

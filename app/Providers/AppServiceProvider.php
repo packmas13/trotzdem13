@@ -25,6 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::share('showLoginLink', Carbon::createFromDate(2021, 3, 23, 'Europe/Berlin')->isPast());
+        View::share('showLoginLink', Carbon::createFromDate(2021, 4, 1, 'Europe/Berlin')->isPast());
     }
 }

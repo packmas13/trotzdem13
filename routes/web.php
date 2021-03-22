@@ -5,6 +5,7 @@ use App\Http\Controllers\App\ChallengeSelectController;
 use App\Http\Controllers\App\TeamController;
 use App\Http\Controllers\App\TeamJoinController;
 use App\Http\Controllers\ChallengesController;
+use App\Http\Controllers\ConditionsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImprintController;
 use App\Http\Controllers\MapController;
@@ -18,7 +19,9 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/', [HomeController::class, 'index']);
 Route::get('karte', [MapController::class, 'index']);
 Route::get('teilnehmer', [ParticipantController::class, 'index']);
-Route::get('challenges', [ChallengesController::class, 'index']);
+Route::get('projekte', [ChallengesController::class, 'index']);
+Route::get('ablauf', [ConditionsController::class, 'index']);
+
 Route::get('impressum', [ImprintController::class, 'index']);
 Route::get('datenschutz', [PrivacyController::class, 'index']);
 
