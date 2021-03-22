@@ -9,12 +9,7 @@
         <p class="mb-4 text-gray-700 italic text-center">Ihr dürft als Gruppe auch eigene Ideen als Projekt einreichen und dieses dann durchführen.
             Die Projektleitung sichtet Euer eingereichtes Projekt und gibt Euch dieses zur Durchführung frei. </p>
         <ul>
-            @empty($challenges)
-            <li>
-                <em>Noch kein Projekt verfügbar.</em>
-            </li>
-            @endempty
-            @foreach ($challenges as $challenge)
+            @forelse ($challenges as $challenge)
             <li class="py-4 flex even:bg-white -mx-2">
                 <div class="sm:mr-4 mr-2 w-24 text-center flex-shrink-0 text-sm">
                     <img src="{{$challenge->category->icon_path}}" class="h-20 w-20 inline" alt="{{$challenge->category->title}}" title="{{$challenge->category->title}}" />
@@ -42,7 +37,11 @@
                 </div>
                 @endif
             </li>
-            @endforeach
+            @empty
+            <li class="text-center">
+                <em>Noch kein Projekt verfügbar.</em>
+            </li>
+            @endforelse
         </ul>
     </div>
 </x-layout>
