@@ -21,7 +21,7 @@
                     </div>
                     <div class="p-6 sm:px-20">
                         <div v-if="!teams.length" class="italic text-gray-600">
-                            Alle Gruppe wurden schon freigegeben (oder
+                            Alle Gruppen wurden schon freigegeben (oder
                             blockiert)
                         </div>
                         <ul v-else>
