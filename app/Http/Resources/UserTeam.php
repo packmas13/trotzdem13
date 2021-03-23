@@ -23,6 +23,7 @@ class UserTeam extends JsonResource
             'is_approved' => !is_null($this->approved_at),
 
             'users' => OtherUser::collection($this->whenLoaded('users')),
+            'leader' => OtherUser::make($this->whenLoaded('leader')),
             'troop' => Troop::make($this->whenLoaded('troop')),
             'district' => Troop::make($this->whenLoaded('district')),
             'banner' => Banner::make($this->whenLoaded('banner')),
