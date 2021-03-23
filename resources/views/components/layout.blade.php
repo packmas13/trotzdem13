@@ -45,8 +45,7 @@
     <div class="relative">
         &nbsp;
         @if ($showLoginLink || auth()->user())
-        <a href="{{route('app.team.index')}}"
-            class="float-right block text-white font-bold text-center group py-1 px-2  text-sm sm:text-base shadow-lg bg-mango-600 mr-2 -mb-2">
+        <a href="{{route('app.team.index')}}" class="float-right block text-white font-bold text-center group py-1 px-2  text-sm sm:text-base shadow-lg bg-mango-600 mr-2 -mb-2">
             @auth
             Mitglieder-Bereich
             @else
@@ -57,33 +56,27 @@
     </div>
     <header class="clear-both flex justify-between items-center bg-teal-500 px-2">
         <a href="/" class="sm:flex-1"><img src="{{asset('img/logo_192.png')}}" class="w-24" /></a>
-        <a href="/"
-            class="text-center sm:text-5xl text-2xl px-1 sm:px-3 sm:py-1 sm:mb-3 text-mango-600 bg-white shadow-lg font-black uppercase">
+        <a href="/" class="text-center sm:text-5xl text-2xl px-1 sm:px-3 sm:py-1 sm:mb-3 text-mango-600 bg-white shadow-lg font-black uppercase">
             Trotzdem ’13
         </a>
         <div class="sm:flex-1"></div>
     </header>
 
     <nav class="bg-teal-600 text-white shadow-xl flex flex-wrap items-center justify-center sm:text-lg">
-        <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/'?'border-mango-500':''}}"
-            href="/">
+        <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/'?'border-mango-500':''}}" href="/">
             Bannerlauf
         </a>
-        <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/ablauf'?'border-mango-500':''}}"
-            href="/ablauf">
+        <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/ablauf'?'border-mango-500':''}}" href="/ablauf">
             Ablauf
         </a>
-        <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/projekte'?'border-mango-500':''}}"
-            href="/projekte">
+        <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/projekte'?'border-mango-500':''}}" href="/projekte">
             Projekte
         </a>
-        <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/karte'?'border-mango-500':''}}"
-            href="/karte">
+        @if(false)
+        <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/karte'?'border-mango-500':''}}" href="/karte">
             Karte
         </a>
-        @if(false)
-        <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/teilnehmer'?'border-mango-500':''}}"
-            href="/teilnehmer">
+        <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/teilnehmer'?'border-mango-500':''}}" href="/teilnehmer">
             Teilnehmer
         </a>
         @endif
@@ -93,10 +86,8 @@
     </main>
     <nav class="bg-teal-500 text-white shadow-xl flex flex-wrap items-center justify-center text-sm sm:text-base">
         <a class="p-2 hover:underline {{$navMain =='/impressum'?'underline':''}}" href="/impressum">Impressum</a>
-        <a class="p-2 hover:underline {{$navMain =='/datenschutz'?'underline':''}}" hreftodo="/datenschutz"
-            href="https://www.dpsg1300.de/datenschutz/">Datenschutz</a>
-        <a class="p-2 hover:underline" target="_blank" rel="noopener noreferrer"
-            href="https://www.instagram.com/trotzdem_13/">Instragram</a>
+        <a class="p-2 hover:underline {{$navMain =='/datenschutz'?'underline':''}}" hreftodo="/datenschutz" href="https://www.dpsg1300.de/datenschutz/">Datenschutz</a>
+        <a class="p-2 hover:underline" target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/trotzdem_13/">Instragram</a>
     </nav>
 
     @stack('scripts')
