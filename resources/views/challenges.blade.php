@@ -8,6 +8,10 @@
         <p class="mb-4 text-gray-700 italic text-center"> Als Gruppe führt ihr innerhalb des Aktionszeitraums 23.04.2021 bis 18.09.2021<br> ein Projekt aus der Liste durch. </p>
         <p class="mb-4 text-gray-700 italic text-center">Ihr dürft als Gruppe auch eigene Ideen als Projekt einreichen und dieses dann durchführen.
             Die Projektleitung sichtet Euer eingereichtes Projekt und gibt Euch dieses zur Durchführung frei. </p>
+
+        <p class="mb-4 text-gray-700 italic text-center">Wenn ihr noch Ideen für weitere Projekte habt, schreibt uns unter
+            <x-mailto-orga subject="Projektidee für Trotzdem13" />
+        </p>
         <ul>
             @forelse ($challenges as $challenge)
             <li class="py-4 flex even:bg-white -mx-2">
