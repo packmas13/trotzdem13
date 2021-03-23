@@ -49,7 +49,7 @@
             <inertia-link
                 :href="route('app.challenge.create')"
                 class="ml-2 primary-button"
-            >Neues Projekt
+            >Eigenes Projekt
             </inertia-link
             >
           </div>
