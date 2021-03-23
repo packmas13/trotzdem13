@@ -23,14 +23,11 @@
             </div>
             <details :open="team.users.length == 1">
                 <summary class="text-gray-700 text-sm cursor-pointer p-2">
-                    Gruppen-Mitglieder ({{ team.users.length + 1 }})
+                    Gruppen-Mitglieder ({{ team.users.length }})
                 </summary>
                 <ul class="ml-5 my-2 text-sm list-dash list-inside">
-                  <li>
-                    {{ team.leader.name }} <small class="text-gray-400">(Gruppenleiter:in)</small>
-                  </li>
                     <li v-for="(user, i) in team.users" :key="i">
-                        {{ user.name }}
+                        {{ user.name }} <small v-if="team.leader_id == user.id" class="text-gray-400">(Gruppenleiter:in)</small>
                     </li>
                 </ul>
                 <div class="ml-5">
