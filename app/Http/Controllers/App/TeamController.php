@@ -24,7 +24,7 @@ class TeamController extends Controller
     {
         $user = $request->user();
         $teams = $user->teams;
-        $teams->load('users', 'leader', 'troop', 'district', 'banner', 'currentChallenges.banners', 'currentChallenges.category');
+        $teams->load('users', 'troop', 'district', 'banner', 'currentChallenges.banners', 'currentChallenges.category');
 
         UserTeam::withoutWrapping();
         return Inertia::render('team/Index', [

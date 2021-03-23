@@ -11,7 +11,7 @@ class ChallengesController extends Controller
         $challenges = Challenge::with('banners')->with('category')->whereNotNull('published_at');
 
         return view('challenges', [
-            'challenges' => $challenges->get()
+            'challenges' => $challenges->inRandomOrder()->get()
         ]);
     }
 }

@@ -27,7 +27,12 @@
                 </summary>
                 <ul class="ml-5 my-2 text-sm list-dash list-inside">
                     <li v-for="(user, i) in team.users" :key="i">
-                        {{ user.name }} <small v-if="team.leader_id == user.id" class="text-gray-400">(Gruppenleiter:in)</small>
+                        <strong
+                            v-if="team.leader_id == user.id"
+                            v-text="user.name"
+                            title="Gruppenverantwortliche:r"
+                        />
+                        <template v-else v-text="user.name" />
                     </li>
                 </ul>
                 <div class="ml-5">
@@ -55,7 +60,7 @@
             </details>
             <details :open="true">
                 <summary class="text-gray-700 text-sm cursor-pointer p-2">
-                  Projekte
+                    Projekte
                 </summary>
                 <div
                     v-if="!team.currentChallenges.length"

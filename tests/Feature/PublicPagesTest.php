@@ -42,7 +42,7 @@ class PublicPagesTest extends TestCase
             '/projekte' => ['/projekte'],
             '/impressum' => ['/impressum'],
             '/datenschutz' => ['/datenschutz'],
-            '/datenschutz/leader' => ['/datenschutz/leader'],
+            '/datenschutz/leiter' => ['/datenschutz/leiter'],
         ];
     }
 }
