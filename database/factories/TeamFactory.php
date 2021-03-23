@@ -35,7 +35,7 @@ class TeamFactory extends Factory
                 'lng' => $this->faker->randomFloat(5, 10.66794, 13.38981),
             ],
             'radius' => $this->faker->randomElement([10, 100, 1000]),
-            'join_code' => $this->faker->word,
+            'join_code' => $this->faker->unique()->word,
             'approved_at' => now(),
         ];
     }
