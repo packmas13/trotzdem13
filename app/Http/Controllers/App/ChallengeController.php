@@ -134,7 +134,7 @@ class ChallengeController extends Controller
     }
 
     /**
-     * Publish the specified resource.
+     * Unpublish the specified resource.
      *
      * @param Request $request
      * @param int $id
@@ -147,6 +147,23 @@ class ChallengeController extends Controller
         $challenge = Challenge::findOrFail($id);
         $challenge->published_at = null;
         $challenge->save();
+
+        return redirect()->route('app.challenge.index');
+    }
+
+    /**
+     * Delete the specified resource.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete(Request $request, int $id)
+    {
+        abort_if(! $request->user()->isOrga(), 403);
+
+        $challenge = Challenge::findOrFail($id);
+        $challenge->delete();
 
         return redirect()->route('app.challenge.index');
     }
