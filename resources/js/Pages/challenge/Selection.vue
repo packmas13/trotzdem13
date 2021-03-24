@@ -2,30 +2,30 @@
   <app-layout current-route="app.challenge.selection">
     <template #header v-if="isLeader">
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Wähle eine Challenge für Team '{{ team.name }}'!
+        Wähle ein Projekt für Team '{{ team.name }}'!
       </h2>
     </template>
-    <template #header v-if="!isLeader">
+    <template #header v-else>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Welche Challenges gefallen dir?
+        Welche Projekte gefallen dir?
       </h2>
       <small>
-        Du kannst dir die Challenges hier ansehen. Eine Challenge für dein Team auswählen dürfen jedoch nur die Leiter:innen der Teams.
+        Du kannst dir die Projekte hier ansehen. Ein Projekt für dein Team auswählen dürfen jedoch nur die Leiter:innen der Teams.
       </small>
     </template>
 
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white shadow-xl sm:rounded-lg">
-          <div class="p-6 sm:px-20">
+          <div class="">
             <div v-if="!challenges.length" class="italic text-gray-600">
-              Keine Challenges verfügbar!
+              Keine Projekte verfügbar!
             </div>
             <ul>
               <li
                   v-for="challenge in challenges"
                   :key="challenge.id"
-                  class="border-b pb-4"
+                  class="py-4 px-6 sm:px-20 even:bg-sepiaGray-100"
               >
                 <ChallengeDetail :challenge="challenge">
                   <template v-slot:info>
@@ -49,7 +49,7 @@
             <inertia-link
                 :href="route('app.challenge.create')"
                 class="ml-2 primary-button"
-            >Neue Challenge
+            >Eigenes Projekt
             </inertia-link
             >
           </div>

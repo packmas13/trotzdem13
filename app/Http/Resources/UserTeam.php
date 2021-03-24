@@ -19,6 +19,7 @@ class UserTeam extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'join_code' => $this->join_code,
+            'leader_id' => $this->leader_id,
             'image' => empty($this->image) ? null : Storage::disk('upload')->url($this->image),
             'is_approved' => !is_null($this->approved_at),
 

@@ -24,7 +24,7 @@ Route::get('ablauf', [ConditionsController::class, 'index']);
 
 Route::get('impressum', [ImprintController::class, 'index']);
 Route::get('datenschutz', [PrivacyController::class, 'index']);
-Route::get('datenschutz/leader', [PrivacyController::class, 'leader']);
+Route::get('datenschutz/leiter', [PrivacyController::class, 'leader']);
 
 Route::redirect('datenschutz/einwilligung-foto', 'https://dpsg.de/fileadmin/daten/dokumente/infopool/corporatedesign/Oeffentlichkeitsarbeit/DPSG_Einwilligung_Foto_Video.pdf');
 
@@ -55,7 +55,7 @@ Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->gr
     Route::get('challenge/publish/{id}', [ChallengeController::class, 'publish'])->name('challenge.publish');
     Route::get('challenge/unpublish/{id}', [ChallengeController::class, 'unpublish'])->name('challenge.unpublish');
     Route::post('challenge/update', [ChallengeController::class, 'update'])->name('challenge.update');
-    Route::get('challenge/delete/{id}', [ChallengeController::class, 'delete'])->name('challenge.delete');
+    Route::delete('challenge/delete/{id}', [ChallengeController::class, 'delete'])->name('challenge.delete');
 
     Route::get('challenge/selection/{team_id}', [ChallengeSelectController::class, 'selection'])->name('challenge.selection');
     Route::get('challenge/select/{team_id}/{challenge_id}', [ChallengeSelectController::class, 'select'])->name('challenge.select');

@@ -2,21 +2,21 @@
     <app-layout current-route="app.challenge.create">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Neue Challenge
+                Neues Projekt
             </h2>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <jet-form-section @submitted="createChallenge">
-                    <template #title>Neue Challenge erstellen</template>
+                    <template #title>Neues Projekt erstellen</template>
 
                     <template #description> TODOTEXT: Beschreibung</template>
 
                     <template #form>
                         <label class="col-span-6 sm:col-span-4">
                             <span
-                                >Für welche Stufen ist die Challenge
+                                >Für welche Stufen ist das Projekt
                                 geeignet?</span
                             ><br />
                             <label
@@ -43,7 +43,7 @@
                         </label>
 
                         <label class="col-span-6 sm:col-span-4">
-                            <span>Wie soll die Challenge heißen?</span>
+                            <span>Wie soll das Projekt heißen?</span>
                             <input
                                 type="text"
                                 class="mt-1 w-full rounded-md border-gray-300"
@@ -58,7 +58,7 @@
                         </label>
 
                         <label class="col-span-6 sm:col-span-4">
-                            <span>Beschreibe die Challenge?</span>
+                            <span>Beschreibe das Projekt?</span>
                             <textarea
                                 class="mt-1 w-full rounded-md border-gray-300"
                                 v-model="form.description"
@@ -73,7 +73,7 @@
 
                         <label class="col-span-6 sm:col-span-4">
                             <RadioInput
-                                label="Zu welcher Kategorie gehört die Challenge?"
+                                label="Zu welcher Kategorie gehört das Projekt?"
                                 :error="form.errors.category_id"
                                 name="category_id"
                                 :required="true"
@@ -89,7 +89,7 @@
 
                         <label class="col-span-6 sm:col-span-4">
                             <span
-                                >Wie oft kann die Challenge gemacht
+                                >Wie oft kann das Projekt gemacht
                                 werden?</span
                             >
                             <input
@@ -117,14 +117,14 @@
                             :on="form.recentlySuccessful"
                             class="mr-3"
                         >
-                            Challenge erstellt.
+                          Projekt erstellt.
                         </jet-action-message>
 
                         <jet-button
                             :class="{ 'opacity-25': form.processing }"
                             :disabled="form.processing"
                         >
-                            Challenge erstellen
+                          Projekt erstellen
                         </jet-button>
                     </template>
                 </jet-form-section>

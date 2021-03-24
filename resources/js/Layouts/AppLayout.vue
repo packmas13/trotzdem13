@@ -38,7 +38,7 @@
                                 :href="route('app.challenge.index')"
                                 :active="'app.challenge.index' == currentRoute"
                             >
-                                Challenges
+                                Projekte
                             </jet-nav-link>
                             <jet-nav-link
                                 :href="route('app.orga.team.pending')"
@@ -340,7 +340,7 @@
                             :href="route('app.challenge.index')"
                             :active="'app.challenge.index' == currentRoute"
                         >
-                            Challenges
+                            Projekte
                         </jet-responsive-nav-link>
                         <jet-responsive-nav-link
                             :href="route('app.orga.team.pending')"

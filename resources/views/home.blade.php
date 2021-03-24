@@ -1,11 +1,15 @@
 <x-layout nav-main="/">
-    <div class="h-96 bg-teal-500 mx-auto max-w-3xl sm:mt-2 flex flex-col justify-between bg-cover bg-top"
-        style="background-image:url('/img/dpsg.de_banner.jpg')">
-        <div class="bg-mango-600 text-white p-4 text-center font-black text-2xl mx-6 mt-3">Bannerlauf startet in
+    <div class="mx-auto max-w-3xl sm:mt-2 flex flex-col justify-between text-white text-center font-black text-2xl leading-none">
+        <div class="bg-mango-600 px-1 py-3 mx-6 mt-3">Bannerlauf startet in
             {{ $days_left }} Tagen
         </div>
+        <video autoplay loop muted playsinline poster="/img/trotzdem_banner.jpg" width="768" heigh="432">
+            <source src="/img/trotzdem_banner.webm" type="video/webm" />
+            <source src="/img/trotzdem_banner.mp4" type="video/mp4" />
+            <img src="/img/trotzdem_banner.jpg" title="Your browser does not support the <video> tag">
+        </video>
 
-        <div class="bg-mango-600 text-white p-4 text-center font-black text-2xl mx-6 mb-3">
+        <div class="bg-mango-600 px-1 py-3 text-2xl mx-6 mb-3">
             am {{ $banner_start->format('d.m.Y') }}
         </div>
     </div>
