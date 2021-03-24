@@ -35,8 +35,8 @@
                         {{$challenge->category->title}}
                     </small>
                 </div>
-                <div class="flex-auto">
-                    <h2 class="text-3xl text-teal-600">
+                <div class="flex-auto overflow-y-hidden pr-2">
+                    <h2 class="text-2xl sm:text-3xl text-teal-600 break-words">
                         {{ $challenge->title }}
                     </h2>
                     <ul class="flex" title="Für: {{$challenge->banners->map->stufe->join(', ')}}">
