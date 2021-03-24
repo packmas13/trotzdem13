@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ isset($title) ? $title.' - Trotzdem ’13' : 'Trotzdem ’13' }}</title>
+    <meta name="description" content="Trotzdem ’13 ist ein DPSG Bannerlauf verteilt über die gesamte Diözese München und Freising.">
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/style.css') }}">

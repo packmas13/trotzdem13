@@ -1,3 +1,2 @@
-# TODOPROD allow crawling
 User-agent: *
-Disallow: /
+Disallow:
