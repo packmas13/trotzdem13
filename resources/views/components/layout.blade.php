@@ -55,13 +55,13 @@
         </a>
         @endif
     </div>
-    <header class="clear-both flex justify-between items-center bg-teal-500 px-2">
-        <a href="/" class="sm:flex-1"><img src="{{asset('img/logo_192.png')}}" class="w-24" /></a>
-        <a href="/" class="text-center sm:text-5xl text-2xl px-1 sm:px-3 sm:py-1 sm:mb-3 text-mango-600 bg-white shadow-lg font-black uppercase">
+    <a href="/" class="clear-both flex justify-between items-center bg-teal-500 px-2">
+        <div class="sm:flex-1"><img src="{{asset('img/logo_192.png')}}" class="w-24" alt="Logo von Trotzdem ’13" width="192" height="155" /></div>
+        <h1 class="text-center sm:text-5xl text-2xl px-1 sm:px-3 sm:py-1 sm:mb-3 text-mango-600 bg-white shadow-lg font-black uppercase">
             Trotzdem ’13
-        </a>
+        </h1>
         <div class="sm:flex-1"></div>
-    </header>
+    </a>
 
     <nav class="bg-teal-600 text-white shadow-xl flex flex-wrap items-center justify-center sm:text-lg">
         <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/'?'border-mango-500':''}}" href="/">
@@ -85,7 +85,7 @@
     <main class="flex-auto bg-sepiaGray-100" id="main">
         {{ $slot }}
     </main>
-    <nav class="bg-teal-500 text-white shadow-xl flex flex-wrap items-center justify-center text-sm sm:text-base">
+    <nav class="bg-teal-600 text-white shadow-xl flex flex-wrap items-center justify-center text-sm sm:text-base">
         <a class="p-2 hover:underline {{$navMain =='/impressum'?'underline':''}}" href="/impressum">Impressum</a>
         <a class="p-2 hover:underline {{$navMain =='/datenschutz'?'underline':''}}" hreftodo="/datenschutz" href="https://www.dpsg1300.de/datenschutz/">Datenschutz</a>
         <a class="p-2 hover:underline" target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/trotzdem_13/">Instragram</a>

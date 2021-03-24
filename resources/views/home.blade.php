@@ -3,10 +3,10 @@
         <div class="bg-mango-600 px-1 py-3 mx-6 mt-3">Bannerlauf startet in
             {{ $days_left }} Tagen
         </div>
-        <video autoplay loop muted playsinline poster="/img/trotzdem_banner.jpg" width="768" heigh="432">
+        <video autoplay loop muted playsinline poster="/img/trotzdem_banner.jpg" width="768" heigh="432" tabindex="-1" aria-label="Wehendes DPSG Banner">
             <source src="/img/trotzdem_banner.webm" type="video/webm" />
             <source src="/img/trotzdem_banner.mp4" type="video/mp4" />
-            <img src="/img/trotzdem_banner.jpg" title="Your browser does not support the <video> tag">
+            <img src="/img/trotzdem_banner.jpg" alt="Wehendes DPSG Banner">
         </video>
 
         <div class="bg-mango-600 px-1 py-3 text-2xl mx-6 mb-3">
