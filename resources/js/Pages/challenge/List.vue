@@ -9,7 +9,7 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white shadow-xl sm:rounded-lg">
-                    <div class="p-6 sm:px-20">
+                    <div>
                         <div
                             v-if="!challenges.length"
                             class="italic text-gray-600"
@@ -20,7 +20,7 @@
                             <li
                                 v-for="challenge in challenges"
                                 :key="challenge.id"
-                                class="border-b pb-4"
+                                class="py-4 px-6 sm:px-20 even:bg-sepiaGray-100"
                             >
                                 <ChallengeDetail :challenge="challenge">
                                     <template v-slot:info>
@@ -61,20 +61,9 @@
                                                         { id: challenge.id }
                                                     )
                                                 "
-                                                class="m-1 secondary-button"
+                                                class="m-1 primary-button"
                                                 preserve-scroll
                                                 >Veröffentlichen
-                                            </inertia-link>
-                                            <inertia-link
-                                                :href="
-                                                    route(
-                                                        'app.challenge.delete',
-                                                        { id: challenge.id }
-                                                    )
-                                                "
-                                                class="m-1 secondary-button"
-                                                preserve-scroll
-                                                >Löschen
                                             </inertia-link>
                                         </div>
                                     </template>

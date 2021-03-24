@@ -37,7 +37,6 @@ class UserChallengeTest extends TestCase
 
     public function test_post_new_challenge()
     {
-        $this->withExceptionHandling();
         $this->actingAs($user = User::factory()->belongingToOrgaTeam()->create());
         $response = $this->post('/app/challenge', [
             'title' => 'My mega challenge',
@@ -55,5 +54,18 @@ class UserChallengeTest extends TestCase
         $this->assertEquals($challenge->author_id, $user->id);
 
         $this->assertEquals($challenge->title, 'My mega challenge');
+    }
+
+    public function test_delete_challenge()
+    {
+        $challenge = Challenge::factory()->create();
+        $this->assertFalse($challenge->trashed());
+
+        $this->actingAs($user = User::factory()->belongingToOrgaTeam()->create());
+        $response = $this->delete('/app/challenge/delete/'.$challenge->id);
+        $response->assertSessionHasNoErrors();
+        $response->assertStatus(302);
+
+        $this->assertTrue($challenge->fresh()->trashed());
     }
 }

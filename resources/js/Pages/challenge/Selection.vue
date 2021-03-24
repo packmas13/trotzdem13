@@ -5,7 +5,7 @@
         Wähle ein Projekt für Team '{{ team.name }}'!
       </h2>
     </template>
-    <template #header v-if="!isLeader">
+    <template #header v-else>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         Welche Projekte gefallen dir?
       </h2>
@@ -17,7 +17,7 @@
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white shadow-xl sm:rounded-lg">
-          <div class="p-6 sm:px-20">
+          <div class="">
             <div v-if="!challenges.length" class="italic text-gray-600">
               Keine Projekte verfügbar!
             </div>
@@ -25,7 +25,7 @@
               <li
                   v-for="challenge in challenges"
                   :key="challenge.id"
-                  class="border-b pb-4"
+                  class="py-4 px-6 sm:px-20 even:bg-sepiaGray-100"
               >
                 <ChallengeDetail :challenge="challenge">
                   <template v-slot:info>

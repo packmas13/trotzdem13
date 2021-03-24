@@ -39,7 +39,7 @@
                     <h2 class="text-2xl sm:text-3xl text-teal-600 break-words">
                         {{ $challenge->title }}
                     </h2>
-                    <ul class="flex" title="Für: {{$challenge->banners->map->stufe->join(', ')}}">
+                    <ul class="flex" title="Geeignet für: {{$challenge->banners->map->stufe->join(', ')}}">
                         @foreach($challenge->banners as $banner)
                         <li class="bg-{{$banner->color}}-light h-4 w-4 rounded-full border border-{{$banner->color}}-dark text-{{$banner->color}}-dark text-xs text-center leading-none -mr-1">
                             <small>{{$banner->stufe[0]}}</small>

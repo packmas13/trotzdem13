@@ -58,7 +58,7 @@
                     </ul>
                 </div>
             </details>
-            <details :open="true">
+            <details v-if="team.currentChallenges.length || team.is_approved" open>
                 <summary class="text-gray-700 text-sm cursor-pointer p-2">
                     Projekte
                 </summary>

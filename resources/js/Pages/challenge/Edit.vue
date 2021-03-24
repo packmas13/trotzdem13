@@ -2,7 +2,7 @@
     <app-layout current-route="app.challenge.create">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-              Projekt bearbeiten
+                Projekt bearbeiten
             </h2>
         </template>
 
@@ -94,8 +94,7 @@
 
                         <label class="col-span-6 sm:col-span-4">
                             <span
-                                >Wie oft kann das Projekt gemacht
-                                werden?</span
+                                >Wie oft kann das Projekt gemacht werden?</span
                             >
                             <input
                                 type="number"
@@ -113,6 +112,14 @@
                     </template>
 
                     <template #actions>
+                        <button
+                            type="button"
+                            class="danger-button"
+                            @click="deleteChallenge"
+                        >
+                            Projekt löschen
+                        </button>
+                        <div class="flex-1" />
                         <inertia-link
                             :href="route('app.challenge.index')"
                             class="secondary-button mr-3"
@@ -122,14 +129,14 @@
                             :on="form.recentlySuccessful"
                             class="mr-3"
                         >
-                          Projekt erstellt.
+                            Projekt erstellt.
                         </jet-action-message>
 
                         <jet-button
                             :class="{ 'opacity-25': form.processing }"
                             :disabled="form.processing"
                         >
-                          Projekt speichern
+                            Projekt speichern
                         </jet-button>
                     </template>
                 </jet-form-section>
@@ -189,6 +196,12 @@ export default {
                 onSuccess: () => this.form.reset(),
                 onError: () => {},
             });
+        },
+        deleteChallenge() {
+            if (!confirm("Projekt wirklich löschen?")) {
+                return;
+            }
+            this.$inertia.delete(route("app.challenge.delete", this.challenge.id));
         },
     },
 };
