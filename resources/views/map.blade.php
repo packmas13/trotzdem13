@@ -31,10 +31,26 @@
         pitchWithRotate: false,
         dragRotate: false,
         touchZoomRotate: true, // rotation disabled below
+
+        // prevent zoom on scroll
+        scrollZoom: false,
     });
     map.touchZoomRotate.disableRotation();
     map.touchPitch.disable();
 
+    // only drag on touch device with two fingers
+    const isTouchEvent = e => e.originalEvent && "touches" in e.originalEvent;
+    const isTwoFingerTouch = e => e.originalEvent.touches.length >= 2;
+    map.on("dragstart", event => {
+        if (isTouchEvent(event) && !isTwoFingerTouch(event)) {
+        map.dragPan.disable();
+        }
+    });
+    map.on("touchstart", event => {
+        if (isTouchEvent(event) && isTwoFingerTouch(event)) {
+        map.dragPan.enable();
+        }
+    });
 
     map.addControl(new mapboxgl.FullscreenControl());
     map.addControl(new mapboxgl.NavigationControl({
