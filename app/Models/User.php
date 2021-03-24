@@ -71,7 +71,13 @@ class User extends Authenticatable
         return $this->hasMany(Challenge::class, 'author_id');
     }
 
-    public function isOrga(): bool {
+    public function isOrga(): bool
+    {
         return $this->teams->contains(42);
+    }
+
+    public function toArray(): array
+    {
+        return $this->only(['id', 'name', 'email', 'profile_photo_url']);
     }
 }

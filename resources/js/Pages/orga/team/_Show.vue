@@ -21,7 +21,13 @@
                 </summary>
                 <ul class="ml-5 my-2 text-sm list-dash list-inside">
                     <li v-for="(user, i) in team.users" :key="i">
-                        {{ user.name }}
+                        <strong
+                            v-if="team.leader_id == user.id"
+                            v-text="user.name"
+                            title="Gruppenverantwortliche:r"
+                        />
+                        <template v-else>{{user.name}}</template>
+                        <span class="text-gray-700"> - {{user.email}}</span>
                     </li>
                 </ul>
             </details>

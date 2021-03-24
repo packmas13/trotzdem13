@@ -32,7 +32,7 @@
                             v-text="user.name"
                             title="Gruppenverantwortliche:r"
                         />
-                        <template v-else v-text="user.name" />
+                        <template v-else>{{user.name}}</template>
                     </li>
                 </ul>
                 <div class="ml-5">
