@@ -11,7 +11,12 @@
                 <jet-form-section @submitted="submit">
                     <template #title>Neue Gruppe erstellen</template>
 
-                    <template #description> TODOTEXT: Beschreibung </template>
+                    <template #description>
+                      Mit diesem Formular erstellst du eine neue Gruppe für die Teilnahme am trotzdem '13. <br><br>
+                      Anschließend erhältst du einen Code, mit dem du die Teilnehmenden in die Gruppe einladen kannst. <br><br>
+                      Außerdem prüfen wir sicherheitshalber die eingegebenen Daten, bevor wir die Gruppe freigeben, wodurch sie dann auch im öffentlichen Bereich der Webseite angezeigt wird. <br><br>
+                      Sobald die Freigabe erfolgt ist, kannst du ein Projekt für die Gruppe auswählen. In der Zwischenzeit könnt ihr euch aber gerne schon mal die verfügbaren Projekte anschauen.
+                    </template>
 
                     <template #form>
                         <InputLabel
@@ -29,7 +34,7 @@
                         <InputLabel
                             label="Wollt ihr ein Bild hochladen?"
                             :error="form.errors.image"
-                            help="Dieses Bild wird veröffentlicht"
+                            help="Dieses Bild wird veröffentlicht. Es kann zum Beispiel ein Gruppenbild sein oder auch euer Logo. Seid Kreativ!"
                         >
                             <input
                                 v-show="!imagePreview"
@@ -60,9 +65,9 @@
                                         href="/datenschutz/einwilligung-foto"
                                         >schriftliche Vereinbarung</a
                                     >
-                                    über die Online-Nutzung von diesem Foto für
+                                    über die Online-Nutzung dieses Fotos für
                                     die Aktion
-                                    <strong>Trotzem13</strong>
+                                    <strong>Trotzdem13</strong>
                                     liegt vor.
                                 </label>
                                 <div class="text-right text-sm text-red-800">
@@ -80,6 +85,7 @@
                         <InputLabel
                             label="Wie viel seid ihr in der Gruppe?"
                             :error="form.errors.size"
+                            help="Wir empfehlen eine Gruppengröße von mindestens 5 und maximal 20 Teilnehmenden."
                         >
                             <input
                                 type="number"
