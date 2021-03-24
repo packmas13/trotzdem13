@@ -15,6 +15,7 @@ class UserTeam extends JsonResource
      */
     public function toArray($request)
     {
+        $isLeader = $request->user()->id == $this->leader_id;
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -22,6 +23,13 @@ class UserTeam extends JsonResource
             'leader_id' => $this->leader_id,
             'image' => empty($this->image) ? null : Storage::disk('upload')->url($this->image),
             'is_approved' => !is_null($this->approved_at),
+            'contact_phone' => $this->when($isLeader, $this->contact_phone),
+            'contact_email' => $this->when($isLeader, $this->contact_email),
+            'contact_name' => $this->when($isLeader, $this->contact_name),
+            'contact_street' => $this->when($isLeader, $this->contact_street),
+            'contact_zip' => $this->when($isLeader, $this->contact_zip),
+            'contact_city' => $this->when($isLeader, $this->contact_city),
+
 
             'users' => OtherUser::collection($this->whenLoaded('users')),
             'troop' => Troop::make($this->whenLoaded('troop')),

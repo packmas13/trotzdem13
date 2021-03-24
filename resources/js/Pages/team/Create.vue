@@ -164,6 +164,81 @@
                                 "
                             />
                         </RadioInput>
+
+
+                      <span class="col-span-6 sm:col-span-4 text-sm text-gray-600">
+                        <span class="text-xl font-semibold">Kontaktdaten</span><br>
+                        Gib hier bitte deine Kontaktdaten ein. <br>
+                        Die Adresse benötigen wir unter anderem, um dir Materialien für deine Gruppe per Post zu schicken. <br>
+                        Die Email-Adresse und Handynummer geben wir weiter an die Leitenden eurer Partnergruppen.
+                        Mit dem Erstellen der Gruppe willigst du in die Weitergabe ein.
+                      </span>
+                      <InputLabel
+                          label="Name (Vor- und Nachname)"
+                          :error="form.errors.contact_name"
+                      >
+                        <input
+                            type="text"
+                            class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                            v-model="form.contact_name"
+                            required
+                        />
+                      </InputLabel>
+                      <InputLabel
+                          label="Straße und Hausnummer"
+                          :error="form.errors.contact_street"
+                      >
+                        <input
+                            type="text"
+                            class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                            v-model="form.contact_street"
+                            required
+                        />
+                      </InputLabel>
+                      <InputLabel
+                          label="Postleitzahl"
+                          :error="form.errors.contact_zip"
+                      >
+                        <input
+                            type="text"
+                            class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                            v-model="form.contact_zip"
+                            required
+                        />
+                      </InputLabel>
+                      <InputLabel
+                          label="Ort"
+                          :error="form.errors.contact_city"
+                      >
+                        <input
+                            type="text"
+                            class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                            v-model="form.contact_city"
+                            required
+                        />
+                      </InputLabel>
+                      <InputLabel
+                          label="Handynummer"
+                          :error="form.errors.contact_phone"
+                      >
+                        <input
+                            type="text"
+                            class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                            v-model="form.contact_phone"
+                            required
+                        />
+                      </InputLabel>
+                      <InputLabel
+                          label="Email-Adresse"
+                          :error="form.errors.contact_email"
+                      >
+                        <input
+                            type="text"
+                            class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                            v-model="form.contact_email"
+                            required
+                        />
+                      </InputLabel>
                     </template>
 
                     <template #actions>
@@ -234,6 +309,12 @@ export default {
                 location: null,
                 radius: "",
                 image: null,
+                contact_phone: "",
+                contact_email: "",
+                contact_name: "",
+                contact_street: "",
+                contact_zip: "",
+                contact_city: ""
             }),
             imagePreview: null,
         };

@@ -68,6 +68,12 @@ class TeamController extends Controller
             'location.lng' => ['required', 'numeric'],
             'radius' => ['required', 'integer', 'min:1'],
             'image' => ['nullable', 'file', 'image'],
+            'contact_name' => ['required', 'string'],
+            'contact_email' => ['required', 'string'],
+            'contact_phone' => ['required', 'string'],
+            'contact_street' => ['required', 'string'],
+            'contact_zip' => ['required', 'string'],
+            'contact_city' => ['required', 'string'],
         ]);
         $data['join_code'] = Str::lower(Str::random(8));
 
