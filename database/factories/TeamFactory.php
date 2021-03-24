@@ -31,11 +31,11 @@ class TeamFactory extends Factory
             'banner_id' => $this->faker->randomElement(Banner::pluck('id')),
             'size' => $this->faker->numberBetween(1, 15),
             'location' => [
-                'lat' => $this->faker->randomFloat(5, 47.38488, 48.56617),
-                'lng' => $this->faker->randomFloat(5, 10.66794, 13.38981),
+                'lat' => $this->faker->randomFloat(5, 47.6, 48.5),
+                'lng' => $this->faker->randomFloat(5, 11.2, 13),
             ],
             'radius' => $this->faker->randomElement([10, 100, 1000]),
-            'join_code' => $this->faker->unique()->word,
+            'join_code' => $this->faker->unique()->lexify('????????'),
             'approved_at' => now(),
         ];
     }
