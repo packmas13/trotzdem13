@@ -31,7 +31,7 @@ class ChallengeFactory extends Factory
             'source' => $this->faker->word,
             'team_id' => Team::factory(),
             'quantity' => $this->faker->numberBetween(1, 15),
-            'category_id' => Category::factory(),
+            'category_id' => $this->faker->randomElement(Category::pluck('id')),
         ];
     }
 }

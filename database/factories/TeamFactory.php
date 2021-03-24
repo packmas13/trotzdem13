@@ -27,8 +27,8 @@ class TeamFactory extends Factory
         return [
             'name' => $this->faker->name,
             'leader_id' => User::factory(),
-            'troop_id' => Troop::factory(),
-            'banner_id' => Banner::factory(),
+            'troop_id' => $this->faker->randomElement(Troop::pluck('id')),
+            'banner_id' => $this->faker->randomElement(Banner::pluck('id')),
             'size' => $this->faker->numberBetween(1, 15),
             'location' => [
                 'lat' => $this->faker->randomFloat(5, 47.38488, 48.56617),
@@ -41,7 +41,7 @@ class TeamFactory extends Factory
     }
 
 
-    public function pending():Factory
+    public function pending(): Factory
     {
         return $this->state([
             'approved_at' => null,
