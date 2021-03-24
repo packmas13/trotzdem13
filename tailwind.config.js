@@ -13,11 +13,7 @@ module.exports = {
         options: {
             safelist: {
                 greedy: [
-                    /-woelfling-/,
-                    /-jupfi-/,
-                    /-pfadi-/,
-                    /-rover-/,
-                    /-lilie-/,
+                    /^(bg|text|border)-(woelfling|jupfi|pfadi|rover|lilie)-(light|dark)$/,
                 ],
             },
         },
