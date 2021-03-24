@@ -1,8 +1,8 @@
 <x-layout nav-main="/datenschutz">
     <div class="prose lg:prose-xl mx-auto px-2 pb-8">
-        <h3>
+        <h2>
             Pflichten und Aufgaben des Gruppenverantwortliche:r
-        </h3>
+        </h2>
         <p>
             Als Gruppenverantwortlicher bist Du dafür zuständig, dass während der Durchführung der Aktion der Datenschutz beachtet wird. Für jedes durchgeführte Projekt wird einerseits ein Abschlussbericht veröffentlicht, der auch mit Bildern oder Videos untermalt werden kann. Außerdem könnt ihr wie auf einem Blog bereits während der Durchführung der Aktion jederzeit Fotos und Videos auf eurer Gruppenseite veröffentlichen und so euren Fortschritt präsentieren. Dafür ist es aber sehr wichtig, dass ihr die <strong>Fotorechte habt und alle auf dem Foto oder Video sichtbaren Personen der Veröffentlichung zugestimmt haben</strong>, da wir sonst rechtliche Probleme bekommen könnten. Daher musst Du dich vor dem Veröffentlichen immer fragen, ob alle Personen
         </p>

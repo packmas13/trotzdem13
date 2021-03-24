@@ -5,14 +5,14 @@
         </h2>
     </div>
     <div class="prose lg:prose-xl mx-auto px-2 pb-8">
-        <h4>Die Webseite www.trotzdem13.de ist ein Online-Angebot des</h4>
+        <h3>Die Webseite www.trotzdem13.de ist ein Online-Angebot des</h3>
 
         <p class="whitespace-pre-line">
             Jugendwerk St. Georg e.V.
             Preysingstraße 93, 81667 München
             Telefon 089-48092-2114
             Telefax 089-20239613
-            Email buero [at] dpsg1300.de
+            Email <x-mailto-orga />
         </p>
         <p>
             vertreten durch die Vorstandsmitglieder Lukas Glockner, Andreas Pröhl, Mathias Fazekas, allesamt
