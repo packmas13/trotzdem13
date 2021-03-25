@@ -233,12 +233,31 @@
                           :error="form.errors.contact_email"
                       >
                         <input
-                            type="text"
+                            type="email"
                             class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
                             v-model="form.contact_email"
                             required
                         />
                       </InputLabel>
+
+                      <label class="col-span-6 sm:col-span-4">
+                        <input
+                            type="checkbox"
+                            required
+                            class="mr-1"
+                        />
+                        <span class="text-gray-600">
+                          Ich bin mir meiner
+                          <a
+                            class="text-link"
+                            target="_blank"
+                            href="/datenschutz/leiter"
+                          >
+                            Pflichten und Aufgaben
+                          </a>
+                          als Gruppenverantwortliche:r bewusst.
+                        </span>
+                      </label>
                     </template>
 
                     <template #actions>

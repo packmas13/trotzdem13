@@ -84,7 +84,7 @@
                     </ChallengeDetail>
                 </div>
             </details>
-          <details v-if="team.contact_name" open>
+          <details v-if="team.contact_name">
             <summary class="text-gray-700 text-sm cursor-pointer p-2">
               Kontaktdaten
             </summary>
