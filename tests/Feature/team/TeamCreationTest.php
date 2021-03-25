@@ -43,6 +43,12 @@ class TeamCreationTest extends TestCase
             'size' => 5,
             'location' => ["lat" => 47.76116644679894, "lng" => 11.562785434513446],
             'radius' => 4,
+            'contact_name' => 'Super Leiter',
+            'contact_email' => 'text@example.com',
+            'contact_phone' => '0800 0000',
+            'contact_street' => 'Musterstr. 1',
+            'contact_zip' => '01000',
+            'contact_city' => 'Musterstadt',
         ]);
         $response->assertStatus(302);
         $response->assertSessionHasNoErrors();
@@ -84,6 +90,12 @@ class TeamCreationTest extends TestCase
             'size' => 5,
             'location' => ["lat" => 47.76116644679894, "lng" => 11.562785434513446],
             'radius' => 4,
+            'contact_name' => 'Super Leiter',
+            'contact_email' => 'text@example.com',
+            'contact_phone' => '0800 0000',
+            'contact_street' => 'Musterstr. 1',
+            'contact_zip' => '01000',
+            'contact_city' => 'Musterstadt',
             'image' => $file = UploadedFile::fake()->image('random.jpg')
         ]);
         $response->assertStatus(302);
@@ -106,6 +118,12 @@ class TeamCreationTest extends TestCase
             'size' => 5,
             'location' => ["lat" => 47.76116644679894, "lng" => 11.562785434513446],
             'radius' => 4,
+            'contact_name' => 'Super Leiter',
+            'contact_email' => 'text@example.com',
+            'contact_phone' => '0800 0000',
+            'contact_street' => 'Musterstr. 1',
+            'contact_zip' => '01000',
+            'contact_city' => 'Musterstadt',
             'image' => null
         ]);
         $response->assertStatus(302);

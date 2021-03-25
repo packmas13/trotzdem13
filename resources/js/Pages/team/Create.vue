@@ -11,7 +11,12 @@
                 <jet-form-section @submitted="submit">
                     <template #title>Neue Gruppe erstellen</template>
 
-                    <template #description> TODOTEXT: Beschreibung </template>
+                    <template #description>
+                      Mit diesem Formular erstellst du eine neue Gruppe für die Teilnahme am trotzdem '13. <br><br>
+                      Anschließend erhältst du einen Code, mit dem du die Teilnehmenden in die Gruppe einladen kannst. <br><br>
+                      Außerdem prüfen wir sicherheitshalber die eingegebenen Daten, bevor wir die Gruppe freigeben, wodurch sie dann auch im öffentlichen Bereich der Webseite angezeigt wird. <br><br>
+                      Sobald die Freigabe erfolgt ist, kannst du ein Projekt für die Gruppe auswählen. In der Zwischenzeit könnt ihr euch aber gerne schon mal die verfügbaren Projekte anschauen.
+                    </template>
 
                     <template #form>
                         <InputLabel
@@ -29,7 +34,7 @@
                         <InputLabel
                             label="Wollt ihr ein Bild hochladen?"
                             :error="form.errors.image"
-                            help="Dieses Bild wird veröffentlicht"
+                            help="Dieses Bild wird veröffentlicht. Es kann zum Beispiel ein Gruppenbild sein oder auch euer Logo. Seid Kreativ!"
                         >
                             <input
                                 v-show="!imagePreview"
@@ -60,9 +65,9 @@
                                         href="/datenschutz/einwilligung-foto"
                                         >schriftliche Vereinbarung</a
                                     >
-                                    über die Online-Nutzung von diesem Foto für
+                                    über die Online-Nutzung dieses Fotos für
                                     die Aktion
-                                    <strong>Trotzem13</strong>
+                                    <strong>Trotzdem13</strong>
                                     liegt vor.
                                 </label>
                                 <div class="text-right text-sm text-red-800">
@@ -80,6 +85,7 @@
                         <InputLabel
                             label="Wie viel seid ihr in der Gruppe?"
                             :error="form.errors.size"
+                            help="Wir empfehlen eine Gruppengröße von mindestens 5 und maximal 20 Teilnehmenden."
                         >
                             <input
                                 type="number"
@@ -158,6 +164,100 @@
                                 "
                             />
                         </RadioInput>
+
+
+                      <span class="col-span-6 sm:col-span-4 text-sm text-gray-600">
+                        <span class="text-xl font-semibold">Kontaktdaten</span><br>
+                        Gib hier bitte deine Kontaktdaten ein. <br>
+                        Die Adresse benötigen wir unter anderem, um dir Materialien für deine Gruppe per Post zu schicken. <br>
+                        Die Email-Adresse und Handynummer geben wir weiter an die Leitenden eurer Partnergruppen.
+                        Mit dem Erstellen der Gruppe willigst du in die Weitergabe ein.
+                      </span>
+                      <InputLabel
+                          label="Name (Vor- und Nachname)"
+                          :error="form.errors.contact_name"
+                      >
+                        <input
+                            type="text"
+                            class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                            v-model="form.contact_name"
+                            required
+                        />
+                      </InputLabel>
+                      <InputLabel
+                          label="Straße und Hausnummer"
+                          :error="form.errors.contact_street"
+                      >
+                        <input
+                            type="text"
+                            class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                            v-model="form.contact_street"
+                            required
+                        />
+                      </InputLabel>
+                      <InputLabel
+                          label="Postleitzahl"
+                          :error="form.errors.contact_zip"
+                      >
+                        <input
+                            type="text"
+                            class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                            v-model="form.contact_zip"
+                            required
+                        />
+                      </InputLabel>
+                      <InputLabel
+                          label="Ort"
+                          :error="form.errors.contact_city"
+                      >
+                        <input
+                            type="text"
+                            class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                            v-model="form.contact_city"
+                            required
+                        />
+                      </InputLabel>
+                      <InputLabel
+                          label="Handynummer"
+                          :error="form.errors.contact_phone"
+                      >
+                        <input
+                            type="text"
+                            class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                            v-model="form.contact_phone"
+                            required
+                        />
+                      </InputLabel>
+                      <InputLabel
+                          label="Email-Adresse"
+                          :error="form.errors.contact_email"
+                      >
+                        <input
+                            type="email"
+                            class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                            v-model="form.contact_email"
+                            required
+                        />
+                      </InputLabel>
+
+                      <label class="col-span-6 sm:col-span-4">
+                        <input
+                            type="checkbox"
+                            required
+                            class="mr-1"
+                        />
+                        <span class="text-gray-600">
+                          Ich bin mir meiner
+                          <a
+                            class="text-link"
+                            target="_blank"
+                            href="/datenschutz/leiter"
+                          >
+                            Pflichten und Aufgaben
+                          </a>
+                          als Gruppenverantwortliche:r bewusst.
+                        </span>
+                      </label>
                     </template>
 
                     <template #actions>
@@ -228,6 +328,12 @@ export default {
                 location: null,
                 radius: "",
                 image: null,
+                contact_phone: "",
+                contact_email: "",
+                contact_name: "",
+                contact_street: "",
+                contact_zip: "",
+                contact_city: ""
             }),
             imagePreview: null,
         };

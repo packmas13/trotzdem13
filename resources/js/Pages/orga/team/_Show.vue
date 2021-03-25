@@ -31,6 +31,19 @@
                     </li>
                 </ul>
             </details>
+          <details v-if="team.contact_name" open>
+            <summary class="text-gray-700 text-sm cursor-pointer p-2">
+              Kontaktdaten
+            </summary>
+            <div class="ml-5">
+              <span>Name: {{team.contact_name}}</span><br>
+              <span>Straße: {{team.contact_street}}</span><br>
+              <span>Postleitzahl: {{team.contact_zip}}</span><br>
+              <span>Ort: {{team.contact_city}}</span><br>
+              <span>Handynummer: {{team.contact_phone}}</span><br>
+              <span>Email-Adresse: {{team.contact_email}}</span>
+            </div>
+          </details>
             <div
                 v-if="!team.approved_at && !approving"
                 class="p-2 flex items-start"
