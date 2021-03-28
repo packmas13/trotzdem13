@@ -241,13 +241,13 @@
                                         <div
                                             class="block px-4 py-2 text-xs text-gray-400"
                                         >
-                                            Manage Account
+                                            Konto verwalten
                                         </div>
 
                                         <jet-dropdown-link
                                             :href="route('profile.show')"
                                         >
-                                            Profile
+                                            Profil
                                         </jet-dropdown-link>
 
                                         <jet-dropdown-link
@@ -267,7 +267,7 @@
                                         <!-- Authentication -->
                                         <form @submit.prevent="logout">
                                             <jet-dropdown-link as="button">
-                                                Log Out
+                                                Abmelden
                                             </jet-dropdown-link>
                                         </form>
                                     </template>
