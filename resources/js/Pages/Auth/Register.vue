@@ -82,23 +82,18 @@
                                 name="terms"
                                 id="terms"
                                 v-model:checked="form.terms"
+                                required
                             />
 
                             <div class="ml-2">
-                                I agree to the
+                                Ich habe
                                 <a
                                     target="_blank"
-                                    :href="route('terms.show')"
-                                    class="underline text-sm text-gray-600 hover:text-gray-900"
-                                    >Terms of Service</a
+                                    href="/ablauf"
+                                    class="underline text-sm text-mango-700 hover:text-mango-800"
+                                    >die Spielregeln</a
                                 >
-                                and
-                                <a
-                                    target="_blank"
-                                    :href="route('policy.show')"
-                                    class="underline text-sm text-gray-600 hover:text-gray-900"
-                                    >Privacy Policy</a
-                                >
+                                gelesen und akzeptiere sie.
                             </div>
                         </div>
                     </jet-label>
