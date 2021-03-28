@@ -19,7 +19,10 @@
             </div>
             <div v-else class="p-5 bg-green-100 text-green-800">
                 Deine Gruppe wurde verifiziert. Sobald der Zeitplan des
-                Bannerlaufs steht werden wir dich informieren.
+                Bannerlaufs steht werden wir dich informieren.<br>
+            </div>
+            <div v-if="team.is_approved && !team.can_choose_projet" class="p-5 bg-blue-100 text-blue-800">
+                Bald könnt ihr euer Projekt auswählen.
             </div>
             <details :open="team.users.length == 1">
                 <summary class="text-gray-700 text-sm cursor-pointer p-2">
@@ -58,7 +61,7 @@
                     </ul>
                 </div>
             </details>
-            <details v-if="team.currentChallenges.length || team.is_approved" open>
+            <details v-if="team.currentChallenges.length || team.can_choose_projet" open>
                 <summary class="text-gray-700 text-sm cursor-pointer p-2">
                     Projekte
                 </summary>
