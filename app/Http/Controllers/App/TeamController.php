@@ -43,9 +43,11 @@ class TeamController extends Controller
             'districts' => Troop::groupedByDistrict(),
             'banners' => Banner::all()->keyBy('id'),
             'distances' => [
-                10 => 'nah',
-                100 => 'mittel',
-                1000 => 'weit',
+                1 => 'Bis zu Nachbarstämmen',
+                2 => 'Überall im Bezirk',
+                3 => 'Bis zu Nachbarbezirken',
+                4 => 'Überall in der Diözese',
+                5 => 'Wir kennen keine Grenzen'
             ],
         ]);
     }
