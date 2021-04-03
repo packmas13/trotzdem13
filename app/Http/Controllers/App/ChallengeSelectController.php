@@ -17,7 +17,7 @@ class ChallengeSelectController extends Controller
 
         $leader = $request->user();
 
-        $challenges = Challenge::with(['banners', 'category'])->withCount('teams')->whereNotNull('published_at')->get();
+        $challenges = Challenge::with(['banners', 'category'])->withCount('teams')->whereNotNull('published_at')->orderBy('teams_count')->inRandomOrder()->get();
 
         return Inertia::render('challenge/Selection', [
             'challenges' => $challenges,
