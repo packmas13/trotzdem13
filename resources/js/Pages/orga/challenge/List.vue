@@ -87,7 +87,7 @@
 
 <script>
 import AppLayout from "@/Layouts/AppLayout";
-import ChallengeDetail from "./_Show";
+import ChallengeDetail from "../../challenge/_Show";
 
 export default {
     components: {

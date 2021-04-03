@@ -16,7 +16,7 @@ class ChallengeController extends Controller
     {
         $challenges = Challenge::with(['banners', 'category'])->get();
 
-        return Inertia::render('challenge/List', [
+        return Inertia::render('orga/challenge/List', [
             'challenges' => $challenges
         ]);
     }
@@ -29,7 +29,7 @@ class ChallengeController extends Controller
      */
     public function create(Request $request)
     {
-        return Inertia::render('challenge/Create', [
+        return Inertia::render('orga/challenge/Create', [
             'banners' => Banner::all(),
             'categories' => Category::all()->keyBy('id'),
         ]);
@@ -75,7 +75,7 @@ class ChallengeController extends Controller
     {
         $challenge = Challenge::with('banners')->findOrFail($id);
 
-        return Inertia::render('challenge/Edit', [
+        return Inertia::render('orga/challenge/Edit', [
             'challenge' => $challenge,
             'banners' => Banner::all(),
             'categories' => Category::all()->keyBy('id'),
