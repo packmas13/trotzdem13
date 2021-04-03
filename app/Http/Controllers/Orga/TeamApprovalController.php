@@ -13,8 +13,6 @@ class TeamApprovalController extends Controller
 {
     public function pending(Request $request)
     {
-        $this->requireOrga($request);
-
         $teams = Team::whereNull('approved_at')->get();
         $teams->load('users', 'troop', 'district', 'banner', 'currentChallenges.banners', 'currentChallenges.category');
 
@@ -26,8 +24,6 @@ class TeamApprovalController extends Controller
 
     public function store(Request $request)
     {
-        $this->requireOrga($request);
-
         $data = $this->validate($request, [
             'approved' => ['required', 'bool'],
             'team_id' => ['required', 'exists:teams,id'],

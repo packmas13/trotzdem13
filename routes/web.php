@@ -44,19 +44,18 @@ Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->gr
     Route::prefix('orga')->middleware(OnlyOrgaTeam::class)->name('orga.')->group(function () {
         Route::get('team/approval/pending', [TeamApprovalController::class, 'pending'])->name('team.pending');
         Route::post('team/approval', [TeamApprovalController::class, 'store'])->name('team.approve');
+
+        Route::get('challenge', [ChallengeController::class, 'index'])->name('challenge.index');
+
+        Route::get('challenge/create', [ChallengeController::class, 'create'])->name('challenge.create');
+        Route::post('challenge', [ChallengeController::class, 'store'])->name('challenge.store');
+
+        Route::get('challenge/edit/{id}', [ChallengeController::class, 'edit'])->name('challenge.edit');
+        Route::get('challenge/publish/{id}', [ChallengeController::class, 'publish'])->name('challenge.publish');
+        Route::get('challenge/unpublish/{id}', [ChallengeController::class, 'unpublish'])->name('challenge.unpublish');
+        Route::post('challenge/update', [ChallengeController::class, 'update'])->name('challenge.update');
+        Route::delete('challenge/delete/{id}', [ChallengeController::class, 'delete'])->name('challenge.delete');
     });
-
-    // Challenge
-    Route::get('challenge', [ChallengeController::class, 'index'])->name('challenge.index');
-
-    Route::get('challenge/create', [ChallengeController::class, 'create'])->name('challenge.create');
-    Route::post('challenge', [ChallengeController::class, 'store'])->name('challenge.store');
-
-    Route::get('challenge/edit/{id}', [ChallengeController::class, 'edit'])->name('challenge.edit');
-    Route::get('challenge/publish/{id}', [ChallengeController::class, 'publish'])->name('challenge.publish');
-    Route::get('challenge/unpublish/{id}', [ChallengeController::class, 'unpublish'])->name('challenge.unpublish');
-    Route::post('challenge/update', [ChallengeController::class, 'update'])->name('challenge.update');
-    Route::delete('challenge/delete/{id}', [ChallengeController::class, 'delete'])->name('challenge.delete');
 
     Route::get('challenge/selection/{team_id}', [ChallengeSelectController::class, 'selection'])->name('challenge.selection');
     Route::get('challenge/select/{team_id}/{challenge_id}', [ChallengeSelectController::class, 'select'])->name('challenge.select');

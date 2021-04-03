@@ -35,8 +35,8 @@
                             v-if="$page.props.orga"
                         >
                             <jet-nav-link
-                                :href="route('app.challenge.index')"
-                                :active="'app.challenge.index' == currentRoute"
+                                :href="route('app.orga.challenge.index')"
+                                :active="'app.orga.challenge.index' == currentRoute"
                             >
                                 Projekte
                             </jet-nav-link>
@@ -337,8 +337,8 @@
                         v-if="$page.props.orga"
                     >
                         <jet-responsive-nav-link
-                            :href="route('app.challenge.index')"
-                            :active="'app.challenge.index' == currentRoute"
+                            :href="route('app.orga.challenge.index')"
+                            :active="'app.orga.challenge.index' == currentRoute"
                         >
                             Projekte
                         </jet-responsive-nav-link>

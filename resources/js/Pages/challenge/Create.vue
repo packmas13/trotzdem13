@@ -1,5 +1,5 @@
 <template>
-    <app-layout current-route="app.challenge.create">
+    <app-layout current-route="app.orga.challenge.create">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Neues Projekt
@@ -109,7 +109,7 @@
 
                     <template #actions>
                         <inertia-link
-                            :href="route('app.challenge.index')"
+                            :href="route('app.orga.challenge.index')"
                             class="secondary-button mr-3"
                             >Abbrechen
                         </inertia-link>
@@ -176,7 +176,7 @@ export default {
 
     methods: {
         createChallenge() {
-            this.form.post(route("app.challenge.store"), {
+            this.form.post(route("app.orga.challenge.store"), {
                 onSuccess: () => this.form.reset(),
                 onError: () => {},
             });

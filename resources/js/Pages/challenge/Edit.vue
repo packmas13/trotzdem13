@@ -1,5 +1,5 @@
 <template>
-    <app-layout current-route="app.challenge.create">
+    <app-layout current-route="app.orga.challenge.create">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Projekt bearbeiten
@@ -121,7 +121,7 @@
                         </button>
                         <div class="flex-1" />
                         <inertia-link
-                            :href="route('app.challenge.index')"
+                            :href="route('app.orga.challenge.index')"
                             class="secondary-button mr-3"
                             >Abbrechen
                         </inertia-link>
@@ -192,7 +192,7 @@ export default {
 
     methods: {
         updateChallenge() {
-            this.form.post(route("app.challenge.update"), {
+            this.form.post(route("app.orga.challenge.update"), {
                 onSuccess: () => this.form.reset(),
                 onError: () => {},
             });
@@ -201,7 +201,7 @@ export default {
             if (!confirm("Projekt wirklich löschen?")) {
                 return;
             }
-            this.$inertia.delete(route("app.challenge.delete", this.challenge.id));
+            this.$inertia.delete(route("app.orga.challenge.delete", this.challenge.id));
         },
     },
 };

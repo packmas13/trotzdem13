@@ -14,8 +14,6 @@ class ChallengeController extends Controller
 {
     public function index(Request $request)
     {
-        $this->requireOrga($request);
-
         $challenges = Challenge::with(['banners', 'category'])->get();
 
         return Inertia::render('challenge/List', [
@@ -31,8 +29,6 @@ class ChallengeController extends Controller
      */
     public function create(Request $request)
     {
-        $this->requireOrga($request);
-
         return Inertia::render('challenge/Create', [
             'banners' => Banner::all(),
             'categories' => Category::all()->keyBy('id'),
@@ -47,8 +43,6 @@ class ChallengeController extends Controller
      */
     public function store(Request $request)
     {
-        $this->requireOrga($request);
-
         $data = $this->validate($request, [
             'title' => ['required', 'string'],
             'description' => ['required', 'string'],
@@ -67,7 +61,7 @@ class ChallengeController extends Controller
 
         $challenge->banners()->sync($data['banners']);
 
-        return redirect()->route('app.challenge.index');
+        return redirect()->route('app.orga.challenge.index');
     }
 
     /**
@@ -79,8 +73,6 @@ class ChallengeController extends Controller
      */
     public function edit(Request $request, int $id)
     {
-        $this->requireOrga($request);
-
         $challenge = Challenge::with('banners')->findOrFail($id);
 
         return Inertia::render('challenge/Edit', [
@@ -98,8 +90,6 @@ class ChallengeController extends Controller
      */
     public function update(Request $request)
     {
-        $this->requireOrga($request);
-
         $data = $this->validate($request, [
             'id' => ['required', 'exists:challenges,id'],
             'title' => ['required', 'string'],
@@ -118,7 +108,7 @@ class ChallengeController extends Controller
         $challenge->save();
         $challenge->banners()->sync($data['banners']);
 
-        return redirect()->route('app.challenge.index');
+        return redirect()->route('app.orga.challenge.index');
     }
 
     /**
@@ -130,13 +120,11 @@ class ChallengeController extends Controller
      */
     public function publish(Request $request, int $id)
     {
-        $this->requireOrga($request);
-
         $challenge = Challenge::findOrFail($id);
         $challenge->published_at = now();
         $challenge->save();
 
-        return redirect()->route('app.challenge.index');
+        return redirect()->route('app.orga.challenge.index');
     }
 
     /**
@@ -148,13 +136,11 @@ class ChallengeController extends Controller
      */
     public function unpublish(Request $request, int $id)
     {
-        $this->requireOrga($request);
-
         $challenge = Challenge::findOrFail($id);
         $challenge->published_at = null;
         $challenge->save();
 
-        return redirect()->route('app.challenge.index');
+        return redirect()->route('app.orga.challenge.index');
     }
 
     /**
@@ -166,11 +152,9 @@ class ChallengeController extends Controller
      */
     public function delete(Request $request, int $id)
     {
-        $this->requireOrga($request);
-
         $challenge = Challenge::findOrFail($id);
         $challenge->delete();
 
-        return redirect()->route('app.challenge.index');
+        return redirect()->route('app.orga.challenge.index');
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <app-layout current-route="app.challenge.index">
+    <app-layout current-route="app.orga.challenge.index">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Projekte
@@ -34,7 +34,7 @@
                                             <inertia-link
                                                 :href="
                                                     route(
-                                                        'app.challenge.edit',
+                                                        'app.orga.challenge.edit',
                                                         { id: challenge.id }
                                                     )
                                                 "
@@ -45,7 +45,7 @@
                                                 v-if="challenge.published_at"
                                                 :href="
                                                     route(
-                                                        'app.challenge.unpublish',
+                                                        'app.orga.challenge.unpublish',
                                                         { id: challenge.id }
                                                     )
                                                 "
@@ -57,7 +57,7 @@
                                                 v-else
                                                 :href="
                                                     route(
-                                                        'app.challenge.publish',
+                                                        'app.orga.challenge.publish',
                                                         { id: challenge.id }
                                                     )
                                                 "
@@ -74,7 +74,7 @@
 
                     <div class="bg-gray-50 py-6 px-6 sm:px-20 text-right">
                         <inertia-link
-                            :href="route('app.challenge.create')"
+                            :href="route('app.orga.challenge.create')"
                             class="ml-2 primary-button"
                             >Neues Projekt
                         </inertia-link>
