@@ -47,7 +47,7 @@
 
           <div class="bg-gray-50 py-6 px-6 sm:px-20 text-right">
             <inertia-link
-                :href="route('app.challenge.create')"
+                :href="route('app.challenge.custom', {team_id: team.id})"
                 class="ml-2 primary-button"
             >Eigenes Projekt
             </inertia-link

@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Challenge;
-use App\Models\Banner;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -53,7 +52,6 @@ class ChallengeController extends Controller
             'category_id' => ['required', 'exists:categories,id'],
             'quantity' => ['required', 'numeric', 'min:1']
         ]);
-        $data['author_id'] = Str::lower(Str::random(8));
 
         $creator = $request->user();
         $data['author_id'] = $creator->id;

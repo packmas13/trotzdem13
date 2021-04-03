@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\App\ChallengeController;
+use App\Http\Controllers\App\ChallengeCustomController;
 use App\Http\Controllers\App\ChallengeSelectController;
 use App\Http\Controllers\App\TeamController;
 use App\Http\Controllers\App\TeamJoinController;
@@ -59,4 +60,7 @@ Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->gr
 
     Route::get('challenge/selection/{team_id}', [ChallengeSelectController::class, 'selection'])->name('challenge.selection');
     Route::get('challenge/select/{team_id}/{challenge_id}', [ChallengeSelectController::class, 'select'])->name('challenge.select');
+
+    Route::get('challenge/custom/{team_id}', [ChallengeCustomController::class, 'create'])->name('challenge.custom');
+    Route::post('challenge/custom/{team_id}', [ChallengeCustomController::class, 'store'])->name('challenge.custom.store');
 });
