@@ -41,6 +41,12 @@
                                 Projekte
                             </jet-nav-link>
                             <jet-nav-link
+                                :href="route('app.orga.challenge.custom')"
+                                :active="'app.orga.challenge.custom' == currentRoute"
+                            >
+                              Eingereichte Projekte ({{ $page.props.orga.challenges_pending }})
+                            </jet-nav-link>
+                            <jet-nav-link
                                 :href="route('app.orga.team.pending')"
                                 :active="
                                     'app.orga.team.pending' == currentRoute
@@ -342,6 +348,12 @@
                         >
                             Projekte
                         </jet-responsive-nav-link>
+                      <jet-responsive-nav-link
+                          :href="route('app.orga.challenge.custom')"
+                          :active="'app.orga.challenge.custom' == currentRoute"
+                      >
+                        Neue Projekte ({{ $page.props.orga.challenges_pending }})
+                      </jet-responsive-nav-link>
                         <jet-responsive-nav-link
                             :href="route('app.orga.team.pending')"
                             :active="'app.orga.team.pending' == currentRoute"

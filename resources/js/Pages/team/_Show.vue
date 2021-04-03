@@ -85,7 +85,7 @@
                         :challenge="challenge"
                     >
                       <template v-slot:actions >
-                        <div v-if="!challenge.published_at" class="p-5 bg-blue-100 text-blue-800">
+                        <div v-if="!challenge.approved_at" class="p-5 bg-blue-100 text-blue-800">
                           Euer Projekt wird geprüft. Sobald es freigegeben ist, könnt ihr loslegen.
                         </div>
                         <div v-else class="p-5 bg-green-100 text-green-800">

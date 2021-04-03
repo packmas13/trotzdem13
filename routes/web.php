@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Orga\ChallengeController;
 use App\Http\Controllers\App\ChallengeCustomController;
 use App\Http\Controllers\App\ChallengeSelectController;
 use App\Http\Controllers\App\TeamController;
@@ -10,6 +9,8 @@ use App\Http\Controllers\ConditionsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImprintController;
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\Orga\ChallengeApprovalController;
+use App\Http\Controllers\Orga\ChallengeController;
 use App\Http\Controllers\Orga\TeamApprovalController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\PrivacyController;
@@ -55,6 +56,10 @@ Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->gr
         Route::get('challenge/unpublish/{id}', [ChallengeController::class, 'unpublish'])->name('challenge.unpublish');
         Route::post('challenge/update', [ChallengeController::class, 'update'])->name('challenge.update');
         Route::delete('challenge/delete/{id}', [ChallengeController::class, 'delete'])->name('challenge.delete');
+
+        Route::get('challenge/custom', [ChallengeApprovalController::class, 'index'])->name('challenge.custom');
+        Route::post('challenge/custom/approve', [ChallengeApprovalController::class, 'approve'])->name('challenge.approve');
+        Route::post('challenge/custom/convert', [ChallengeApprovalController::class, 'convert'])->name('challenge.convert');
     });
 
     Route::get('challenge/selection/{team_id}', [ChallengeSelectController::class, 'selection'])->name('challenge.selection');
