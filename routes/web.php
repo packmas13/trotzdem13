@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\App\ChallengeController;
+use App\Http\Controllers\Orga\ChallengeController;
 use App\Http\Controllers\App\ChallengeCustomController;
 use App\Http\Controllers\App\ChallengeSelectController;
 use App\Http\Controllers\App\TeamController;

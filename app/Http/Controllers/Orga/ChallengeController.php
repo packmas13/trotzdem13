@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\App;
+namespace App\Http\Controllers\Orga;
 
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
@@ -12,8 +12,10 @@ use Inertia\Response;
 
 class ChallengeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $this->requireOrga($request);
+
         $challenges = Challenge::with(['banners', 'category'])->get();
 
         return Inertia::render('challenge/List', [
@@ -24,10 +26,13 @@ class ChallengeController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $this->requireOrga($request);
+
         return Inertia::render('challenge/Create', [
             'banners' => Banner::all(),
             'categories' => Category::all()->keyBy('id'),
@@ -42,7 +47,7 @@ class ChallengeController extends Controller
      */
     public function store(Request $request)
     {
-        abort_if(! $request->user()->isOrga(), 403);
+        $this->requireOrga($request);
 
         $data = $this->validate($request, [
             'title' => ['required', 'string'],
@@ -68,11 +73,14 @@ class ChallengeController extends Controller
     /**
      * Show the form for editing an existing resource.
      *
+     * @param Request $request
      * @param int $id
      * @return Response
      */
-    public function edit(int $id)
+    public function edit(Request $request, int $id)
     {
+        $this->requireOrga($request);
+
         $challenge = Challenge::with('banners')->findOrFail($id);
 
         return Inertia::render('challenge/Edit', [
@@ -90,7 +98,7 @@ class ChallengeController extends Controller
      */
     public function update(Request $request)
     {
-        abort_if(! $request->user()->isOrga(), 403);
+        $this->requireOrga($request);
 
         $data = $this->validate($request, [
             'id' => ['required', 'exists:challenges,id'],
@@ -122,7 +130,7 @@ class ChallengeController extends Controller
      */
     public function publish(Request $request, int $id)
     {
-        abort_if(! $request->user()->isOrga(), 403);
+        $this->requireOrga($request);
 
         $challenge = Challenge::findOrFail($id);
         $challenge->published_at = now();
@@ -140,7 +148,7 @@ class ChallengeController extends Controller
      */
     public function unpublish(Request $request, int $id)
     {
-        abort_if(! $request->user()->isOrga(), 403);
+        $this->requireOrga($request);
 
         $challenge = Challenge::findOrFail($id);
         $challenge->published_at = null;
@@ -158,7 +166,7 @@ class ChallengeController extends Controller
      */
     public function delete(Request $request, int $id)
     {
-        abort_if(! $request->user()->isOrga(), 403);
+        $this->requireOrga($request);
 
         $challenge = Challenge::findOrFail($id);
         $challenge->delete();
