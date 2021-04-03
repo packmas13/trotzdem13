@@ -2,12 +2,9 @@
 
 namespace Tests\Feature\challenge;
 
-use App\Models\Category;
 use App\Models\Challenge;
-use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class UserChallengeTest extends TestCase
@@ -16,9 +13,9 @@ class UserChallengeTest extends TestCase
 
     public function test_get_index_page()
     {
-        $this->actingAs($user = User::factory()->hasChallenges(1)->create());
+        $this->actingAs($user = User::factory()->belongingToOrgaTeam()->hasChallenges(1)->create());
 
-        $response = $this->get('/app/challenge');
+        $response = $this->get('/app/orga/challenge');
 
         $response->assertStatus(200);
 
@@ -28,8 +25,8 @@ class UserChallengeTest extends TestCase
 
     public function test_get_create_page()
     {
-        $this->actingAs($user = User::factory()->create());
-        $response = $this->get('/app/challenge/create');
+        $this->actingAs($user = User::factory()->belongingToOrgaTeam()->create());
+        $response = $this->get('/app/orga/challenge/create');
 
         $response->assertStatus(200);
     }
@@ -38,7 +35,7 @@ class UserChallengeTest extends TestCase
     public function test_post_new_challenge()
     {
         $this->actingAs($user = User::factory()->belongingToOrgaTeam()->create());
-        $response = $this->post('/app/challenge', [
+        $response = $this->post('/app/orga/challenge', [
             'title' => 'My mega challenge',
             'description' => 'Develop a full website in a couple of days',
             'category_id' => 1,
@@ -62,7 +59,7 @@ class UserChallengeTest extends TestCase
         $this->assertFalse($challenge->trashed());
 
         $this->actingAs($user = User::factory()->belongingToOrgaTeam()->create());
-        $response = $this->delete('/app/challenge/delete/'.$challenge->id);
+        $response = $this->delete('/app/orga/challenge/delete/'.$challenge->id);
         $response->assertSessionHasNoErrors();
         $response->assertStatus(302);
 
