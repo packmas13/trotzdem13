@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class AddChallengeApprovedColumn extends Migration
@@ -17,10 +16,6 @@ class AddChallengeApprovedColumn extends Migration
         Schema::table('challenges', function (Blueprint $table) {
             $table->timestamp('approved_at')->nullable();
         });
-
-        DB::table('challenges')->update([
-            'approved_at' => now(),
-        ]);
     }
 
     /**
