@@ -12,7 +12,7 @@ class ChallengeApprovalController extends Controller
 {
     public function index(Request $request)
     {
-        $challenges = Challenge::with(['team', 'category', 'banners', 'team.banner', 'team.troop', 'team.district'])->has('team')->orderBy('approved_at')->get();
+        $challenges = Challenge::with(['team', 'category', 'banners', 'team.banner', 'team.troop', 'team.district'])->submitted()->orderBy('approved_at')->get();
 
         return Inertia::render('orga/challenge/custom/List', [
             'challenges' => $challenges,
@@ -24,7 +24,6 @@ class ChallengeApprovalController extends Controller
         $data = $this->validate($request, [
             'approved' => ['required', 'bool'],
             'challenge_id' => ['required', 'exists:challenges,id'],
-            'reason' => [Rule::requiredIf(!$request->boolean('approved')), 'nullable', 'string'],
         ]);
 
         $challenge = Challenge::findOrFail($data['challenge_id']);

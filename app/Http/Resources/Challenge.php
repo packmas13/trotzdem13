@@ -24,6 +24,7 @@ class Challenge extends JsonResource
             'published_at' => $this->published_at,
             'approved_at' => $this->approved_at,
             'category_id' => $this->category_id,
+            'team_id' => $this->team_id,
 
             'category' => Category::make($this->whenLoaded('category')),
 
