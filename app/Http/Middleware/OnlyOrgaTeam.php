@@ -16,7 +16,7 @@ class OnlyOrgaTeam
      */
     public function handle(Request $request, Closure $next)
     {
-        abort_if(!$request->user() || !$request->user()->isOrga(), 403);
+        abort_if(!$request->user() || !$request->user()->isOrga(), 403, 'Access denied. Orga members only');
         return $next($request);
     }
 }

@@ -13,11 +13,23 @@ class ChallengeSelectController extends Controller
 {
     public function selection(Request $request, int $team_id)
     {
-        $team = Team::findOrFail($team_id);
+        $team = Team::withCount('currentChallenges')->findOrFail($team_id);
 
         $leader = $request->user();
 
-        $challenges = Challenge::with(['banners', 'category'])->whereNotNull('published_at')->get();
+        $team_banner_id = $team->banner_id;
+
+        $challenges = Challenge::with(['banners', 'category'])->withCount('teams')->published()->inRandomOrder()->get();
+
+        $challenges = $challenges->sortBy(function ($challenge) {
+            // least selected projects first
+            return +$challenge->teams_count;
+        })->sortBy(function ($challenge) use ($team_banner_id) {
+            // projects adapted to the team banner first
+            return !$challenge->banners->contains(function ($b) use ($team_banner_id) {
+                return $b->id == $team_banner_id;
+            });
+        })->values();
 
         return Inertia::render('challenge/Selection', [
             'challenges' => $challenges,
@@ -32,8 +44,8 @@ class ChallengeSelectController extends Controller
         $challenge = Challenge::findOrFail($challenge_id);
 
         $bookedTeamsCount = $challenge->teams()->count();
-        if($challenge->quantity > $bookedTeamsCount){
-            if($request->user()->id == $team->leader_id){
+        if ($challenge->quantity < 0 || $challenge->quantity > $bookedTeamsCount) {
+            if ($request->user()->id == $team->leader_id) {
                 $challenge->teams()->syncWithoutDetaching([$team->id]);
             }
         }

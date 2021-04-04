@@ -11,7 +11,7 @@ class ChallengesController extends Controller
 {
     public function index(Request $request)
     {
-        $challenges = Challenge::with('banners')->with('category')->whereNotNull('published_at');
+        $challenges = Challenge::with('banners')->with('category')->published();
 
         $banner_id = $request->get('banner_id');
         if (!empty($banner_id)) {

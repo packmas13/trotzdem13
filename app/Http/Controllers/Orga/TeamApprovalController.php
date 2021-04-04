@@ -13,8 +13,6 @@ class TeamApprovalController extends Controller
 {
     public function pending(Request $request)
     {
-        $user = $request->user();
-        $teams = $user->teams;
         $teams = Team::whereNull('approved_at')->get();
         $teams->load('users', 'troop', 'district', 'banner', 'currentChallenges.banners', 'currentChallenges.category');
 

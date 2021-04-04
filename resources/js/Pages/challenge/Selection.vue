@@ -28,10 +28,10 @@
                   class="py-4 px-6 sm:px-20 even:bg-sepiaGray-100"
               >
                 <ChallengeDetail :challenge="challenge">
-                  <template v-slot:info>
-                    <span>Verfügbar: {{ challenge.quantity }}</span><br>
+                  <template v-slot:info v-if="challenge.quantity >= 0">
+                    <span>Verfügbar: {{ challenge.quantity - challenge.teams_count }}&nbsp;von&nbsp;{{ challenge.quantity }}</span><br>
                   </template>
-                  <template v-slot:actions v-if="isLeader">
+                  <template v-slot:actions v-if="canSelect(challenge)">
                     <div>
                       <inertia-link
                           :href="route('app.challenge.select', {team_id: team.id, challenge_id: challenge.id})"
@@ -47,7 +47,7 @@
 
           <div class="bg-gray-50 py-6 px-6 sm:px-20 text-right">
             <inertia-link
-                :href="route('app.challenge.create')"
+                :href="route('app.challenge.custom', {team_id: team.id})"
                 class="ml-2 primary-button"
             >Eigenes Projekt
             </inertia-link
@@ -83,5 +83,13 @@ export default {
       default: false
     }
   },
+  methods: {
+    canSelect(challenge) {
+      if(!this.isLeader) return false;
+      if(this.team.current_challenges_count > 0) return false;
+      if(challenge.quantity < 0) return true;
+      return challenge.quantity > challenge.teams_count;
+    }
+  }
 };
 </script>

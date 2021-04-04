@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\App;
+namespace App\Http\Controllers\Orga;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Challenge;
-use App\Models\Banner;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class ChallengeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $challenges = Challenge::with(['banners', 'category'])->get();
 
-        return Inertia::render('challenge/List', [
+        return Inertia::render('orga/challenge/List', [
             'challenges' => $challenges
         ]);
     }
@@ -25,11 +24,12 @@ class ChallengeController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return Inertia::render('challenge/Create', [
+        return Inertia::render('orga/challenge/Create', [
             'banners' => Banner::all(),
             'categories' => Category::all()->keyBy('id'),
         ]);
@@ -43,8 +43,6 @@ class ChallengeController extends Controller
      */
     public function store(Request $request)
     {
-        abort_if(! $request->user()->isOrga(), 403);
-
         $data = $this->validate($request, [
             'title' => ['required', 'string'],
             'description' => ['required', 'string'],
@@ -53,7 +51,6 @@ class ChallengeController extends Controller
             'category_id' => ['required', 'exists:categories,id'],
             'quantity' => ['required', 'numeric', 'min:1']
         ]);
-        $data['author_id'] = Str::lower(Str::random(8));
 
         $creator = $request->user();
         $data['author_id'] = $creator->id;
@@ -64,20 +61,21 @@ class ChallengeController extends Controller
 
         $challenge->banners()->sync($data['banners']);
 
-        return redirect()->route('app.challenge.index');
+        return redirect()->route('app.orga.challenge.index');
     }
 
     /**
      * Show the form for editing an existing resource.
      *
+     * @param Request $request
      * @param int $id
      * @return Response
      */
-    public function edit(int $id)
+    public function edit(Request $request, int $id)
     {
         $challenge = Challenge::with('banners')->findOrFail($id);
 
-        return Inertia::render('challenge/Edit', [
+        return Inertia::render('orga/challenge/Edit', [
             'challenge' => $challenge,
             'banners' => Banner::all(),
             'categories' => Category::all()->keyBy('id'),
@@ -92,8 +90,6 @@ class ChallengeController extends Controller
      */
     public function update(Request $request)
     {
-        abort_if(! $request->user()->isOrga(), 403);
-
         $data = $this->validate($request, [
             'id' => ['required', 'exists:challenges,id'],
             'title' => ['required', 'string'],
@@ -112,7 +108,7 @@ class ChallengeController extends Controller
         $challenge->save();
         $challenge->banners()->sync($data['banners']);
 
-        return redirect()->route('app.challenge.index');
+        return redirect()->route('app.orga.challenge.index');
     }
 
     /**
@@ -124,13 +120,11 @@ class ChallengeController extends Controller
      */
     public function publish(Request $request, int $id)
     {
-        abort_if(! $request->user()->isOrga(), 403);
-
         $challenge = Challenge::findOrFail($id);
         $challenge->published_at = now();
         $challenge->save();
 
-        return redirect()->route('app.challenge.index');
+        return redirect()->route('app.orga.challenge.index');
     }
 
     /**
@@ -142,13 +136,11 @@ class ChallengeController extends Controller
      */
     public function unpublish(Request $request, int $id)
     {
-        abort_if(! $request->user()->isOrga(), 403);
-
         $challenge = Challenge::findOrFail($id);
         $challenge->published_at = null;
         $challenge->save();
 
-        return redirect()->route('app.challenge.index');
+        return redirect()->route('app.orga.challenge.index');
     }
 
     /**
@@ -160,11 +152,9 @@ class ChallengeController extends Controller
      */
     public function delete(Request $request, int $id)
     {
-        abort_if(! $request->user()->isOrga(), 403);
-
         $challenge = Challenge::findOrFail($id);
         $challenge->delete();
 
-        return redirect()->route('app.challenge.index');
+        return redirect()->route('app.orga.challenge.index');
     }
 }

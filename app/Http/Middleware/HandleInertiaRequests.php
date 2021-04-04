@@ -2,8 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Banner;
-use App\Models\Category;
+use App\Models\Challenge;
 use App\Models\Team;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -51,6 +50,7 @@ class HandleInertiaRequests extends Middleware
         }
         return [
             'teams_pending' => Team::whereNull('approved_at')->count(),
+            'challenges_pending' => Challenge::has('team')->whereNull('approved_at')->count(),
         ];
     }
 }

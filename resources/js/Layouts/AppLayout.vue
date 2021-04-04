@@ -35,10 +35,16 @@
                             v-if="$page.props.orga"
                         >
                             <jet-nav-link
-                                :href="route('app.challenge.index')"
-                                :active="'app.challenge.index' == currentRoute"
+                                :href="route('app.orga.challenge.index')"
+                                :active="'app.orga.challenge.index' == currentRoute"
                             >
                                 Projekte
+                            </jet-nav-link>
+                            <jet-nav-link
+                                :href="route('app.orga.challenge.custom')"
+                                :active="'app.orga.challenge.custom' == currentRoute"
+                            >
+                              Eingereichte Projekte ({{ $page.props.orga.challenges_pending }})
                             </jet-nav-link>
                             <jet-nav-link
                                 :href="route('app.orga.team.pending')"
@@ -337,11 +343,17 @@
                         v-if="$page.props.orga"
                     >
                         <jet-responsive-nav-link
-                            :href="route('app.challenge.index')"
-                            :active="'app.challenge.index' == currentRoute"
+                            :href="route('app.orga.challenge.index')"
+                            :active="'app.orga.challenge.index' == currentRoute"
                         >
                             Projekte
                         </jet-responsive-nav-link>
+                      <jet-responsive-nav-link
+                          :href="route('app.orga.challenge.custom')"
+                          :active="'app.orga.challenge.custom' == currentRoute"
+                      >
+                        Neue Projekte ({{ $page.props.orga.challenges_pending }})
+                      </jet-responsive-nav-link>
                         <jet-responsive-nav-link
                             :href="route('app.orga.team.pending')"
                             :active="'app.orga.team.pending' == currentRoute"
