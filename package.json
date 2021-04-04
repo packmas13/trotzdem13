@@ -29,7 +29,7 @@
         "laravel-mix-make-file-hash": "^2.2.0",
         "mapbox-gl": "^2.2.0",
         "postcss": "^8.2.8",
-        "postcss-import": "^14.0.0",
+        "postcss-import": "^14.0.1",
         "qrcode": "^1.4.4",
         "tailwindcss": "^2.0.4",
         "vue": "^3.0.11",
