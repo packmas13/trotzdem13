@@ -23,7 +23,7 @@ class UserTeam extends JsonResource
             'leader_id' => $this->leader_id,
             'image' => empty($this->image) ? null : Storage::disk('upload')->url($this->image),
             'is_approved' => !is_null($this->approved_at),
-            'can_choose_project' => !is_null($this->approved_at), // no project selection for now
+            'can_choose_project' => !is_null($this->approved_at),
             'contact_phone' => $this->when($isLeader, $this->contact_phone),
             'contact_email' => $this->when($isLeader, $this->contact_email),
             'contact_name' => $this->when($isLeader, $this->contact_name),
