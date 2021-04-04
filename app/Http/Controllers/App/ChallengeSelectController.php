@@ -19,7 +19,7 @@ class ChallengeSelectController extends Controller
 
         $team_banner_id = $team->banner_id;
 
-        $challenges = Challenge::with(['banners', 'category'])->withCount('teams')->whereNotNull('published_at')->inRandomOrder()->get();
+        $challenges = Challenge::with(['banners', 'category'])->withCount('teams')->published()->inRandomOrder()->get();
 
         $challenges = $challenges->sortBy(function ($challenge) {
             // least selected projects first
