@@ -21,7 +21,7 @@
                 Deine Gruppe wurde verifiziert. Sobald der Zeitplan des
                 Bannerlaufs steht werden wir dich informieren.<br>
             </div>
-            <div v-if="team.is_approved && !team.can_choose_project" class="p-5 bg-blue-100 text-blue-800">
+            <div v-if="team.is_approved && !team.can_choose_challenge" class="p-5 bg-blue-100 text-blue-800">
                 Bald könnt ihr euer Projekt auswählen.
             </div>
             <details :open="team.users.length == 1">
@@ -61,7 +61,7 @@
                     </ul>
                 </div>
             </details>
-            <details v-if="team.currentChallenges.length || team.can_choose_project" open>
+            <details v-if="team.currentChallenges.length || team.can_choose_challenge" open>
                 <summary class="text-gray-700 text-sm cursor-pointer p-2">
                     Projekte
                 </summary>

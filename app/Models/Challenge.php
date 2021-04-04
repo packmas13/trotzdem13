@@ -42,6 +42,11 @@ class Challenge extends Model
 
     public function scopePublished(Builder $query): Builder
     {
-        return $query->whereNotNull('published_at')->whereNotNull('approved_at');
+        return $query->whereNotNull('published_at')->whereNull('team_id');
+    }
+
+    public function scopeSubmitted(Builder $query): Builder
+    {
+        return $query->whereNotNull('team_id');
     }
 }

@@ -50,7 +50,7 @@ class HandleInertiaRequests extends Middleware
         }
         return [
             'teams_pending' => Team::whereNull('approved_at')->count(),
-            'challenges_pending' => Challenge::has('team')->whereNull('approved_at')->count(),
+            'challenges_pending' => Challenge::submitted()->whereNull('approved_at')->count(),
         ];
     }
 }
