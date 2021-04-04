@@ -84,7 +84,7 @@
                         :key="challenge.id"
                         :challenge="challenge"
                     >
-                      <template v-slot:actions >
+                      <template v-slot:actions v-if="challenge.team_id" >
                         <div v-if="!challenge.approved_at" class="p-5 bg-blue-100 text-blue-800">
                           Euer Projekt wird geprüft. Sobald es freigegeben ist, könnt ihr loslegen.
                         </div>
