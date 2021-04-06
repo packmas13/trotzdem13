@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\orga\TeamResource;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
@@ -14,6 +15,8 @@ class TeamApprovalController extends Controller
     public function index(Request $request)
     {
         $teams = Team::with(['users', 'troop', 'district', 'banner', 'currentChallenges.banners', 'currentChallenges.category'])->get();
+
+        $teams = $teams->each(function($team){$team->image = ($team->image) ? Storage::disk('upload')->url($team->image) : null;});
 
         return Inertia::render('orga/team/List', [
             'teams' => $teams
