@@ -11,6 +11,15 @@ use Inertia\Inertia;
 
 class TeamApprovalController extends Controller
 {
+    public function index(Request $request)
+    {
+        $teams = Team::with(['users', 'troop', 'district', 'banner', 'currentChallenges.banners', 'currentChallenges.category'])->get();
+
+        return Inertia::render('orga/team/List', [
+            'teams' => $teams
+        ]);
+    }
+
     public function pending(Request $request)
     {
         $teams = Team::whereNull('approved_at')->get();

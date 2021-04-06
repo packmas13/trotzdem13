@@ -45,6 +45,7 @@ Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->gr
     Route::prefix('orga')->middleware(OnlyOrgaTeam::class)->name('orga.')->group(function () {
         Route::get('team/approval/pending', [TeamApprovalController::class, 'pending'])->name('team.pending');
         Route::post('team/approval', [TeamApprovalController::class, 'store'])->name('team.approve');
+        Route::get('team/list', [TeamApprovalController::class, 'index'])->name('team.list');
 
         Route::get('challenge', [ChallengeController::class, 'index'])->name('challenge.index');
 
