@@ -44,31 +44,7 @@
               <span>Email-Adresse: {{team.contact_email}}</span>
             </div>
           </details>
-            <div
-                v-if="!team.approved_at && !approving"
-                class="p-2 flex items-start"
-            >
-                <button
-                    type="button"
-                    class="primary-button mr-2"
-                    @click="approve(true)"
-                >
-                    Gruppe Freigeben
-                </button>
-                <details>
-                    <summary class="py-2">Gruppe Blockieren</summary>
-                    <form @submit.prevent="approve(false)">
-                        <InputLabel
-                            class="flex flex-col mb-4"
-                            label="Warum soll diese Gruppe blockiert werden?"
-                            help="z.B. Spam, duplikat"
-                        >
-                            <input type="text" v-model="blockReason" required />
-                        </InputLabel>
-                        <button class="danger-button">Gruppe Blockieren</button>
-                    </form>
-                </details>
-            </div>
+          <slot name="actions"></slot>
         </div>
     </div>
 </template>
