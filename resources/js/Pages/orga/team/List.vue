@@ -2,7 +2,7 @@
     <app-layout current-route="app.orga.team.list">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Gruppen
+                {{teams.length}} Gruppen
             </h2>
         </template>
 
