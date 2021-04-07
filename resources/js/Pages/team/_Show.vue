@@ -77,8 +77,7 @@
                         >Projekt auswählen
                     </inertia-link>
                 </div>
-                <div v-else>
-                    <h2>Aktuelles Projekt:</h2>
+                <div v-else class="p-2">
                     <ChallengeDetail
                         v-for="challenge in team.currentChallenges"
                         :key="challenge.id"

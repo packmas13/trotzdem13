@@ -73,10 +73,10 @@
         <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/projekte'?'border-mango-500':''}}" href="/projekte">
             Projekte
         </a>
-        @if(false)
         <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/karte'?'border-mango-500':''}}" href="/karte">
             Karte
         </a>
+        @if(false)
         <a class="block px-4 pt-2 font-bold border-b-8 border-teal-600 hover:border-mango-500 {{$navMain =='/teilnehmer'?'border-mango-500':''}}" href="/teilnehmer">
             Teilnehmer
         </a>

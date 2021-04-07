@@ -1,8 +1,8 @@
 <template>
-  <app-layout current-route="app.challenge.selection">
+  <app-layout current-route="app.team.index">
     <template #header v-if="isLeader">
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Wähle ein Projekt für Team '{{ team.name }}'!
+        Wähle ein Projekt für die Gruppe '{{ team.name }}'!
       </h2>
     </template>
     <template #header v-else>
