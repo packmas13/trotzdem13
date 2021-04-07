@@ -11,7 +11,7 @@
 
         <div class="bg-mango-600 px-1 py-3 text-2xl mx-6 mb-3">
             {{ $team_count }} Gruppen &middot;
-            <span class="inline-block">{{ $challenge_count }} Projekte</span>
+            <span class="inline-block">{{ $challenge_count }} Projekte zur Auswahl</span>
         </div>
     </div>
     <div class="prose lg:prose-xl mx-auto px-2 sm:px-0 py-8 text-center">
