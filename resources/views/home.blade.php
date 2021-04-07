@@ -1,7 +1,7 @@
 <x-layout nav-main="/">
     <div class="mx-auto max-w-3xl sm:mt-2 flex flex-col justify-between text-white text-center font-black text-2xl leading-none">
         <h2 class="bg-mango-600 px-1 py-3 mx-6 mt-3">Bannerlauf startet in
-            {{ $days_left }} Tagen
+            {{ $days_left }} Tagen, am {{ $banner_start->format('d.m.') }}
         </h2>
         <video autoplay loop muted playsinline poster="/img/trotzdem_banner.jpg" width="768" heigh="432" tabindex="-1" aria-label="Wehendes DPSG Banner">
             <source src="/img/trotzdem_banner.webm" type="video/webm" />
@@ -10,7 +10,8 @@
         </video>
 
         <div class="bg-mango-600 px-1 py-3 text-2xl mx-6 mb-3">
-            am {{ $banner_start->format('d.m.Y') }}
+            {{ $team_count }} Gruppen &middot;
+            <span class="inline-block">{{ $challenge_count }} Projekte</span>
         </div>
     </div>
     <div class="prose lg:prose-xl mx-auto px-2 sm:px-0 py-8 text-center">
