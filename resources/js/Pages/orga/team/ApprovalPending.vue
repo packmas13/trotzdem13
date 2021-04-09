@@ -30,35 +30,7 @@
                                 :key="team.id"
                                 class="border-b py-4"
                             >
-                              <TeamDetail :team="team">
-                                <template v-slot:actions>
-                                  <div
-                                      v-if="!team.approved_at && !approving"
-                                      class="p-2 flex items-start"
-                                  >
-                                    <button
-                                        type="button"
-                                        class="primary-button mr-2"
-                                        @click="approve(true)"
-                                    >
-                                      Gruppe Freigeben
-                                    </button>
-                                    <details>
-                                      <summary class="py-2">Gruppe Blockieren</summary>
-                                      <form @submit.prevent="approve(false)">
-                                        <InputLabel
-                                            class="flex flex-col mb-4"
-                                            label="Warum soll diese Gruppe blockiert werden?"
-                                            help="z.B. Spam, duplikat"
-                                        >
-                                          <input type="text" v-model="blockReason" required />
-                                        </InputLabel>
-                                        <button class="danger-button">Gruppe Blockieren</button>
-                                      </form>
-                                    </details>
-                                  </div>
-                                </template>
-                              </TeamDetail>
+                                <TeamDetail :team="team" :errors="errors" />
                             </li>
                         </ul>
                     </div>
@@ -70,7 +42,7 @@
 
 <script>
 import AppLayout from "@/Layouts/AppLayout";
-import TeamDetail from "./_Show";
+import TeamDetail from "./_ApprovalPending";
 
 export default {
     components: {
