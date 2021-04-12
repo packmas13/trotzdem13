@@ -8,6 +8,7 @@ import {
 } from "@inertiajs/inertia-vue3";
 
 import InputLabel from "./input/InputLabel.vue";
+import DraggablePlugin from "./plugins/draggable";
 
 const el = document.getElementById("app");
 
@@ -20,4 +21,5 @@ createApp({
 })
     .mixin({ methods: { route }, components: { InputLabel } })
     .use(InertiaPlugin)
+    .use(DraggablePlugin)
     .mount(el);
