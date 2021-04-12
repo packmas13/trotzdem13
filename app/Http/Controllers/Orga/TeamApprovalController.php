@@ -14,7 +14,7 @@ class TeamApprovalController extends Controller
 {
     public function index(Request $request)
     {
-        $teams = Team::with(['users', 'troop', 'district', 'banner', 'currentChallenges.banners', 'currentChallenges.category'])->get();
+        $teams = Team::whereNotNull('approved_at')->with(['users', 'troop', 'district', 'banner', 'currentChallenges.banners', 'currentChallenges.category'])->get();
 
         $teams = $teams->each(function($team){$team->image = ($team->image) ? Storage::disk('upload')->url($team->image) : null;});
 
