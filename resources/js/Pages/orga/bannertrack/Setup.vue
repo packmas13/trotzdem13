@@ -33,9 +33,19 @@
 
         <div class="flex h-screen">
             <div class="bg-white h-full overflow-y-auto">
-                <div class="italic text-center p-2">
-                    Schiebe die Gruppen nach oben und unten,<br />um die
-                    Reihenfolge zu optimieren
+                <div class="text-center p-2">
+                    <button
+                        type="button"
+                        @click="optimize"
+                        class="secondary-button mb-2"
+                    >
+                        Automatische Optimierung</button
+                    ><br />
+                    Manuelle Optimierung:
+                    <p class="italic">
+                        Schiebe die Gruppen nach oben und unten,<br />um die
+                        Reihenfolge zu optimieren
+                    </p>
                 </div>
                 <ul
                     v-draggable="{
@@ -83,6 +93,8 @@ import AppLayout from "@/Layouts/AppLayout";
 import BannerPill from "@/components/BannerPill.vue";
 import SetupMap from "./SetupMap.vue";
 
+import salesman from "salesman.js";
+
 export default {
     components: {
         AppLayout,
@@ -98,11 +110,24 @@ export default {
         },
     },
     data() {
-        return { teams: this.banner.teams };
+        return {
+            teams: this.banner.teams,
+        };
     },
     methods: {
         changed() {
             console.log("TODO recompute all");
+        },
+        optimize() {
+            const points = this.teams.map(function (t) {
+                return {
+                    x: t.location.lat,
+                    y: t.location.lng,
+                    team: t,
+                };
+            });
+            const solution = salesman.solve(points);
+            this.teams = solution.map((i) => points[i].team);
         },
     },
     computed: {
