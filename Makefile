@@ -22,7 +22,7 @@ public/mix-manifest.json:
 	npm run prod
 
 node_modules:
-	npm install
+	npm ci
 
 dev: node_modules
 	npm run dev
