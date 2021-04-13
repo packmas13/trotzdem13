@@ -39,12 +39,16 @@
                         @click="optimize"
                         class="secondary-button mb-2"
                     >
-                        Automatische Optimierung</button
-                    ><br />
+                        Automatische Optimierung
+                    </button>
+                    <p class="italic text-sm">
+                        Die erste Gruppe wird nicht bewegt.
+                    </p>
+                    <br />
                     Manuelle Optimierung:
-                    <p class="italic">
+                    <p class="italic text-sm">
                         Schiebe die Gruppen nach oben und unten,<br />um die
-                        Reihenfolge zu optimieren
+                        Reihenfolge zu optimieren.
                     </p>
                 </div>
                 <ul
@@ -52,7 +56,6 @@
                         value: teams,
                         placeholderClass: 'bg-sepiaGray-200',
                     }"
-                    @change="changed"
                 >
                     <li
                         v-for="team in teams"
@@ -115,9 +118,6 @@ export default {
         };
     },
     methods: {
-        changed() {
-            console.log("TODO recompute all");
-        },
         optimize() {
             const points = this.teams.map(function (t) {
                 return {
@@ -127,7 +127,9 @@ export default {
                 };
             });
             const solution = salesman.solve(points);
-            this.teams = solution.map((i) => points[i].team);
+            solution.forEach((j, i) => {
+                this.teams[i] = points[j].team;
+            });
         },
     },
     computed: {
