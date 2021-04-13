@@ -150,10 +150,7 @@ export default {
             return (team) => {
                 const i = this.teams.findIndex((t) => t.id == team.id);
                 if (i + 1 >= this.teams.length) {
-                    return {
-                        id: "END",
-                        location: { lat: 48.13206, lng: 11.60278 },
-                    };
+                    return this.teams[0];
                 }
                 return this.teams[i + 1];
             };
