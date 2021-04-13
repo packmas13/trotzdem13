@@ -165,8 +165,12 @@ export default {
             };
         },
         totalDistance() {
-            let d = 0;
+            const last = this.teams[this.teams.length - 1].location;
             let previous = this.teams[0].location;
+
+            // add distance from last to first
+            let d = getDistanceFromLatLonInKm(previous, last);
+
             for (let i = 1; i < this.teams.length; i++) {
                 const current = this.teams[i].location;
                 d += getDistanceFromLatLonInKm(previous, current);
