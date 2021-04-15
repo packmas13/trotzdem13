@@ -9,6 +9,7 @@ use App\Http\Controllers\ConditionsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImprintController;
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\Orga\BannerTrackController;
 use App\Http\Controllers\Orga\ChallengeApprovalController;
 use App\Http\Controllers\Orga\ChallengeController;
 use App\Http\Controllers\Orga\TeamApprovalController;
@@ -46,6 +47,8 @@ Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->gr
         Route::get('team/approval/pending', [TeamApprovalController::class, 'pending'])->name('team.pending');
         Route::post('team/approval', [TeamApprovalController::class, 'store'])->name('team.approve');
         Route::get('team/list', [TeamApprovalController::class, 'index'])->name('team.list');
+
+        Route::get('bannertrack/setup', [BannerTrackController::class, 'setup'])->name('bannertrack.setup');
 
         Route::get('challenge', [ChallengeController::class, 'index'])->name('challenge.index');
 

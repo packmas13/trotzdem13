@@ -1,0 +1,138 @@
+<template>
+    <div id="setupmap">MAPBOX</div>
+</template>
+
+<script>
+import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
+
+mapboxgl.accessToken =
+    "pk.eyJ1Ijoib2xpdmVycG9vbCIsImEiOiJyQW82a1hjIn0.yK2FfgVuRuX-PTD-HFjueA";
+
+export default {
+    props: {
+        teams: {
+            type: Array,
+        },
+    },
+
+    computed: {
+        pointFeatures() {
+            return this.teams.map(function (team) {
+                return {
+                    // feature for Mapbox DC
+                    type: "Feature",
+                    geometry: {
+                        type: "Point",
+                        coordinates: [team.location.lng, team.location.lat],
+                        // coordinates: [-77.03238901390978, 38.913188059745586],
+                    },
+                    properties: {
+                        id: team.id,
+                    },
+                };
+            });
+        },
+        trackFeature() {
+            const coordinates = [];
+            for (let i = 0; i < this.teams.length; i++) {
+                const l = this.teams[i].location;
+                coordinates.push([l.lng, l.lat]);
+            }
+            return {
+                type: "Feature",
+                properties: {},
+                geometry: {
+                    type: "LineString",
+                    coordinates,
+                },
+            };
+        },
+    },
+    watch: {
+        trackFeature(feature) {
+            console.log("changed", feature);
+            this.map.getSource("bannertrack").setData(feature);
+        },
+    },
+
+    mounted() {
+        const l0 = this.teams[0].location;
+        var bounds = [
+            [l0.lng, l0.lat],
+            [l0.lng, l0.lat],
+        ];
+        this.teams.forEach((team) => {
+            const l = team.location;
+            if (l.lng < bounds[0][0]) {
+                bounds[0][0] = l.lng;
+            } else if (l.lng > bounds[1][0]) {
+                bounds[1][0] = l.lng;
+            }
+            if (l.lat < bounds[0][1]) {
+                bounds[0][1] = l.lat;
+            } else if (l.lat > bounds[1][1]) {
+                bounds[1][1] = l.lat;
+            }
+        });
+        var map = new mapboxgl.Map({
+            container: "setupmap", // container ID
+            style: "mapbox://styles/oliverpool/cklbak4fg2p3o17rzfkmeiytq", // style URL
+            interactive: false,
+            bounds,
+            fitBoundsOptions: { padding: 20 },
+            locale: "de",
+        });
+        this.map = map;
+
+        map.on("load", () => {
+            // draw banner track
+            map.addSource("bannertrack", {
+                type: "geojson",
+                data: this.trackFeature,
+            });
+            map.addLayer({
+                id: "route",
+                type: "line",
+                source: "bannertrack",
+                layout: { "line-cap": "round" },
+                paint: {
+                    "line-color": "#1F8389",
+                    "line-width": 2,
+                },
+            });
+
+            // Draw team ids as dots
+            map.addSource("teams", {
+                type: "geojson",
+                data: {
+                    type: "FeatureCollection",
+                    features: this.pointFeatures,
+                },
+            });
+            map.addLayer({
+                id: "team-circles",
+                type: "circle",
+                source: "teams",
+                paint: {
+                    "circle-radius": 13,
+                    "circle-color": "#fff",
+                },
+            });
+            map.addLayer({
+                id: "team-names",
+                type: "symbol",
+                source: "teams",
+                layout: {
+                    // get the title name from the source's "title" property
+                    "text-field": ["get", "id"],
+                    "text-allow-overlap": true,
+                },
+                paint: {
+                    "text-color": "#1F8389",
+                },
+            });
+        });
+    },
+};
+</script>

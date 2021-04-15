@@ -2,18 +2,23 @@
     <app-layout current-route="app.orga.team.list">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{teams.length}} Gruppen
+                {{ teams.length }} Gruppen
             </h2>
+            <div>
+                <inertia-link
+                    :href="route('app.orga.bannertrack.setup')"
+                    class="text-sm text-gray-700 underline"
+                >
+                    Bannerlauf planen
+                </inertia-link>
+            </div>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white shadow-xl sm:rounded-lg">
                     <div>
-                        <div
-                            v-if="!teams.length"
-                            class="italic text-gray-600"
-                        >
+                        <div v-if="!teams.length" class="italic text-gray-600">
                             Keine Gruppen verfügbar!
                         </div>
                         <ul v-else>
@@ -24,23 +29,39 @@
                             >
                                 <TeamDetail :team="team">
                                     <template v-slot:actions>
-                                      <div >
-                                        <h2>Aktuelles Projekt:</h2>
-                                        <ChallengeDetail
-                                            v-for="challenge in team.current_challenges"
-                                            :key="challenge.id"
-                                            :challenge="challenge"
-                                        >
-                                          <template v-slot:actions v-if="challenge.team_id" >
-                                            <div v-if="!challenge.approved_at" class="p-5 bg-blue-100 text-blue-800">
-                                              Hinweis: Selbst eingereichtes Projekt. Muss noch geprüft werden!
-                                            </div>
-                                            <div v-else class="p-5 bg-green-100 text-green-800">
-                                              Hinweis: Selbst eingereichtes Projekt. Bereits freigegeben.
-                                            </div>
-                                          </template>
-                                        </ChallengeDetail>
-                                      </div>
+                                        <div>
+                                            <h2>Aktuelles Projekt:</h2>
+                                            <ChallengeDetail
+                                                v-for="challenge in team.current_challenges"
+                                                :key="challenge.id"
+                                                :challenge="challenge"
+                                            >
+                                                <template
+                                                    v-slot:actions
+                                                    v-if="challenge.team_id"
+                                                >
+                                                    <div
+                                                        v-if="
+                                                            !challenge.approved_at
+                                                        "
+                                                        class="p-5 bg-blue-100 text-blue-800"
+                                                    >
+                                                        Hinweis: Selbst
+                                                        eingereichtes Projekt.
+                                                        Muss noch geprüft
+                                                        werden!
+                                                    </div>
+                                                    <div
+                                                        v-else
+                                                        class="p-5 bg-green-100 text-green-800"
+                                                    >
+                                                        Hinweis: Selbst
+                                                        eingereichtes Projekt.
+                                                        Bereits freigegeben.
+                                                    </div>
+                                                </template>
+                                            </ChallengeDetail>
+                                        </div>
                                     </template>
                                 </TeamDetail>
                             </li>
@@ -60,8 +81,8 @@ import ChallengeDetail from "../../challenge/_Show";
 export default {
     components: {
         AppLayout,
-      TeamDetail,
-      ChallengeDetail,
+        TeamDetail,
+        ChallengeDetail,
     },
     props: {
         teams: {
