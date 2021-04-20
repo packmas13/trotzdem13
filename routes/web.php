@@ -12,6 +12,7 @@ use App\Http\Controllers\MapController;
 use App\Http\Controllers\Orga\BannerTrackController;
 use App\Http\Controllers\Orga\ChallengeApprovalController;
 use App\Http\Controllers\Orga\ChallengeController;
+use App\Http\Controllers\Orga\HandoverController;
 use App\Http\Controllers\Orga\TeamApprovalController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\PrivacyController;
@@ -49,6 +50,9 @@ Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->gr
         Route::get('team/list', [TeamApprovalController::class, 'index'])->name('team.list');
 
         Route::get('bannertrack/setup', [BannerTrackController::class, 'setup'])->name('bannertrack.setup');
+
+        Route::post('handover', [HandoverController::class, 'store'])->name('handover.store');
+        Route::put('handover/{handover}', [HandoverController::class, 'update'])->name('handover.update');
 
         Route::get('challenge', [ChallengeController::class, 'index'])->name('challenge.index');
 

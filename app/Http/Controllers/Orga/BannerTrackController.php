@@ -24,9 +24,21 @@ class BannerTrackController extends Controller
         }
         $banner->load(['teams.troop', 'teams.district'])->get();
 
+        $banner->teams->transform(function ($team) {
+            $team->handover = $team->first_handover();
+            return $team;
+        });
+
+        $sorted_teams = $banner->teams->sortBy(function ($team) {
+            $date = $team->handover->received_at ?? null;
+            // with date first
+            return [$date ? 0 : 1, $date];
+        })->values();
+
         return Inertia::render('orga/bannertrack/Setup', [
             'banners' => $banners,
             'banner' => $banner,
+            'sorted_teams' => $sorted_teams,
         ]);
     }
 }
