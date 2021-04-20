@@ -88,7 +88,7 @@
     <nav class="bg-teal-600 text-white shadow-xl flex flex-wrap items-center justify-center text-sm sm:text-base">
         <a class="p-2 hover:underline {{$navMain =='/impressum'?'underline':''}}" href="/impressum">Impressum</a>
         <a class="p-2 hover:underline {{$navMain =='/datenschutz'?'underline':''}}" hreftodo="/datenschutz" href="https://www.dpsg1300.de/datenschutz/">Datenschutz</a>
-        <a class="p-2 hover:underline" target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/trotzdem_13/">Instragram</a>
+        <a class="p-2 hover:underline" target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/trotzdem_13/">Instagram</a>
     </nav>
 
     @stack('scripts')
