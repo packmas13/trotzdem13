@@ -29,9 +29,10 @@ class ChallengeFactory extends Factory
             'description' => $this->faker->paragraph,
             'author_id' => User::factory(),
             'source' => $this->faker->word,
-            'team_id' => Team::factory(),
             'quantity' => $this->faker->numberBetween(1, 15),
             'category_id' => $this->faker->randomElement(Category::pluck('id')),
+            // 'team_id' => Team::factory(),
+            'published_at' => now(), // by default: orga challenges
         ];
     }
 }

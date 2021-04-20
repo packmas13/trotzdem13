@@ -21,6 +21,9 @@ class UserChallengeTest extends TestCase
 
         $data = $response->viewData('page')['props'];
         $this->assertArrayHasKey('challenges', $data);
+        $this->assertCount(1, $data['challenges']);
+        $this->assertIsInt($data['challenges'][0]['quantity']);
+        $this->assertIsInt($data['challenges'][0]['teams_count']);
     }
 
     public function test_get_create_page()
@@ -59,7 +62,7 @@ class UserChallengeTest extends TestCase
         $this->assertFalse($challenge->trashed());
 
         $this->actingAs($user = User::factory()->belongingToOrgaTeam()->create());
-        $response = $this->delete('/app/orga/challenge/delete/'.$challenge->id);
+        $response = $this->delete('/app/orga/challenge/delete/' . $challenge->id);
         $response->assertSessionHasNoErrors();
         $response->assertStatus(302);
 
