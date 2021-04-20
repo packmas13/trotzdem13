@@ -21,14 +21,21 @@ class ChallengeSelectController extends Controller
 
         $challenges = Challenge::with(['banners', 'category'])->withCount('teams')->published()->inRandomOrder()->get();
 
-        $challenges = $challenges->sortBy(function ($challenge) {
-            // least selected projects first
-            return +$challenge->teams_count;
-        })->sortBy(function ($challenge) use ($team_banner_id) {
+        $challenges = $challenges->sortBy(function ($challenge) use ($team_banner_id) {
             // projects adapted to the team banner first
-            return !$challenge->banners->contains(function ($b) use ($team_banner_id) {
+            $adaptedToTeam = $challenge->banners->contains(function ($b) use ($team_banner_id) {
                 return $b->id == $team_banner_id;
-            });
+            }) ? 0 : 1;
+
+            // selectable projects first
+            $canBeSelected = ($challenge->quantity > $challenge->teams_count)?0:1;
+
+            // least selected projects first
+            $teamCount = +$challenge->teams_count;
+
+
+
+            return [$adaptedToTeam, $canBeSelected, $teamCount];
         })->values();
 
         return Inertia::render('challenge/Selection', [
