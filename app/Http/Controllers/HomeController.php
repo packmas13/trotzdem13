@@ -10,10 +10,10 @@ class HomeController
 {
     public function index()
     {
-        $bannerStart = Carbon::create(2021, 4, 23, 18, 0, 0, 'Europe/Berlin');
-        $bannerEnd = Carbon::create(2021, 9, 18, 0, 0, 0, 'Europe/Berlin');
+        $bannerStart = Carbon::createFromDate(2021, 4, 23, 'Europe/Berlin');
+        $bannerEnd = Carbon::createFromDate(2021, 9, 18, 'Europe/Berlin');
 
-        if($bannerStart->isFuture() || $bannerStart->isToday()){
+        if ($bannerStart->isFuture() || $bannerStart->isToday()) {
             $start_days_left = $bannerStart->diffInDays();
         } else {
             $start_days_left = -1;
