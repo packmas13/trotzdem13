@@ -13,7 +13,7 @@
     },
     "devDependencies": {
         "@inertiajs/inertia": "^0.8.6",
-        "@inertiajs/inertia-vue3": "^0.3.11",
+        "@inertiajs/inertia-vue3": "^0.3.14",
         "@mapbox/mapbox-gl-geocoder": "^4.7.0",
         "@tailwindcss/forms": "^0.3.2",
         "@tailwindcss/typography": "^0.4.0",
