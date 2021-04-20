@@ -12,7 +12,7 @@
                 <div class="px-2 bg-white shadow-xl sm:rounded-lg">
                     <details class="px-4 py-2 bg-white sm:p-6">
                         <summary class="py-2">Neuen Beitrag erstellen</summary>
-                        <PostCreate :banners="banners" :team="selectedTeam" v-if="selectedTeam"/>
+                        <PostCreate :banners="banners" :challenges="challenges" :team="selectedTeam" v-if="selectedTeam"/>
                         <div v-else>
                             <h3>Für welches Team möchtest du einen Beitrag erstellen?</h3>
                             <button
@@ -67,6 +67,9 @@ export default {
             type: Array,
         },
         banners: {
+            type: Object,
+        },
+        challenges: {
             type: Object,
         },
         teams: {

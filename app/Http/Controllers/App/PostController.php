@@ -4,6 +4,7 @@ namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use App\Models\Challenge;
 use App\Models\Post;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -24,11 +25,12 @@ class PostController extends Controller
 
         $user = $request->user();
         $teams = $user->teams;
-        $teams->load('banner', 'currentChallenges');
+        $teams->load('banner');
 
         return Inertia::render('post/Index', [
             'posts' => $posts,
             'banners' => Banner::all()->keyBy('id'),
+            'challenges' => Challenge::all(),
             'teams' => $teams,
         ]);
     }
@@ -45,12 +47,22 @@ class PostController extends Controller
             'subject' => ['required', 'string'],
             'content' => ['required', 'string'],
             'team_id' => ['required', 'exists:teams,id'],
-            'banner_id' => ['nullable', 'exists:banners,id'],
-            'challenge_id' => ['nullable', 'exists:challenges,id'],
+            'banner_id' => ['nullable', 'requiredIf:banner_related,true', 'exists:banners,id'],
+            'challenge_id' => ['nullable', 'requiredIf:challenge_related,true', 'exists:challenges,id'],
+            'banner_related' => ['boolean', 'required'],
+            'challenge_related' => ['boolean', 'required'],
         ]);
 
         $author = $request->user();
         $data['author_id'] = $author->id;
+
+        if(!$data['banner_related']){
+            $data['banner_id'] = null;
+        }
+
+        if(!$data['challenge_related']){
+            $data['challenge_id'] = null;
+        }
 
         $post = Post::create($data);
 
