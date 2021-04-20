@@ -25,8 +25,8 @@
                                 <ChallengeDetail :challenge="challenge">
                                     <template v-slot:info>
                                         <small
-                                            >Verfügbar:
-                                            {{ challenge.quantity }}</small
+                                            >Gewählt:
+                                            {{ challenge.teams_count }}/{{ challenge.quantity }}</small
                                         ><br />
                                     </template>
                                     <template v-slot:actions>

@@ -14,7 +14,9 @@ class ChallengeController extends Controller
 {
     public function index(Request $request)
     {
-        $challenges = Challenge::with(['banners', 'category'])->doesntHave('team')->get();
+        $challenges = Challenge::with(['banners', 'category'])->withCount('teams')->doesntHave('team')->get();
+
+        $challenges = $challenges->sortByDesc('teams_count')->values();
 
         return Inertia::render('orga/challenge/List', [
             'challenges' => $challenges

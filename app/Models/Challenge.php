@@ -15,6 +15,11 @@ class Challenge extends Model
 
     protected $guarded = ['id', 'published_at'];
 
+    protected $casts = [
+        'quantity' => 'integer',
+        'teams_count' => 'integer',
+    ];
+
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
