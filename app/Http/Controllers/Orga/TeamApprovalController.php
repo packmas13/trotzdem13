@@ -16,10 +16,9 @@ class TeamApprovalController extends Controller
     {
         $teams = Team::whereNotNull('approved_at')->with(['users', 'troop', 'district', 'banner', 'currentChallenges.banners', 'currentChallenges.category'])->get();
 
-        $teams = $teams->each(function($team){$team->image = ($team->image) ? Storage::disk('upload')->url($team->image) : null;});
-
+        TeamResource::withoutWrapping();
         return Inertia::render('orga/team/List', [
-            'teams' => $teams
+            'teams' => TeamResource::collection($teams),
         ]);
     }
 
