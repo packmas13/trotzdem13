@@ -1,6 +1,9 @@
 <template>
     <div class="flex justify-between">
-        <h3 v-text="team.name" class="text-2xl" />
+        <div>
+            <small v-text="team.id" class="text-gray-600" title="Gruppen-ID" />
+            <h3 v-text="team.name" class="text-2xl" />
+        </div>
         <small class="text-right pr-2">
             <BannerPill :banner="team.banner" class="-mr-2" />
             <br />
