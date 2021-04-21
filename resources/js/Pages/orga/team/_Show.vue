@@ -16,7 +16,7 @@
             <img :src="team.image" class="inline" />
         </div>
         <div class="flex-auto bg-gray-50 border rounded flex flex-col">
-            <details open class="flex-auto">
+            <details class="flex-auto">
                 <summary class="text-gray-700 text-sm cursor-pointer p-2">
                     {{ team.users.length }} Gruppen-Mitglieder ({{
                         team.join_code
@@ -34,7 +34,7 @@
                     </li>
                 </ul>
             </details>
-          <details v-if="team.contact_name" open>
+          <details v-if="team.contact_name">
             <summary class="text-gray-700 text-sm cursor-pointer p-2">
               Kontaktdaten
             </summary>
