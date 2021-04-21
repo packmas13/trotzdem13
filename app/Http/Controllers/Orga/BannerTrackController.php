@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class BannerTrackController extends Controller
@@ -22,10 +23,13 @@ class BannerTrackController extends Controller
         } else {
             $banner = $banners->first();
         }
-        $banner->load(['teams.troop', 'teams.district'])->get();
+        $banner->load(['teams.troop', 'teams.district', 'teams.banner', 'teams.handovers'])->get();
 
         $banner->teams->transform(function ($team) {
             $team->handover = $team->first_handover();
+            if (!empty($team->image)) {
+                $team->image = Storage::disk('upload')->url($team->image);
+            }
             return $team;
         });
 

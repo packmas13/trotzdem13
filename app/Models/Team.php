@@ -78,6 +78,8 @@ class Team extends Model
 
     public function first_handover(): ?Handover
     {
-        return $this->handovers()->where(['banner_id' => $this->banner_id])->first();
+        return $this->handovers->first(function ($h) {
+            return $h->banner_id == $this->banner_id;
+        });
     }
 }

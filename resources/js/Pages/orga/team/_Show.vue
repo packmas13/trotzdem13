@@ -16,7 +16,7 @@
             <img :src="team.image" class="inline" />
         </div>
         <div class="flex-auto bg-gray-50 border rounded flex flex-col">
-            <details class="flex-auto">
+            <details class="flex-auto" v-if="team.users">
                 <summary class="text-gray-700 text-sm cursor-pointer p-2">
                     {{ team.users.length }} Gruppen-Mitglieder ({{
                         team.join_code
