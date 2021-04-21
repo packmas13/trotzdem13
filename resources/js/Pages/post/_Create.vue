@@ -140,7 +140,6 @@ export default {
                 banner_related: false,
                 challenge_related: false,
             }),
-            editor: null,
         };
     },
 

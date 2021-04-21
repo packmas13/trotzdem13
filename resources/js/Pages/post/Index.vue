@@ -42,7 +42,8 @@
                             :key="post.id"
                             class="py-4 px-4 xl:px-20 even:bg-sepiaGray-100"
                         >
-                            <PostDetail :post="post" />
+                            <PostDetail :post="post">
+                            </PostDetail>
                         </li>
                     </ul>
                 </div>

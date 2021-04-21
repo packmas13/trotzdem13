@@ -5,6 +5,7 @@ namespace App\Http\Controllers\App;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Challenge;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = Post::with(['author', 'team', 'banner', 'challenge', 'comments'])->orderByDesc('updated_at')->get();
+        $posts = Post::with(['author', 'team', 'banner', 'challenge', 'comments', 'comments.author'])->orderByDesc('updated_at')->get();
         $posts = $posts->each(function($post){$post->team->image = ($post->team->image) ? Storage::disk('upload')->url($post->team->image) : null;});
 
         $user = $request->user();
@@ -65,6 +66,27 @@ class PostController extends Controller
         }
 
         $post = Post::create($data);
+
+        return redirect()->route('app.post.index');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function comment(Request $request)
+    {
+        $data = $this->validate($request, [
+            'content' => ['required', 'string'],
+            'post_id' => ['required', 'exists:posts,id'],
+        ]);
+
+        $author = $request->user();
+        $data['author_id'] = $author->id;
+
+        $post = Comment::create($data);
 
         return redirect()->route('app.post.index');
     }

@@ -14,7 +14,7 @@
             </small>
             <slot name="info"></slot>
         </div>
-        <div class="flex-auto overflow-y-hidden pr-2">
+        <div class="pr-2">
             <div class="flex justify-between">
                 <h2 class="text-2xl sm:text-3xl text-teal-600 break-words">
                     {{ post.subject }}
@@ -29,13 +29,20 @@
             <p class="whitespace-pre-line text-sm sm:text-base pb-2">
                 {{ post.content }}
             </p>
+
             <slot name="actions"></slot>
         </div>
+    </div>
+    <div class="mt-1 pl-10">
+        <Comments :comments="post.comments" />
+        <CreateComment :post_id="post.id" />
     </div>
 </template>
 
 <script>
 import BannerPill from "../../components/BannerPill.vue";
+import Comments from "@/Pages/post/Comments";
+import CreateComment from "@/Pages/post/CreateComment";
 
 export default {
     props: {
@@ -44,6 +51,8 @@ export default {
         },
     },
     components: {
+        CreateComment,
+        Comments,
         BannerPill,
     },
 };

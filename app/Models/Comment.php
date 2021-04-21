@@ -11,6 +11,8 @@ class Comment extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['post_id', 'author_id', 'content'];
+
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
