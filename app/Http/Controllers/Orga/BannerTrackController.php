@@ -35,8 +35,9 @@ class BannerTrackController extends Controller
 
         $sorted_teams = $banner->teams->sortBy(function ($team) {
             $date = $team->handover->received_at ?? null;
+            $variant = $team->handover->variant ?? null;
             // with date first
-            return [$date ? 0 : 1, $date];
+            return [$date ? 0 : 1, $variant, $date];
         })->values();
 
         return Inertia::render('orga/bannertrack/Setup', [

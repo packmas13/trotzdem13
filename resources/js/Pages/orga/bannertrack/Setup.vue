@@ -26,6 +26,7 @@
                         :banner="b"
                         class="hover:underline"
                         :class="{ 'bg-opacity-25': b.id != banner.id }"
+                        :variant="b.variants > 1 ? b.variants : 0"
                     />
                 </inertia-link>
             </div>
@@ -87,6 +88,20 @@
                 <div class="p-2 text-gray-600 text-right">
                     Luftlinie ≈ {{ totalDistance }} Km
                 </div>
+                <p class="p-2 italic text-xs">
+                    Wenn die Karte nicht aktualisert wird,
+                    <inertia-link
+                        class="text-link"
+                        :href="
+                            route('app.orga.bannertrack.setup', {
+                                banner_id: banner.id,
+                            })
+                        "
+                        preserve-scroll
+                    >
+                        klick hier um es neu zu laden</inertia-link
+                    >.
+                </p>
             </div>
             <SetupMap :teams="teams" class="flex-auto" />
         </div>

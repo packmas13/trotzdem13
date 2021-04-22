@@ -22,12 +22,14 @@ class HandoverTest extends TestCase
             'team_id' => $team->id,
             'banner_id' => $team->banner_id,
             'received_at' => '2021-04-01',
+            'variant' => 2,
         ]);
 
         $response->assertStatus(201);
 
         $handover = $team->first_handover();
         $this->assertNotNull($handover);
+        $this->assertEquals(2, $handover->variant);
 
         $next_team = $handover->next_team();
         $this->assertNotNull($next_team);
@@ -43,6 +45,7 @@ class HandoverTest extends TestCase
             'team_id' => $handover->team_id,
             'banner_id' => $handover->banner_id,
             'received_at' => '2021-05-01',
+            'variant' => 2,
         ]);
 
         $response->assertStatus(200);
@@ -50,5 +53,6 @@ class HandoverTest extends TestCase
         $handover->refresh();
 
         $this->assertEquals('2021-05-01', $handover->received_at->format('Y-m-d'));
+        $this->assertEquals(2, $handover->variant);
     }
 }

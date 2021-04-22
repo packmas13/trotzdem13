@@ -17,7 +17,14 @@
     </div>
     <div v-else class="flex justify-between items-center">
         <span class="text-gray-600">
-            <small>kriegt das Banner am</small>
+            <small>kriegt das Banner </small>
+            <span
+                v-if="has_many_variants"
+                class="text-white px-1 mx-1"
+                :class="handover.variant % 2 ? 'bg-teal-700' : 'bg-mango-700'"
+                >{{ handover.variant }}</span
+            >
+            <small>am</small>
             <strong class="text-teal-700">&nbsp;{{ handover_at }}</strong>
         </span>
         <button
@@ -56,6 +63,19 @@
                                 required
                             />
                         </div>
+                        <div v-if="has_many_variants" class="mt-2">
+                            <label class="col-span-6 sm:col-span-4">
+                                <RadioInput
+                                    label="Welches Banner?"
+                                    :required="true"
+                                    :options="banner_variants"
+                                    v-model="variant"
+                                    v-slot="option"
+                                >
+                                    Banner {{ option }}
+                                </RadioInput>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -93,10 +113,11 @@
 
 <script>
 import DialogModal from "../../../components/DialogModal.vue";
+import RadioInput from "../../../input/RadioInput.vue";
 import TeamDetail from "../team/_Show.vue";
 
 export default {
-    components: { DialogModal, TeamDetail },
+    components: { DialogModal, TeamDetail, RadioInput },
     props: {
         team: {
             type: Object,
@@ -105,14 +126,32 @@ export default {
     data() {
         const handover = this.team.handover;
 
+        let variant;
+        if (handover) {
+            variant = handover.variant;
+        } else if (this.team.banner.variants == 1) {
+            variant = 1;
+        }
+
         return {
             displayFormModal: false,
             displayDetailModal: false,
             received_at: handover ? handover.received_at : null,
+            variant,
             handover,
         };
     },
     computed: {
+        has_many_variants() {
+            return this.team.banner.variants > 1;
+        },
+        banner_variants() {
+            const options = {};
+            for (let i = 1; i <= this.team.banner.variants; i++) {
+                options[i] = i;
+            }
+            return options;
+        },
         handover_at() {
             if (!this.handover) {
                 return null;
@@ -130,6 +169,7 @@ export default {
                 team_id: this.team.id,
                 banner_id: this.team.banner_id,
                 received_at: this.received_at,
+                variant: this.variant,
             };
             if (this.handover) {
                 return axios

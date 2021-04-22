@@ -30,6 +30,7 @@ class HandoverController extends Controller
             'team_id' => ['required', 'exists:teams,id'],
             'banner_id' => ['required', 'exists:banners,id'],
             'received_at' => ['required', 'date'],
+            'variant' => ['required','integer', 'min:1'],
         ]);
         return Handover::create($data);
     }
@@ -58,6 +59,7 @@ class HandoverController extends Controller
             'team_id' => ['required', 'exists:teams,id'],
             'banner_id' => ['required', 'exists:banners,id'],
             'received_at' => ['required', 'date'],
+            'variant' => ['required','integer', 'min:1'],
         ]);
         $handover->update($data);
         return $handover;

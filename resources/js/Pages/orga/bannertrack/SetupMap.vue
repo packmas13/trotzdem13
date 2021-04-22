@@ -34,25 +34,39 @@ export default {
             });
         },
         trackFeature() {
-            const coordinates = [];
-            for (let i = 0; i < this.teams.length; i++) {
-                const l = this.teams[i].location;
-                coordinates.push([l.lng, l.lat]);
+            if (!this.teams.length) {
+                return [];
             }
-            return {
-                type: "Feature",
-                properties: {},
-                geometry: {
-                    type: "LineString",
-                    coordinates,
-                },
-            };
+            const variants = [];
+            for (let i = 1; i <= this.teams[i].banner.variants; i++) {
+                variants[i] = {
+                    type: "Feature",
+                    properties: {},
+                    geometry: {
+                        type: "LineString",
+                        coordinates: [],
+                    },
+                };
+            }
+
+            for (let i = 0; i < this.teams.length; i++) {
+                let variant = 1;
+                if (this.teams[i].handover) {
+                    variant = this.teams[i].handover.variant;
+                }
+
+                const l = this.teams[i].location;
+                variants[variant].geometry.coordinates.push([l.lng, l.lat]);
+            }
+            return variants;
         },
     },
     watch: {
         trackFeature(feature) {
-            console.log("changed", feature);
-            this.map.getSource("bannertrack").setData(feature);
+            const variants = this.teams[0].banner.variants;
+            for (let i = 1; i <= variants; i++) {
+                this.map.getSource("bannertrack-" + i).setData(feature[i]);
+            }
         },
     },
 
@@ -85,22 +99,29 @@ export default {
         });
         this.map = map;
 
+        if (!this.teams.length) {
+            return;
+        }
+
         map.on("load", () => {
-            // draw banner track
-            map.addSource("bannertrack", {
-                type: "geojson",
-                data: this.trackFeature,
-            });
-            map.addLayer({
-                id: "route",
-                type: "line",
-                source: "bannertrack",
-                layout: { "line-cap": "round" },
-                paint: {
-                    "line-color": "#1F8389",
-                    "line-width": 2,
-                },
-            });
+            const variants = this.teams[0].banner.variants;
+            for (let i = 1; i <= variants; i++) {
+                // draw banner track
+                map.addSource("bannertrack-" + i, {
+                    type: "geojson",
+                    data: this.trackFeature[i],
+                });
+                map.addLayer({
+                    id: "route-" + i,
+                    type: "line",
+                    source: "bannertrack-" + i,
+                    layout: { "line-cap": "round" },
+                    paint: {
+                        "line-color": i % 2 ? "#1F8389" : "#cc7404",
+                        "line-width": 2,
+                    },
+                });
+            }
 
             // Draw team ids as dots
             map.addSource("teams", {
@@ -127,6 +148,8 @@ export default {
                     // get the title name from the source's "title" property
                     "text-field": ["get", "id"],
                     "text-allow-overlap": true,
+                    "text-font": ["Open Sans Bold", "Arial Unicode MS Bold"],
+                    "text-letter-spacing": -0.05,
                 },
                 paint: {
                     "text-color": "#1F8389",
