@@ -26,7 +26,7 @@
                         :banner="b"
                         class="hover:underline"
                         :class="{ 'bg-opacity-25': b.id != banner.id }"
-                        :variant="b.variants > 1 ? b.variants : 0"
+                        :variant="b.variants"
                     />
                 </inertia-link>
             </div>

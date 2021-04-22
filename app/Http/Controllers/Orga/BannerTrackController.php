@@ -26,7 +26,7 @@ class BannerTrackController extends Controller
         $banner->load(['teams.troop', 'teams.district', 'teams.banner', 'teams.handovers'])->get();
 
         $banner->teams->transform(function ($team) {
-            $team->handover = $team->first_handover();
+            $team->handover = $team->handovers->first();
             if (!empty($team->image)) {
                 $team->image = Storage::disk('upload')->url($team->image);
             }

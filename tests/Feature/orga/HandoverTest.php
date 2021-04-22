@@ -27,13 +27,13 @@ class HandoverTest extends TestCase
 
         $response->assertStatus(201);
 
-        $handover = $team->first_handover();
+        $handover = $team->handovers->first();
         $this->assertNotNull($handover);
         $this->assertEquals(2, $handover->variant);
 
-        $next_team = $handover->next_team();
-        $this->assertNotNull($next_team);
-        $this->assertEquals(42, $next_team->id);
+        $nextHandover = $handover->nextHandover();
+        $this->assertNotNull($nextHandover);
+        $this->assertEquals(42, $nextHandover->team->id);
     }
 
     public function test_update_a_handover()

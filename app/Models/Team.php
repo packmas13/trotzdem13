@@ -75,11 +75,4 @@ class Team extends Model
     {
         return $this->hasMany(Handover::class);
     }
-
-    public function first_handover(): ?Handover
-    {
-        return $this->handovers->first(function ($h) {
-            return $h->banner_id == $this->banner_id;
-        });
-    }
 }

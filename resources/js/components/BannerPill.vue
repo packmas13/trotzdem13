@@ -4,8 +4,13 @@
             'bg-' + banner.color + '-light' + ' text-' + banner.color + '-dark'
         "
         class="px-2 py-1 rounded-full inline-block"
+        :title="
+            banner.variants > 1 && variant
+                ? 'Es gibt ' + banner.variants + ' ' + banner.name
+                : ''
+        "
         >{{ printStufe ? banner.stufe : banner.name
-        }}<sup v-if="variant">{{ variant }}</sup></span
+        }}<sup v-if="banner.variants > 1 && variant">{{ variant }}</sup></span
     >
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-    <div id="setupmap">MAPBOX</div>
+    <div id="setupmap">Karte wird geladen...</div>
 </template>
 
 <script>
