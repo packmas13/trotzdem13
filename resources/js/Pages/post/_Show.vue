@@ -14,7 +14,7 @@
             </small>
             <slot name="info"></slot>
         </div>
-        <div class="pr-2">
+        <div class="pr-2 flex-grow">
             <div class="flex justify-between">
                 <h2 class="text-2xl sm:text-3xl text-teal-600 break-words">
                     {{ post.subject }}
@@ -29,11 +29,13 @@
             <p class="whitespace-pre-line text-sm sm:text-base pb-2">
                 {{ post.content }}
             </p>
-
             <slot name="actions"></slot>
         </div>
     </div>
-    <div class="mt-1 pl-10">
+    <div class="mt-1 pl-10 py-2 border-t border-gray-600">
+        <Reactions :reactedUsers="post.users" :post_id="post.id"></Reactions>
+    </div>
+    <div class="mt-1 pl-10 border-t border-gray-600">
         <Comments :comments="post.comments" />
         <CreateComment :post_id="post.id" />
     </div>
@@ -43,6 +45,8 @@
 import BannerPill from "../../components/BannerPill.vue";
 import Comments from "@/Pages/post/Comments";
 import CreateComment from "@/Pages/post/CreateComment";
+import SecondaryButton from "@/Jetstream/SecondaryButton";
+import Reactions from "@/components/Reactions";
 
 export default {
     props: {
@@ -51,6 +55,8 @@ export default {
         },
     },
     components: {
+        Reactions,
+        SecondaryButton,
         CreateComment,
         Comments,
         BannerPill,

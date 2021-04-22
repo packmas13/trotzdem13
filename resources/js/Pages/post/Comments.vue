@@ -1,5 +1,5 @@
 <template>
-    <div class="p-2 border-t border-gray-600">
+    <div class="p-2">
         <p class="text-lg">Kommtentare</p>
         <div
             class="px-2 border-t"

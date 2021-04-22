@@ -7,7 +7,6 @@ use App\Models\Banner;
 use App\Models\Challenge;
 use App\Models\Comment;
 use App\Models\Post;
-use App\Models\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -21,7 +20,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = Post::with(['author', 'team', 'banner', 'challenge', 'comments', 'comments.author'])->orderByDesc('updated_at')->get();
+        $posts = Post::with(['author', 'team', 'banner', 'challenge', 'comments', 'comments.author', 'users'])->orderByDesc('updated_at')->get();
         $posts = $posts->each(function($post){$post->team->image = ($post->team->image) ? Storage::disk('upload')->url($post->team->image) : null;});
 
         $user = $request->user();
@@ -92,47 +91,45 @@ class PostController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Team  $team
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Team $team)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Team  $team
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Team $team)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * React on a post.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Team $team)
+    public function react(Request $request)
     {
-        //
+        $data = $this->validate($request, [
+            'type' => ['required', 'string'],
+            'post_id' => ['required', 'exists:posts,id'],
+        ]);
+
+        $user = $request->user();
+
+        $post = Post::findOrFail($data['post_id']);
+
+        $post->users()->syncWithoutDetaching([$user->id => ['type' => $data['type']]]);
+
+        return redirect()->route('app.post.index');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * React on a post.
      *
-     * @param  \App\Models\Team  $team
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Team $team)
+    public function unreact(Request $request)
     {
-        //
+        $data = $this->validate($request, [
+            'post_id' => ['required', 'exists:posts,id'],
+        ]);
+
+        $user = $request->user();
+
+        $post = Post::findOrFail($data['post_id']);
+
+        $post->users()->detach($user->id);
+
+        return redirect()->route('app.post.index');
     }
 }

@@ -37,4 +37,9 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'reactions')->as('reaction')->withTimestamps()->withPivot('type');
+    }
 }

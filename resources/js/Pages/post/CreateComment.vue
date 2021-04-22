@@ -44,8 +44,11 @@ export default {
     methods: {
         createComment() {
             this.form.post(route("app.comment.store"), {
+                preserveScroll: true,
                 onSuccess: () => this.form.reset(),
-                onError: () => {},
+                onError: (error) => {
+                    this.form.error = error;
+                },
             });
         },
     },

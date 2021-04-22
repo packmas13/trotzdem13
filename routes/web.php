@@ -76,5 +76,8 @@ Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->gr
     Route::get('post', [PostController::class, 'index'])->name('post.index');
     Route::post('post', [PostController::class, 'store'])->name('post.store');
 
+    Route::post('post/react', [PostController::class, 'react'])->name('post.react');
+    Route::post('post/unreact', [PostController::class, 'unreact'])->name('post.unreact');
+
     Route::post('comment', [PostController::class, 'comment'])->name('comment.store');
 });
