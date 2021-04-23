@@ -1,6 +1,9 @@
 <template>
     <div class="flex justify-between">
-        <h3 v-text="team.name" class="text-2xl" />
+        <div>
+            <small v-text="team.id" class="text-gray-600" title="Gruppen-ID" />
+            <h3 v-text="team.name" class="text-2xl" />
+        </div>
         <small class="text-right pr-2">
             <BannerPill :banner="team.banner" class="-mr-2" />
             <br />
@@ -13,7 +16,7 @@
             <img :src="team.image" class="inline" />
         </div>
         <div class="flex-auto bg-gray-50 border rounded flex flex-col">
-            <details open class="flex-auto">
+            <details class="flex-auto" v-if="team.users">
                 <summary class="text-gray-700 text-sm cursor-pointer p-2">
                     {{ team.users.length }} Gruppen-Mitglieder ({{
                         team.join_code
@@ -31,7 +34,7 @@
                     </li>
                 </ul>
             </details>
-          <details v-if="team.contact_name" open>
+          <details v-if="team.contact_name">
             <summary class="text-gray-700 text-sm cursor-pointer p-2">
               Kontaktdaten
             </summary>

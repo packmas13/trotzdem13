@@ -26,6 +26,7 @@
                         :banner="b"
                         class="hover:underline"
                         :class="{ 'bg-opacity-25': b.id != banner.id }"
+                        :variant="b.variants"
                     />
                 </inertia-link>
             </div>
@@ -42,7 +43,8 @@
                         Automatische Optimierung
                     </button>
                     <p class="italic text-sm">
-                        Die erste Gruppe wird nicht bewegt.
+                        Die erste Gruppe und die Gruppen<br />
+                        mit Datum werden nicht bewegt.
                     </p>
                     <br />
                     Manuelle Optimierung:
@@ -60,31 +62,46 @@
                     <li
                         v-for="team in teams"
                         :key="team.id"
-                        class="p-2 flex justify-between border-b items-center cursor-move"
+                        class="p-2 border-b"
                     >
-                        <div>
-                            {{ team.id }} <strong v-text="team.name" />
-                            <small class="block w-64 truncate text-gray-600"
-                                >{{ team.troop.name }} -
-                                {{ team.district.name }}</small
-                            >
-                        </div>
                         <div
-                            class="text-right whitespace-nowrap"
-                            title="Luftlinie zur nächsten Gruppe"
+                            class="flex justify-between items-center cursor-move"
                         >
-                            {{ distance(team, nextTeam(team)) }} Km
-                            <small class="block">{{ radius(team) }}</small>
+                            <div>
+                                {{ team.id }} <strong v-text="team.name" />
+                                <small class="block w-64 truncate text-gray-600"
+                                    >{{ team.troop.name }} -
+                                    {{ team.district.name }}</small
+                                >
+                            </div>
+                            <div
+                                class="text-right whitespace-nowrap"
+                                title="Luftlinie zur nächsten Gruppe"
+                            >
+                                {{ distance(team, nextTeam(team)) }} Km
+                                <small class="block">{{ radius(team) }}</small>
+                            </div>
                         </div>
+                        <TeamHandover :team="team" />
                     </li>
                 </ul>
                 <div class="p-2 text-gray-600 text-right">
                     Luftlinie ≈ {{ totalDistance }} Km
                 </div>
-                <div class="p-2 italic text-center">
-                    Speichern ist noch nicht möglich<br />(einen Screenshot
-                    kannst du aber machen)
-                </div>
+                <p class="p-2 italic text-xs">
+                    Wenn die Karte nicht aktualisert wird,
+                    <inertia-link
+                        class="text-link"
+                        :href="
+                            route('app.orga.bannertrack.setup', {
+                                banner_id: banner.id,
+                            })
+                        "
+                        preserve-scroll
+                    >
+                        klick hier um es neu zu laden</inertia-link
+                    >.
+                </p>
             </div>
             <SetupMap :teams="teams" class="flex-auto" />
         </div>
@@ -95,6 +112,7 @@
 import AppLayout from "@/Layouts/AppLayout";
 import BannerPill from "@/components/BannerPill.vue";
 import SetupMap from "./SetupMap.vue";
+import TeamHandover from "./_TeamHandover.vue";
 
 import salesman from "salesman.js";
 
@@ -103,9 +121,13 @@ export default {
         AppLayout,
         BannerPill,
         SetupMap,
+        TeamHandover,
     },
     props: {
         banners: {
+            type: Array,
+        },
+        sorted_teams: {
             type: Array,
         },
         banner: {
@@ -114,12 +136,16 @@ export default {
     },
     data() {
         return {
-            teams: this.banner.teams,
+            teams: this.sorted_teams,
         };
     },
     methods: {
         optimize() {
-            const points = this.teams.map(function (t) {
+            let skip = this.teams.findIndex((t) => !t.handover);
+            if (skip) {
+                skip--;
+            }
+            const points = this.teams.slice(skip).map(function (t) {
                 return {
                     x: t.location.lat,
                     y: t.location.lng,
@@ -128,7 +154,7 @@ export default {
             });
             const solution = salesman.solve(points);
             solution.forEach((j, i) => {
-                this.teams[i] = points[j].team;
+                this.teams[i + skip] = points[j].team;
             });
         },
     },

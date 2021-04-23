@@ -12,6 +12,10 @@ class Banner extends Model
 
     public $timestamps = false;
 
+    protected $casts = [
+        'variants' => 'integer',
+    ];
+
     public function teams(): HasMany
     {
         return $this->hasMany(Team::class);

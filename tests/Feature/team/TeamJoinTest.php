@@ -36,7 +36,7 @@ class TeamJoinTest extends TestCase
         $this->assertCount(1, $teams);
         $this->assertEquals($team->id, $teams->first()->id);
 
-        $this->assertDatabaseCount('team_user', 1);
+        $this->assertDatabaseCount('team_user', 2); // +team leader
     }
 
     public function test_multijoin_team()
@@ -62,7 +62,7 @@ class TeamJoinTest extends TestCase
         $this->assertCount(1, $teams);
         $this->assertEquals($team->id, $teams->first()->id);
 
-        $this->assertDatabaseCount('team_user', 1);
+        $this->assertDatabaseCount('team_user', 2); // +team leader
     }
 
     public function test_invalid_code()
@@ -84,6 +84,6 @@ class TeamJoinTest extends TestCase
         $teams = $user->teams()->get();
         $this->assertCount(0, $teams);
 
-        $this->assertDatabaseCount('team_user', 0);
+        $this->assertDatabaseCount('team_user', 1); // +team leader
     }
 }

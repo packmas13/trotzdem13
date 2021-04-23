@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\MissingValue;
 use Illuminate\Support\Facades\Storage;
 
 class UserTeam extends JsonResource
@@ -16,6 +17,11 @@ class UserTeam extends JsonResource
     public function toArray($request)
     {
         $isLeader = $request->user()->id == $this->leader_id;
+        $handovers = Handover::collection($this->whenLoaded('handovers'));
+        if ($isLeader && !($handovers->resource instanceof MissingValue)) {
+            $handovers->each->forLeader(true);
+        }
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -37,6 +43,8 @@ class UserTeam extends JsonResource
             'district' => Troop::make($this->whenLoaded('district')),
             'banner' => Banner::make($this->whenLoaded('banner')),
             'currentChallenges' => Challenge::collection($this->whenLoaded('currentChallenges')),
+
+            'handovers' => $handovers,
         ];
     }
 }

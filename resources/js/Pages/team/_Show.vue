@@ -17,11 +17,48 @@
                 Deine Gruppe wird verifiziert. Sobald sie freigegeben ist, wird
                 sie auf der öffentlichen Seite präsentiert.
             </div>
-            <div v-else class="p-5 bg-green-100 text-green-800">
-                Deine Gruppe wurde verifiziert. Sobald der Zeitplan des
-                Bannerlaufs steht werden wir dich informieren.<br>
+            <div v-else-if="team.handovers && team.handovers.length">
+                <div
+                    v-for="handover in team.handovers"
+                    :key="handover.id"
+                    class="p-2 bg-green-50 text-green-800 mb-2"
+                >
+                    Ihr kriegt das
+                    <BannerPill
+                        :banner="handover.banner"
+                        :variant="handover.variant"
+                    />
+                    <strong
+                        >spätestens am
+                        {{ formatDate(handover.received_at) }}</strong
+                    >, von der Gruppe:<br />
+                    <other-team
+                        class="text-black"
+                        :team="handover.previous_team"
+                    />
+                    <br />
+                    und gibt es bitte
+                    <strong
+                        >spätestens am
+                        {{
+                            formatDate(handover.next_handover.received_at)
+                        }}</strong
+                    >
+                    weiter, an die Gruppe:<br />
+                    <other-team
+                        class="text-black"
+                        :team="handover.next_handover.team"
+                    />
+                </div>
             </div>
-            <div v-if="team.is_approved && !team.can_choose_challenge" class="p-5 bg-blue-100 text-blue-800">
+            <div v-else class="p-5 bg-blue-100 text-blue-800">
+                Deine Gruppe wurde verifiziert. Sobald der Zeitplan des
+                Bannerlaufs steht werden wir dich informieren.<br />
+            </div>
+            <div
+                v-if="team.is_approved && !team.can_choose_challenge"
+                class="p-5 bg-blue-100 text-blue-800"
+            >
                 Bald könnt ihr euer Projekt auswählen.
             </div>
             <details :open="team.users.length == 1">
@@ -35,7 +72,7 @@
                             v-text="user.name"
                             title="Gruppenverantwortliche:r"
                         />
-                        <template v-else>{{user.name}}</template>
+                        <template v-else>{{ user.name }}</template>
                     </li>
                 </ul>
                 <div class="ml-5">
@@ -61,7 +98,12 @@
                     </ul>
                 </div>
             </details>
-            <details v-if="team.currentChallenges.length || team.can_choose_challenge" open>
+            <details
+                v-if="
+                    team.currentChallenges.length || team.can_choose_challenge
+                "
+                open
+            >
                 <summary class="text-gray-700 text-sm cursor-pointer p-2">
                     Projekte
                 </summary>
@@ -83,30 +125,40 @@
                         :key="challenge.id"
                         :challenge="challenge"
                     >
-                      <template v-slot:actions v-if="challenge.team_id" >
-                        <div v-if="!challenge.approved_at" class="p-5 bg-blue-100 text-blue-800">
-                          Euer Projekt wird geprüft. Sobald es freigegeben ist, könnt ihr loslegen.
-                        </div>
-                        <div v-else class="p-5 bg-green-100 text-green-800">
-                          Euer Projekt wurde freigegeben. Ihr könnt jetzt loslegen!
-                        </div>
-                      </template>
+                        <template v-slot:actions v-if="challenge.team_id">
+                            <div
+                                v-if="!challenge.approved_at"
+                                class="p-5 bg-blue-100 text-blue-800"
+                            >
+                                Euer Projekt wird geprüft. Sobald es freigegeben
+                                ist, könnt ihr loslegen.
+                            </div>
+                            <div v-else class="p-5 bg-green-100 text-green-800">
+                                Euer Projekt wurde freigegeben. Ihr könnt jetzt
+                                loslegen!
+                            </div>
+                        </template>
                     </ChallengeDetail>
                 </div>
             </details>
-          <details v-if="team.contact_name">
-            <summary class="text-gray-700 text-sm cursor-pointer p-2">
-              Kontaktdaten
-            </summary>
-            <div class="ml-5">
-              <span>Name: {{team.contact_name}}</span><br>
-              <span>Straße: {{team.contact_street}}</span><br>
-              <span>Postleitzahl: {{team.contact_zip}}</span><br>
-              <span>Ort: {{team.contact_city}}</span><br>
-              <span>Handynummer: {{team.contact_phone}}</span><br>
-              <span>Email-Adresse: {{team.contact_email}}</span>
-            </div>
-          </details>
+            <details v-if="team.contact_name">
+                <summary class="text-gray-700 text-sm cursor-pointer p-2">
+                    Kontaktdaten
+                </summary>
+                <div class="ml-5">
+                    <span>Name: {{ team.contact_name }}</span
+                    ><br />
+                    <span>Straße: {{ team.contact_street }}</span
+                    ><br />
+                    <span>Postleitzahl: {{ team.contact_zip }}</span
+                    ><br />
+                    <span>Ort: {{ team.contact_city }}</span
+                    ><br />
+                    <span>Handynummer: {{ team.contact_phone }}</span
+                    ><br />
+                    <span>Email-Adresse: {{ team.contact_email }}</span>
+                </div>
+            </details>
         </div>
     </div>
 </template>
@@ -115,6 +167,7 @@
 import QRCode from "qrcode";
 import BannerPill from "../../components/BannerPill.vue";
 import ChallengeDetail from "../challenge/_Show";
+import OtherTeam from "./_OtherTeam.vue";
 
 export default {
     props: {
@@ -125,6 +178,7 @@ export default {
     components: {
         BannerPill,
         ChallengeDetail,
+        OtherTeam,
     },
     data() {
         return {
@@ -134,6 +188,15 @@ export default {
     computed: {
         joinLink() {
             return this.route("app.team.join", { code: this.team.join_code });
+        },
+        formatDate() {
+            return (s) => {
+                const d = new Date(s);
+                return d.toLocaleDateString("de-DE", {
+                    day: "numeric",
+                    month: "long",
+                });
+            };
         },
     },
     mounted() {

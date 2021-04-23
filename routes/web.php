@@ -13,7 +13,9 @@ use App\Http\Controllers\MapController;
 use App\Http\Controllers\Orga\BannerTrackController;
 use App\Http\Controllers\Orga\ChallengeApprovalController;
 use App\Http\Controllers\Orga\ChallengeController;
+use App\Http\Controllers\Orga\HandoverController;
 use App\Http\Controllers\Orga\TeamApprovalController;
+use App\Http\Controllers\Orga\TeamUsersEmailsController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Middleware\OnlyOrgaTeam;
@@ -51,6 +53,9 @@ Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->gr
 
         Route::get('bannertrack/setup', [BannerTrackController::class, 'setup'])->name('bannertrack.setup');
 
+        Route::post('handover', [HandoverController::class, 'store'])->name('handover.store');
+        Route::put('handover/{handover}', [HandoverController::class, 'update'])->name('handover.update');
+
         Route::get('challenge', [ChallengeController::class, 'index'])->name('challenge.index');
 
         Route::get('challenge/create', [ChallengeController::class, 'create'])->name('challenge.create');
@@ -65,6 +70,8 @@ Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->gr
         Route::get('challenge/custom', [ChallengeApprovalController::class, 'index'])->name('challenge.custom');
         Route::post('challenge/custom/approve', [ChallengeApprovalController::class, 'approve'])->name('challenge.approve');
         Route::post('challenge/custom/convert', [ChallengeApprovalController::class, 'convert'])->name('challenge.convert');
+
+        Route::get('export/team-users-emails', [TeamUsersEmailsController::class, 'index']);
     });
 
     Route::get('challenge/selection/{team_id}', [ChallengeSelectController::class, 'selection'])->name('challenge.selection');

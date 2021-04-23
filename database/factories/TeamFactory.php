@@ -47,4 +47,11 @@ class TeamFactory extends Factory
             'approved_at' => null,
         ]);
     }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (Team $team) {
+            $team->users()->attach($team->leader_id);
+        });
+    }
 }

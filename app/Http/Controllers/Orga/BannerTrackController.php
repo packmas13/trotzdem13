@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class BannerTrackController extends Controller
@@ -22,11 +23,27 @@ class BannerTrackController extends Controller
         } else {
             $banner = $banners->first();
         }
-        $banner->load(['teams.troop', 'teams.district'])->get();
+        $banner->load(['teams.troop', 'teams.district', 'teams.banner', 'teams.handovers'])->get();
+
+        $banner->teams->transform(function ($team) {
+            $team->handover = $team->handovers->first();
+            if (!empty($team->image)) {
+                $team->image = Storage::disk('upload')->url($team->image);
+            }
+            return $team;
+        });
+
+        $sorted_teams = $banner->teams->sortBy(function ($team) {
+            $date = $team->handover->received_at ?? null;
+            $variant = $team->handover->variant ?? null;
+            // with date first
+            return [$date ? 0 : 1, $variant, $date];
+        })->values();
 
         return Inertia::render('orga/bannertrack/Setup', [
             'banners' => $banners,
             'banner' => $banner,
+            'sorted_teams' => $sorted_teams,
         ]);
     }
 }
