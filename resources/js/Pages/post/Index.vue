@@ -11,10 +11,17 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="px-2 bg-white shadow-xl sm:rounded-lg">
                     <details class="px-4 py-2 bg-white sm:p-6">
-                        <summary class="py-2">Neuen Beitrag erstellen</summary>
+                        <summary class="py-2 cursor-pointer font-bold">
+                            Neuen Beitrag erstellen
+                            <span class="font-medium" v-if="selectedTeam && teams.length > 1">(Gruppe: {{ selectedTeam.name }}
+                                <svg class="w-6 h-6 inline cursor-pointer" fill="currentColor" viewBox="0 0 20 20" @click.prevent="selectTeam(null)" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                                </svg>)
+                            </span>
+                        </summary>
                         <PostCreate :banners="banners" :challenges="challenges" :team="selectedTeam" v-if="selectedTeam"/>
                         <div v-else>
-                            <h3>Für welches Team möchtest du einen Beitrag erstellen?</h3>
+                            <h3>Für welche Gruppe möchtest du einen Beitrag erstellen?</h3>
                             <button
                                 v-for="team in teams"
                                 :key="team.id"
