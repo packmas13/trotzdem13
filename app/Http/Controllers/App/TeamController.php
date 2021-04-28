@@ -26,7 +26,7 @@ class TeamController extends Controller
         $teams = $user->teams;
         $teams->load('users', 'troop', 'district', 'banner', 'currentChallenges.banners', 'currentChallenges.category');
         // uncomment the following line to let the users see the handovers
-        // $teams->load('handovers.banner');
+        $teams->load('handovers.banner');
 
         UserTeam::withoutWrapping();
         return Inertia::render('team/Index', [
