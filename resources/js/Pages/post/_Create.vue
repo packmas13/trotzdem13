@@ -36,28 +36,11 @@
                             class="mr-1"
                             v-model="form.banner_related"
                         />
-                        <span class="text-gray-600">Beitrag zum Banner?</span>
+                        <span class="text-gray-600">
+                            Beitrag zum
+                            <banner-pill :banner="team.banner"/>
+                        </span>
                     </label>
-                    <RadioInput
-                        :error="form.errors.banner_id"
-                        name="banner_id"
-                        :required="false"
-                        :options="banners"
-                        v-model="form.banner_id"
-                        v-slot="option"
-                        v-show="form.banner_related"
-                    >
-                        <BannerPill
-                            :banner="option"
-                            class="mb-1"
-                            :class="
-                                form.banner_id &&
-                                form.banner_id != option.id
-                                    ? 'bg-opacity-25'
-                                    : ''
-                            "
-                        />
-                    </RadioInput>
                 </div>
                 <div class="mt-1">
                     <label>
@@ -130,26 +113,37 @@ export default {
         },
     },
     data() {
+        const currentChallengeId = this.team.current_challenges.length > 0 ? this.team.current_challenges[0].id : null
         return {
             form: this.$inertia.form({
                 subject: "",
                 content: "",
                 team_id: this.team.id,
-                banner_id: "",
-                challenge_id: null,
+                banner_id: null,
+                challenge_id: currentChallengeId,
                 banner_related: false,
                 challenge_related: false,
             }),
         };
     },
 
+    mounted() {
+        let teamChallengeIds = this.team.challenges.map(challenge => challenge.id);
+        this.challenges.sort((a, b) => {
+            return teamChallengeIds.includes(b.id) - teamChallengeIds.includes(a.id)
+        })
+    },
+
     methods: {
         createPost() {
+            this.form.banner_id = this.form.banner_related ? this.team.banner.id : null;
+            this.form.challenge_id = this.form.challenge_related ? this.form.challenge_id : null;
             this.form.post(route("app.post.store"), {
                 onSuccess: () => this.form.reset(),
                 onError: () => {},
             });
         },
+
     },
 };
 </script>

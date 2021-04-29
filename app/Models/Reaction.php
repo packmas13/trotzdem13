@@ -10,7 +10,7 @@ class Reaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['type', 'post_id', 'user_id'];
+    protected $guarded = ['id'];
 
     public function user(): BelongsTo
     {

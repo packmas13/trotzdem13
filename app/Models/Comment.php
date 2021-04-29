@@ -11,7 +11,7 @@ class Comment extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['post_id', 'author_id', 'content'];
+    protected $guarded = ['id'];
 
     public function author(): BelongsTo
     {

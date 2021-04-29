@@ -1,10 +1,12 @@
 <?php
 
+
 namespace App\Http\Resources;
+
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OtherUser extends JsonResource
+class CommentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +18,13 @@ class OtherUser extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'profile_photo_path' => $this->getProfilePhotoUrlAttribute(),
+            'content' => $this->content,
+            'author_id' => $this->author_id,
+            'post_id' => $this->post_id,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+
+            'author' => OtherUser::make($this->whenLoaded('author')),
         ];
     }
 }

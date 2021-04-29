@@ -7,8 +7,8 @@
             <div class="p-2 flex-grow-0">
                 <img
                     class="h-9 w-9 rounded-full object-cover"
-                    :src="comment.author.profile_photo_url"
-                    :alt="comment.author.name"
+                    :src="comment.author.profile_photo_path"
+                    v-if="comment.author.profile_photo_path"
                 />
             </div>
             <div class="flex-grow">

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PostResource;
 use App\Models\Banner;
 use App\Models\Challenge;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class PostController extends Controller
@@ -21,14 +21,14 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $posts = Post::with(['author', 'team', 'banner', 'challenge', 'comments', 'comments.author', 'users'])->orderByDesc('updated_at')->get();
-        $posts = $posts->each(function($post){$post->team->image = ($post->team->image) ? Storage::disk('upload')->url($post->team->image) : null;});
 
         $user = $request->user();
-        $teams = $user->teams;
-        $teams->load('banner');
+        $teams = $user->teams()->whereNotNull('approved_at')->get();
+        $teams->load('banner', 'currentChallenges', 'challenges');
 
+        PostResource::withoutWrapping();
         return Inertia::render('post/Index', [
-            'posts' => $posts,
+            'posts' => PostResource::collection($posts),
             'banners' => Banner::all()->keyBy('id'),
             'challenges' => Challenge::all(),
             'teams' => $teams,
@@ -46,23 +46,13 @@ class PostController extends Controller
         $data = $this->validate($request, [
             'subject' => ['required', 'string'],
             'content' => ['required', 'string'],
-            'team_id' => ['required', 'exists:teams,id'],
-            'banner_id' => ['nullable', 'requiredIf:banner_related,true', 'exists:banners,id'],
-            'challenge_id' => ['nullable', 'requiredIf:challenge_related,true', 'exists:challenges,id'],
-            'banner_related' => ['boolean', 'required'],
-            'challenge_related' => ['boolean', 'required'],
+            'team_id' => ['required', 'exists:teams,id', 'in:'.$request->user()->teams()->whereNotNull('approved_at')->pluck('id')->join(',')],
+            'banner_id' => ['nullable', 'exists:banners,id'],
+            'challenge_id' => ['nullable', 'exists:challenges,id'],
         ]);
 
         $author = $request->user();
         $data['author_id'] = $author->id;
-
-        if(!$data['banner_related']){
-            $data['banner_id'] = null;
-        }
-
-        if(!$data['challenge_related']){
-            $data['challenge_id'] = null;
-        }
 
         $post = Post::create($data);
 

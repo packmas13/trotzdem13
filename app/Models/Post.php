@@ -11,7 +11,7 @@ class Post extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['subject', 'content', 'author_id', 'team_id', 'challenge_id', 'banner_id'];
+    protected $guarded = ['id'];
 
     public function author(): BelongsTo
     {
