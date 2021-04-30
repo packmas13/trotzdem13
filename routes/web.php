@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\App\ChallengeCustomController;
 use App\Http\Controllers\App\ChallengeSelectController;
+use App\Http\Controllers\App\PostController;
 use App\Http\Controllers\App\TeamController;
 use App\Http\Controllers\App\TeamJoinController;
 use App\Http\Controllers\ChallengesController;
@@ -78,4 +79,12 @@ Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->gr
 
     Route::get('challenge/custom/{team_id}', [ChallengeCustomController::class, 'create'])->name('challenge.custom');
     Route::post('challenge/custom/{team_id}', [ChallengeCustomController::class, 'store'])->name('challenge.custom.store');
+
+    Route::get('post', [PostController::class, 'index'])->name('post.index');
+    Route::post('post', [PostController::class, 'store'])->name('post.store');
+
+    Route::post('post/react', [PostController::class, 'react'])->name('post.react');
+    Route::post('post/unreact', [PostController::class, 'unreact'])->name('post.unreact');
+
+    Route::post('comment', [PostController::class, 'comment'])->name('comment.store');
 });

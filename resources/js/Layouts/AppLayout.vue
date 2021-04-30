@@ -27,6 +27,14 @@
                                 >
                                     Gruppe
                                 </jet-nav-link>
+
+                                <jet-nav-link
+                                    :href="route('app.post.index')"
+                                    :active="'app.post.index' == currentRoute"
+                                    v-if="$page.props.orga"
+                                >
+                                    Beiträge
+                                </jet-nav-link>
                             </div>
                         </div>
 
@@ -343,6 +351,14 @@
                             :active="'app.team.index' == currentRoute"
                         >
                             Gruppe
+                        </jet-responsive-nav-link>
+
+                        <jet-responsive-nav-link
+                            :href="route('app.post.index')"
+                            :active="'app.post.index' == currentRoute"
+                            v-if="$page.props.orga"
+                        >
+                            Beiträge
                         </jet-responsive-nav-link>
                     </div>
 
