@@ -1,7 +1,14 @@
 <template>
-    <svg @click="toggleReact('like')" class="mx-5 w-6 h-6 cursor-pointer" :fill="hasReacted ? 'red' : 'none'" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-    </svg>
+
+    <div class="has-tooltip flex justify-center gap-0 mx-5">
+        <svg @click="toggleReact('like')" class="w-6 h-6 cursor-pointer" :fill="hasReacted ? 'red' : 'none'" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+        </svg>
+        <span class="ml-1" v-if="reactions.length" v-text="reactions.length" :title="reactionNames"/>
+        <span class="tooltip border-2 border-solid border-teal-600 bg-white rounded p-1" v-html="reactionNames" v-if="reactions.length"/>
+    </div>
+
+
 </template>
 
 <script>
@@ -14,18 +21,24 @@ export default {
         post_id: {
             type: Number
         },
-        reactedUsers: {
+        reactions: {
             type: Array
         },
     },
     data() {
         return {
             hasReacted: false,
-            loading: false
+            loading: false,
+            showNames: false,
         }
     },
     mounted() {
-        this.hasReacted = this.reactedUsers.find(user => user.id === this.$page.props.user.id)
+        this.hasReacted = this.reactions.find(reaction => reaction.userId === this.$page.props.user.id)
+    },
+    computed: {
+        reactionNames: function() {
+            return this.reactions.map(reaction => reaction.userName).join('\n')
+        }
     },
     methods: {
         toggleReact(type) {
@@ -70,5 +83,20 @@ export default {
 </script>
 
 <style scoped>
+.tooltip {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform:translateY(-100%) translateX(-50%);
+}
 
+.has-tooltip {
+    position: relative;
+}
+
+.has-tooltip:hover > .tooltip {
+    visibility: visible;
+    z-index: 50;
+}
 </style>

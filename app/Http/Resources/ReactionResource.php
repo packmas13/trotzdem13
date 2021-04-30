@@ -17,10 +17,10 @@ class ReactionResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'type' => $this->type,
-
-            'user' =>  OtherUser::make($this->whenLoaded('user')),
+            'reactionType' => $this->reaction->type,
+            'userId' => $this->id,
+            'userName' => $this->name,
+            'profile_photo_path' => $this->getProfilePhotoUrlAttribute(),
         ];
     }
 }

@@ -32,7 +32,7 @@ class PostResource extends JsonResource
             'banner' => Banner::make($this->whenLoaded('banner')),
             'author' =>  OtherUser::make($this->whenLoaded('author')),
             'comments' => CommentResource::collection($this->whenLoaded('comments')),
-            'users' => ReactionResource::collection($this->whenLoaded('users')),
+            'reactions' => ReactionResource::collection($this->whenLoaded('users')),
         ];
     }
 }
