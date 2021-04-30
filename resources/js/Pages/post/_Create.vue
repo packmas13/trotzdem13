@@ -49,7 +49,7 @@
                             class="mr-1"
                             v-model="form.challenge_related"
                         />
-                        <span class="text-gray-600">Beitrag zu einer Challenge?</span>
+                        <span class="text-gray-600">Beitrag zu einem Projekt?</span>
                     </label>
                     <vue-select
                         v-model="form.challenge_id"
