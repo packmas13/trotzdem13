@@ -31,7 +31,6 @@
                                 <jet-nav-link
                                     :href="route('app.post.index')"
                                     :active="'app.post.index' == currentRoute"
-                                    v-if="$page.props.orga"
                                 >
                                     Beiträge
                                 </jet-nav-link>
@@ -356,7 +355,6 @@
                         <jet-responsive-nav-link
                             :href="route('app.post.index')"
                             :active="'app.post.index' == currentRoute"
-                            v-if="$page.props.orga"
                         >
                             Beiträge
                         </jet-responsive-nav-link>

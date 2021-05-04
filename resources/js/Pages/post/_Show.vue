@@ -44,6 +44,25 @@
         </svg>
         <span class="w-2" />
         <Reactions class="flex-1" :reactions="post.reactions" :post_id="post.id"></Reactions>
+        <jet-dropdown class="flex-grow-0" align="right" width="48" v-if="post.canEdit">
+            <template #trigger>
+                <button
+                    class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"
+                >
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                    </svg>
+                </button>
+            </template>
+
+            <template #content>
+                <jet-dropdown-link
+                    :href="route('app.post.edit', { id: post.id })"
+                >
+                    Bearbeiten
+                </jet-dropdown-link>
+            </template>
+        </jet-dropdown>
     </div>
     <div class="mt-1 pl-10 border-gray-600">
         <Comments :comments="post.comments" />
@@ -57,6 +76,8 @@ import Comments from "@/Pages/post/Comments";
 import CreateComment from "@/Pages/post/CreateComment";
 import SecondaryButton from "@/Jetstream/SecondaryButton";
 import Reactions from "@/components/Reactions";
+import JetDropdown from "@/Jetstream/Dropdown";
+import JetDropdownLink from "@/Jetstream/DropdownLink";
 
 export default {
     props: {
@@ -70,10 +91,12 @@ export default {
         CreateComment,
         Comments,
         BannerPill,
+        JetDropdown,
+        JetDropdownLink,
     },
     data() {
         return {
-            showCommentInput: this.post.comments.length > 0
+            showCommentInput: this.post.comments.length > 0,
         }
     },
     methods: {

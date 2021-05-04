@@ -42,4 +42,24 @@ class Post extends Model
     {
         return $this->belongsToMany(User::class, 'reactions')->as('reaction')->withTimestamps()->withPivot('type');
     }
+
+    /**
+     * Checks if the current user can edit the post.
+     *
+     * @param $request
+     * @return bool
+     */
+    public function canEdit($request) {
+        $user = $request->user();
+        if($this->author_id == $user->id) {
+            return true;
+        }
+        if($this->team->leader_id == $user->id){
+            return true;
+        }
+        if($user->isOrga()){
+            return true;
+        }
+        return false;
+    }
 }

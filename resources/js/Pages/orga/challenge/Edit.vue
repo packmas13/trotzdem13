@@ -201,7 +201,7 @@ export default {
             if (!confirm("Projekt wirklich löschen?")) {
                 return;
             }
-            this.$inertia.delete(route("app.orga.challenge.delete", this.challenge.id));
+            this.$inertia.post(route("app.orga.challenge.delete", this.challenge.id));
         },
     },
 };

@@ -65,7 +65,7 @@ Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->gr
         Route::get('challenge/publish/{id}', [ChallengeController::class, 'publish'])->name('challenge.publish');
         Route::get('challenge/unpublish/{id}', [ChallengeController::class, 'unpublish'])->name('challenge.unpublish');
         Route::post('challenge/update', [ChallengeController::class, 'update'])->name('challenge.update');
-        Route::delete('challenge/delete/{id}', [ChallengeController::class, 'delete'])->name('challenge.delete');
+        Route::post('challenge/delete/{id}', [ChallengeController::class, 'delete'])->name('challenge.delete');
 
         Route::get('challenge/custom', [ChallengeApprovalController::class, 'index'])->name('challenge.custom');
         Route::post('challenge/custom/approve', [ChallengeApprovalController::class, 'approve'])->name('challenge.approve');
@@ -82,6 +82,11 @@ Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->gr
 
     Route::get('post', [PostController::class, 'index'])->name('post.index');
     Route::post('post', [PostController::class, 'store'])->name('post.store');
+
+    Route::get('post/edit/{id}', [PostController::class, 'edit'])->name('post.edit');
+    Route::post('post/update', [PostController::class, 'update'])->name('post.update');
+
+    Route::post('post/delete/{id}', [PostController::class, 'delete'])->name('post.delete');
 
     Route::post('post/react', [PostController::class, 'react'])->name('post.react');
     Route::post('post/unreact', [PostController::class, 'unreact'])->name('post.unreact');
