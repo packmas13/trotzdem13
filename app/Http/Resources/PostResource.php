@@ -27,7 +27,7 @@ class PostResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
 
-            'canEdit' => $this->canEdit($request),
+            'canEdit' => $request->user()->can('edit', $this->resource),
 
             'team' =>  OtherTeam::make($this->whenLoaded('team')),
             'challenge' =>  Challenge::make($this->whenLoaded('challenge')),
