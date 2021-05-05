@@ -68,7 +68,7 @@ class PostController extends Controller
     {
         $post = Post::with('team.challenges', 'team.currentChallenges', 'team.banner')->findOrFail($id);
 
-        abort_unless($post->canEdit($request), 403, 'Access denied. Only the Author can edit the post');
+        abort_unless($request->user()->can('edit', $post), 403, 'Access denied. Only the Author can edit the post');
 
         return Inertia::render('post/Edit', [
             'post' => $post,
@@ -95,7 +95,7 @@ class PostController extends Controller
 
         $post = Post::findOrFail($data['post_id']);
 
-        abort_unless($post->canEdit($request), 403, 'Access denied. Only the Author can edit the post');
+        abort_unless($request->user()->can('edit', $post), 403, 'Access denied. Only the Author can edit the post');
 
         $post->subject = $data['subject'];
         $post->content = $data['content'];
@@ -182,7 +182,7 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
 
-        abort_unless($post->canEdit($request), 403, 'Access denied. Only the Author can delete the post');
+        abort_unless($request->user()->can('delete', $post), 403, 'Access denied. Only the Author can delete the post');
 
         $post->delete();
 
