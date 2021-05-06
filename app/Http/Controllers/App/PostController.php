@@ -64,11 +64,11 @@ class PostController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function edit(Request $request, int $id)
+    public function edit(Request $request, Post $post)
     {
-        $post = Post::with('team.challenges', 'team.currentChallenges', 'team.banner')->findOrFail($id);
-
         abort_unless($request->user()->can('edit', $post), 403, 'Access denied. Only the Author can edit the post');
+
+        $post->load('team.challenges', 'team.currentChallenges', 'team.banner');
 
         return Inertia::render('post/Edit', [
             'post' => $post,
@@ -83,17 +83,14 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, Post $post)
     {
         $data = $this->validate($request, [
-            'post_id' => ['required', 'integer', 'exists:posts,id'],
             'subject' => ['required', 'string'],
             'content' => ['required', 'string'],
             'banner_id' => ['nullable', 'exists:banners,id'],
             'challenge_id' => ['nullable', 'exists:challenges,id'],
         ]);
-
-        $post = Post::findOrFail($data['post_id']);
 
         abort_unless($request->user()->can('edit', $post), 403, 'Access denied. Only the Author can edit the post');
 
@@ -178,10 +175,8 @@ class PostController extends Controller
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function delete(Request $request, int $id)
+    public function delete(Request $request, Post $post)
     {
-        $post = Post::findOrFail($id);
-
         abort_unless($request->user()->can('delete', $post), 403, 'Access denied. Only the Author can delete the post');
 
         $post->delete();

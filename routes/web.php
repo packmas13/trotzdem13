@@ -83,10 +83,10 @@ Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->gr
     Route::get('post', [PostController::class, 'index'])->name('post.index');
     Route::post('post', [PostController::class, 'store'])->name('post.store');
 
-    Route::get('post/edit/{id}', [PostController::class, 'edit'])->name('post.edit');
-    Route::post('post/update', [PostController::class, 'update'])->name('post.update');
+    Route::get('post/edit/{post}', [PostController::class, 'edit'])->name('post.edit');
+    Route::post('post/update/{post}', [PostController::class, 'update'])->name('post.update');
 
-    Route::post('post/delete/{id}', [PostController::class, 'delete'])->name('post.delete');
+    Route::post('post/delete/{post}', [PostController::class, 'delete'])->name('post.delete');
 
     Route::post('post/react', [PostController::class, 'react'])->name('post.react');
     Route::post('post/unreact', [PostController::class, 'unreact'])->name('post.unreact');

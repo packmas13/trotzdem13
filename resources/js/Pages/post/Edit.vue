@@ -138,7 +138,6 @@ export default {
         const currentChallengeId = team.current_challenges.length > 0 ? team.current_challenges[0].id : null
         return {
             form: this.$inertia.form({
-                post_id: this.post.id,
                 subject: this.post.subject,
                 content: this.post.content,
                 banner_id: this.post.banner_id,
@@ -160,7 +159,7 @@ export default {
         updatePost() {
             this.form.banner_id = this.form.banner_related ? this.post.team.banner.id : null;
             this.form.challenge_id = this.form.challenge_related ? this.form.challenge_id : null;
-            this.form.post(route("app.post.update"));
+            this.form.post(route("app.post.update", this.post.id));
         },
         deletePost() {
             if (!confirm("Beitrag wirklich löschen?")) {
