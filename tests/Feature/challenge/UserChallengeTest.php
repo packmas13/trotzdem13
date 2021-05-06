@@ -62,7 +62,7 @@ class UserChallengeTest extends TestCase
         $this->assertFalse($challenge->trashed());
 
         $this->actingAs($user = User::factory()->belongingToOrgaTeam()->create());
-        $response = $this->delete('/app/orga/challenge/delete/' . $challenge->id);
+        $response = $this->post('/app/orga/challenge/delete/' . $challenge->id);
         $response->assertSessionHasNoErrors();
         $response->assertStatus(302);
 
