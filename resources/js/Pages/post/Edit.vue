@@ -1,5 +1,5 @@
 <template>
-    <app-layout current-route="app.team.index">
+    <app-layout current-route="app.post.index">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Beitrag bearbeiten
