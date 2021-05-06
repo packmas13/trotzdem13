@@ -77,15 +77,23 @@
                         </div>
 
                         <div class="flex justify-between mt-6">
-                            <jet-button
-                                :class="{ 'opacity-25': form.processing }"
-                                :disabled="form.processing"
-                            >
-                                Speichern
-                            </jet-button>
-                            <jet-action-message :on="form.recentlySuccessful" class="ml-3">
-                                Gespeichert.
-                            </jet-action-message>
+                            <div class="flex">
+                                <jet-button
+                                    :class="{ 'opacity-25': form.processing }"
+                                    :disabled="form.processing"
+                                >
+                                    Speichern
+                                </jet-button>
+                                <jet-action-message :on="form.recentlySuccessful" class="ml-3">
+                                    Gespeichert.
+                                </jet-action-message>
+                                <inertia-link
+                                    :href="route('app.post.index')"
+                                    class="secondary-button mr-3"
+                                >
+                                    Abbrechen
+                                </inertia-link>
+                            </div>
 
                             <button
                                 @click="deletePost"
