@@ -17,3 +17,5 @@ yarn-error.log
 /public/js
 /public/php_errors.log
 /php_errors.log
+
+/.idea
