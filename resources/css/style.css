@@ -18,5 +18,8 @@
 .danger-button {
     @apply primary-button bg-gray-100 border-red-900 text-red-900 hover:bg-red-600 hover:text-white;
 }
+.cancel-button {
+    @apply primary-button bg-gray-100 border-red-900 text-red-900 hover:bg-red-100;
+}
 
 @tailwind utilities;
