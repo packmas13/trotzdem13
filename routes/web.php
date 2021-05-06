@@ -43,6 +43,8 @@ Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->gr
     Route::get('team/create', [TeamController::class, 'create'])->name('team.create');
     Route::post('team', [TeamController::class, 'store'])->name('team.store');
 
+    Route::post('team/image/{team}', [TeamController::class, 'image'])->name('team.image');
+
     Route::get('team/join', [TeamJoinController::class, 'show'])->name('team.join');
     Route::post('team/join', [TeamJoinController::class, 'store']);
 

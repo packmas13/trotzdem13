@@ -5,12 +5,12 @@ namespace App\Http\Controllers\App;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserTeam;
 use App\Models\Banner;
-use App\Models\Troop;
 use App\Models\Team;
+use App\Models\Troop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Inertia\Inertia;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 use Intervention\Image\Facades\Image;
 
 class TeamController extends Controller
@@ -97,6 +97,38 @@ class TeamController extends Controller
         }
 
         $creator->teams()->create($data);
+
+        return redirect()->route('app.team.index');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function image(Request $request, Team $team)
+    {
+        $data = $this->validate($request, [
+            'image' => ['nullable', 'file', 'image'],
+        ]);
+
+        abort_unless($request->user()->can('changeImage', $team), 403, 'Access denied. Only the Team leader can change the image');
+
+        if (!empty($data['image'])) {
+            // resize image before storing
+            $image = Image::make($data['image'])->resize(512, 512, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+            $data['image'] = 'team/profile/' . $data['image']->hashName();
+            Storage::disk('upload')->put($data['image'], $image->encode());
+        } else {
+            $data['image'] = '';
+        }
+
+        $team->image = $data['image'];
+        $team->save();
 
         return redirect()->route('app.team.index');
     }
