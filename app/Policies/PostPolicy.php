@@ -40,6 +40,6 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        $this->update($user, $post);
+        return $this->edit($user, $post);
     }
 }
