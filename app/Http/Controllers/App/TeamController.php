@@ -115,6 +115,10 @@ class TeamController extends Controller
 
         abort_unless($request->user()->can('changeImage', $team), 403, 'Access denied. Only the Team leader can change the image');
 
+        if (!empty($team->image)) {
+            Storage::disk('upload')->delete($team->image);
+        }
+
         if (!empty($data['image'])) {
             // resize image before storing
             $image = Image::make($data['image'])->resize(512, 512, function ($constraint) {

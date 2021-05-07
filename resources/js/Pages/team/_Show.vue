@@ -248,9 +248,7 @@ export default {
         },
         removeImage() {
             if (confirm("Bild wirklich löschen?")) {
-                this.$inertia.post(route("app.team.image", this.team.id), {
-                    onSuccess: () => this.cancelImage(),
-                });
+                this.$inertia.post(route("app.team.image", this.team.id));
             }
         }
     }
