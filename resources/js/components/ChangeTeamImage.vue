@@ -79,7 +79,6 @@ export default {
     },
     methods: {
         changeImage() {
-            console.log('test')
             this.form.image = null;
             if (this.imagePreview) {
                 this.form.image = this.$refs.image.files[0];
