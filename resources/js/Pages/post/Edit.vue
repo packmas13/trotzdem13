@@ -149,7 +149,7 @@ export default {
                 subject: this.post.subject,
                 content: this.post.content,
                 banner_id: this.post.banner_id,
-                challenge_id: parseInt(this.post.challenge_id ? this.post.challenge_id : currentChallengeId),
+                challenge_id: this.post.challenge_id ? parseInt(this.post.challenge_id) : currentChallengeId,
                 banner_related: this.post.banner_id != null,
                 challenge_related: this.post.challenge_id != null,
             }),
