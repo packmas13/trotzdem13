@@ -15,6 +15,7 @@ use App\Http\Controllers\Orga\ChallengeApprovalController;
 use App\Http\Controllers\Orga\ChallengeController;
 use App\Http\Controllers\Orga\HandoverController;
 use App\Http\Controllers\Orga\TeamApprovalController;
+use App\Http\Controllers\Orga\TeamExportController;
 use App\Http\Controllers\Orga\TeamUsersEmailsController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\PrivacyController;
@@ -74,6 +75,7 @@ Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->gr
         Route::post('challenge/custom/convert', [ChallengeApprovalController::class, 'convert'])->name('challenge.convert');
 
         Route::get('export/team-users-emails', [TeamUsersEmailsController::class, 'index']);
+        Route::get('export/teams.ods', [TeamExportController::class, 'ods']);
     });
 
     Route::get('challenge/selection/{team_id}', [ChallengeSelectController::class, 'selection'])->name('challenge.selection');

@@ -37,6 +37,13 @@ class TeamFactory extends Factory
             'radius' => $this->faker->randomElement([1, 2, 3, 4, 5]),
             'join_code' => $this->faker->unique()->lexify('????????'),
             'approved_at' => now(),
+
+            "contact_phone" => $this->faker->unique()->phoneNumber,
+            "contact_email" => $this->faker->unique()->email,
+            "contact_name" => $this->faker->unique()->name,
+            "contact_street" => $this->faker->unique()->streetAddress,
+            "contact_zip" => $this->faker->unique()->postcode,
+            "contact_city" => $this->faker->unique()->city,
         ];
     }
 
@@ -45,6 +52,13 @@ class TeamFactory extends Factory
     {
         return $this->state([
             'approved_at' => null,
+        ]);
+    }
+
+    public function trashed(): Factory
+    {
+        return $this->state([
+            'deleted_at' => now(),
         ]);
     }
 
