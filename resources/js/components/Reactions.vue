@@ -4,7 +4,7 @@
         <svg @click="toggleReact('like')" class="w-6 h-6 cursor-pointer" :fill="hasReacted ? 'red' : 'none'" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
         </svg>
-        <span class="ml-1" v-if="reactions.length" v-text="reactions.length" :title="reactionNames"/>
+        <span class="ml-1" v-if="reactions.length" v-text="reactions.length"/>
         <span class="tooltip border-2 border-solid border-teal-600 bg-white rounded p-1" v-html="reactionNames" v-if="reactions.length"/>
     </div>
 
@@ -37,7 +37,13 @@ export default {
     },
     computed: {
         reactionNames: function() {
-            return this.reactions.map(reaction => reaction.userName).join('\n')
+            let names = this.reactions.map(reaction => reaction.userName)
+            if(names.length > 11){
+                names = names.slice(0,10)
+                const additional = this.reactions.length - names.length
+                names.push('+' + additional + ' weitere')
+            }
+            return names.join('<br>\n')
         }
     },
     methods: {
