@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class PostResource extends JsonResource
 {
@@ -24,6 +25,7 @@ class PostResource extends JsonResource
             'author_id' => $this->author_id,
             'challenge_id' => $this->challenge_id,
             'banner_id' => $this->banner_id,
+            'image' => empty($this->image) ? null : Storage::disk('upload')->url($this->image),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
 

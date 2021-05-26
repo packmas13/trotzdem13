@@ -66,6 +66,58 @@
                     </vue-select>
                 </div>
             </div>
+
+            <div class="col-span-6 sm:col-span-4 lg:col-span-2">
+                <InputLabel
+                    label="Füge deinem Beitrag ein Bild hinzu?"
+                    :error="form.errors.image"
+                >
+                    <input
+                        v-show="!imagePreview"
+                        type="file"
+                        accept="image/*"
+                        class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
+                        ref="image"
+                        @change="updatePreview"
+                    />
+                    <div v-if="imagePreview">
+                        <div
+                            class="block w-full h-48 my-1 bg-contain bg-no-repeat bg-center"
+                            :style="
+                                            'background-image: url(\'' +
+                                            imagePreview +
+                                            '\');'
+                                        "
+                        />
+                        <div class="text-right text-sm text-red-800">
+                            <button
+                                class="hover:text-red-600 hover:underline"
+                                @click="removeImage"
+                                type="button"
+                            >
+                                Bild entfernen
+                            </button>
+                        </div>
+                        <label class="text-sm">
+                            <input
+                                type="checkbox"
+                                required
+                                class="mr-1"
+                            />Eine
+                            <a
+                                class="text-link"
+                                target="_blank"
+                                href="/datenschutz/einwilligung-foto"
+                            >schriftliche Vereinbarung</a
+                            >
+                            über die Online-Nutzung dieses Fotos für
+                            die Aktion
+                            <strong>Trotzdem13</strong>
+                            liegt vor.
+                        </label>
+                    </div>
+                </InputLabel>
+            </div>
         </div>
 
         <div class="flex items-center mt-6">
@@ -123,7 +175,9 @@ export default {
                 challenge_id: currentChallengeId,
                 banner_related: false,
                 challenge_related: false,
+                image: null,
             }),
+            imagePreview: null,
         };
     },
 
@@ -136,14 +190,32 @@ export default {
 
     methods: {
         createPost() {
+            this.form.image = null;
+            if (this.imagePreview) {
+                this.form.image = this.$refs.image.files[0];
+            }
             this.form.banner_id = this.form.banner_related ? this.team.banner.id : null;
             this.form.challenge_id = this.form.challenge_related ? this.form.challenge_id : null;
             this.form.post(route("app.post.store"), {
-                onSuccess: () => this.form.reset(),
+                onSuccess: () => {
+                    this.form.reset()
+                    this.imagePreview = null
+                    this.$refs.image.value = null
+                },
                 onError: () => {},
             });
         },
-
+        updatePreview() {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                this.imagePreview = e.target.result;
+            };
+            reader.readAsDataURL(this.$refs.image.files[0]);
+        },
+        removeImage() {
+            this.$refs.image.value = null;
+            this.imagePreview = null;
+        },
     },
 };
 </script>
