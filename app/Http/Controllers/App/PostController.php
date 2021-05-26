@@ -9,7 +9,9 @@ use App\Models\Challenge;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
@@ -49,10 +51,27 @@ class PostController extends Controller
             'team_id' => ['required', 'exists:teams,id', 'in:'.$request->user()->teams()->whereNotNull('approved_at')->pluck('id')->join(',')],
             'banner_id' => ['nullable', 'exists:banners,id'],
             'challenge_id' => ['nullable', 'exists:challenges,id'],
+            'image' => ['nullable', 'file', 'image'],
         ]);
 
         $author = $request->user();
         $data['author_id'] = $author->id;
+
+        if (!empty($data['image'])) {
+            // save original image
+            $imageOriginal = Image::make($data['image']);
+            $filename = 'post/originals/' . $data['image']->hashName();
+            Storage::disk('upload')->put($filename, $imageOriginal->encode());
+
+            // save preview version
+            $imagePreview = Image::make($data['image'])->resize(1024, 1024, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $data['image'] = 'post/' . $data['image']->hashName();
+            Storage::disk('upload')->put($data['image'], $imagePreview->encode());
+        } else {
+            $data['image'] = '';
+        }
 
         $post = Post::create($data);
 
