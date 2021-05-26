@@ -38,7 +38,7 @@ Route::redirect('datenschutz/einwilligung-foto', 'https://dpsg.de/fileadmin/date
 
 
 Route::prefix('app')->middleware(['auth:sanctum', 'verified'])->name('app.')->group(function () {
-    Route::redirect('/', '/app/team');
+    Route::redirect('/', '/app/post');
     Route::get('team', [TeamController::class, 'index'])->name('team.index');
 
     Route::get('team/create', [TeamController::class, 'create'])->name('team.create');
