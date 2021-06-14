@@ -66,6 +66,7 @@ class PostController extends Controller
             // save preview version
             $imagePreview = Image::make($data['image'])->resize(1024, 1024, function ($constraint) {
                 $constraint->aspectRatio();
+                $constraint->upsize();
             });
             $data['image'] = 'post/' . $data['image']->hashName();
             Storage::disk('upload')->put($data['image'], $imagePreview->encode());
