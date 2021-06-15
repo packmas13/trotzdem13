@@ -132,25 +132,16 @@
 </template>
 
 <script>
-import AppLayout from "@/Layouts/AppLayout";
-
-import JetActionMessage from "@/Jetstream/ActionMessage";
 import JetButton from "@/Jetstream/Button";
-import JetFormSection from "@/Jetstream/FormSection";
 import BannerPill from "@/components/BannerPill";
-import CategoryIcon from "@/components/CategoryIcon";
-import RadioInput from "@/input/RadioInput";
-import VueSelect from 'vue-next-select'
+
+import VueSelect from "vue-next-select";
+import "vue-next-select/dist/index.css";
 
 export default {
     components: {
-        CategoryIcon,
         BannerPill,
-        JetActionMessage,
         JetButton,
-        JetFormSection,
-        AppLayout,
-        RadioInput,
         VueSelect,
     },
     props: {
@@ -221,130 +212,17 @@ export default {
 </script>
 
 <style>
-.icon.arrow-downward {
-    color: #999;
-    border-style: solid;
-    border-width: 4px 4px 0;
-    border-color: #999 transparent transparent;
-    content: '';
-    transition: transform .2s linear;
-    cursor: pointer
-}
-
-.icon.arrow-downward.active {
-    transform: rotate(90deg)
-}
-
 .vue-select {
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-direction: column;
     width: 100%;
-    border-radius: 4px;
-    border: 1px solid #999;
-    box-sizing: border-box;
-    outline: 0
-}
-
-.vue-select[data-is-focusing=true]:not([data-visible-length='0']) {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0
-}
-
-.vue-dropdown[data-removable=false] .vue-dropdown-item.selected:hover,.vue-select.disabled *,.vue-select.disabled input,.vue-tags[data-removable=false] .vue-tag.selected img:hover {
-    cursor: not-allowed
-}
-
-.vue-select-header {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between
-}
-
-.vue-select-header>.icon.arrow-downward,.vue-select-header>.icon.loading,.vue-tag>span {
-    margin-right: 4px
-}
-
-.vue-dropdown,.vue-input {
-    min-width: 0;
-    box-sizing: border-box
-}
-
-.vue-input,.vue-tag.selected {
-    display: flex;
-    align-items: center;
-    border-radius: 4px
-}
-
-.vue-input {
-    max-width: 100%;
-    padding: 4px
-}
-
-.vue-select[data-is-focusing=false] .vue-input>input,input[readonly] {
-    cursor: default
-}
-
-.vue-input,.vue-input>input {
-    border: 0;
-    outline: 0;
-    width: 100%
-}
-
-.vue-input>input {
-    min-width: 0;
-    font-size: .8rem;
-    padding: 0
-}
-
-.vue-input>input[disabled] {
-    background-color: rgb(239,239,239);
-}
-
-.vue-input>input[readonly],.vue-select-header>.vue-input>input[disabled] {
-    background-color: unset
-}
-
-.vue-dropdown {
-    position: absolute;
-    background-color: #fff;
-    z-index: 1;
-    max-height: 300px;
-    overflow-y: auto;
-    width: inherit;
-    left: -1px;
-    margin: 0;
-    padding: 0;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border: 1px solid #999;
-    list-style-type: none
-}
-
-.vue-dropdown[data-visible-length='0'] {
-    border: 0
-}
-
-.vue-dropdown-item {
-    list-style-type: none;
-    padding: 4px;
-    cursor: pointer;
-    min-height: 1rem
 }
 
 .vue-dropdown-item.highlighted {
-    background-color: rgb(244, 242, 238);
+    background-color: rgb(42, 207, 204);
 }
 
+.vue-dropdown-item.selected.highlighted,
 .vue-dropdown-item.selected {
     background-color: rgb(31, 131, 137);
+    color: white;
 }
-
-.vue-dropdown-item.selected.highlighted {
-    background-color: rgb(31, 131, 137);
-}
-
 </style>
