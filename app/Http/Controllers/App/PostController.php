@@ -22,7 +22,18 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = Post::with(['author', 'team', 'banner', 'challenge', 'comments', 'comments.author', 'users'])->orderByDesc('updated_at')->get();
+        $query = Post::query();
+        if($request->filled('team')) {
+            $query->where('team_id', $request->get('team'));
+        }
+        if($request->filled('banner')) {
+            $query->where('banner_id', $request->get('banner'));
+        }
+        if($request->filled('project')) {
+            $query->where('challenge_id', $request->get('project'));
+        }
+
+        $posts = $query->with(['author', 'team', 'banner', 'challenge', 'comments', 'comments.author', 'users'])->orderByDesc('updated_at')->get();
 
         $user = $request->user();
         $teams = $user->teams()->whereNotNull('approved_at')->get();

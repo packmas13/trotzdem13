@@ -2,7 +2,7 @@
     <div class="flex-auto flex rounded">
         <div class="sm:mr-4 mr-2 w-24 text-left flex-shrink-0 text-sm">
             <p class="text-xs">
-                {{ post.team.name }}
+                <a :href="teamFilterLink" class="text-link">{{ post.team.name }}</a>
             </p>
             <img :src="post.team.image" />
             <p class="mt-1 text-xs">
@@ -25,10 +25,10 @@
                 </h2>
                 <div class="flex-grow-0">
                     <p v-if="post.banner" class="text-xs text-right pr-2">
-                        <BannerPill :banner="post.banner" />
+                        <a :href="bannerFilterLink"><BannerPill :banner="post.banner" /></a>
                     </p>
                     <p v-if="post.challenge" class="text-xs text-right pr-2">
-                        Projekt: {{ post.challenge.title }}
+                        <a :href="challengeFilterLink" class="text-link">Projekt: {{ post.challenge.title }}</a>
                     </p>
                 </div>
             </div>
@@ -102,6 +102,17 @@ export default {
         return {
             showCommentInput: this.post.comments.length > 0,
         }
+    },
+    computed: {
+        teamFilterLink() {
+            return this.route("app.post.index", {team: this.post.team_id});
+        },
+        bannerFilterLink() {
+            return this.route("app.post.index", {banner: this.post.banner_id});
+        },
+        challengeFilterLink() {
+            return this.route("app.post.index", {project: this.post.challenge_id});
+        },
     },
     methods: {
         comment() {
