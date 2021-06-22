@@ -32,6 +32,9 @@ class PostController extends Controller
         if($request->filled('project')) {
             $query->where('challenge_id', $request->get('project'));
         }
+        if($request->filled('hashtag')) {
+            $query->where('content', 'LIKE', '%'.$request->get('hashtag').'%');
+        }
 
         $posts = $query->with(['author', 'team', 'banner', 'challenge', 'comments', 'comments.author', 'users'])->orderByDesc('updated_at')->get();
 

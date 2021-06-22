@@ -34,8 +34,7 @@
             </div>
             <div class="w-full my-2" >
                 <img class="float-right w-full" :class="post.content.length > 500 ? 'md:w-1/2 xl:w-1/3 mb-1 ml-1' : ''" v-if="post.image" :src="post.image" />
-                <p class="whitespace-pre-line text-sm sm:text-base pb-2">
-                    {{ post.content }}
+                <p class="whitespace-pre-line text-sm sm:text-base pb-2" v-html="contentWithHashtags">
                 </p>
             </div>
 
@@ -112,6 +111,12 @@ export default {
         },
         challengeFilterLink() {
             return this.route("app.post.index", {project: this.post.challenge_id});
+        },
+        contentWithHashtags() {
+            return this.post.content.replaceAll(/#([a-zA-Z0-9_]+)/g, (match) => {
+                let url = this.route("app.post.index", {hashtag: match});
+                return `<a href="${url}" class="text-link">${match}</a>`
+            })
         },
     },
     methods: {
