@@ -113,7 +113,7 @@ export default {
             return this.route("app.post.index", {project: this.post.challenge_id});
         },
         contentWithHashtags() {
-            return this.post.content.replaceAll(/#([a-zA-Z0-9_äöüÄÖÜß-]+)/g, (match) => {
+            return this.escapeHTML(this.post.content).replaceAll(/#([a-zA-Z0-9_äöüÄÖÜß-]+)/g, (match) => {
                 let url = this.route("app.post.index", {hashtag: match});
                 return `<a href="${url}" class="text-link">${match}</a>`
             })
@@ -123,7 +123,12 @@ export default {
         comment() {
             this.showCommentInput = true
             this.$nextTick(this.$refs.createComment.focus);
-        }
+        },
+        escapeHTML(str) {
+            let el = document.createElement('div');
+            el.textContent = str;
+            return el.innerHTML;
+        },
     }
 };
 </script>
