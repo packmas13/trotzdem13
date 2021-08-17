@@ -70,7 +70,7 @@
                                     :required="true"
                                     :options="banner_variants"
                                     v-model="variant"
-                                    v-slot="option"
+                                    v-slot="{ option }"
                                 >
                                     Banner {{ option }}
                                 </RadioInput>

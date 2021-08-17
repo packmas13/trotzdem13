@@ -16,7 +16,7 @@
                     :checked="modelValue == id"
                     @change="emit(id)"
                 />
-                <slot v-bind="option" />
+                <slot v-bind="{ option }" />
             </label>
         </div>
         <small v-if="help" class="text-gray-600" v-text="help" />

@@ -56,7 +56,7 @@
                                 :required="true"
                                 :options="categories"
                                 v-model="form.category_id"
-                                v-slot="option"
+                                v-slot="{ option }"
                             >
                                 <CategoryIcon :category="option" />{{
                                     option.title

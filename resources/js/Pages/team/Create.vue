@@ -103,7 +103,7 @@
                             :required="true"
                             :options="distances"
                             v-model="form.radius"
-                            v-slot="distance"
+                            v-slot="{ option: distance }"
                         >
                             <span v-text="distance" class="mr-4" />
                         </RadioInput>
@@ -151,7 +151,7 @@
                             :required="true"
                             :options="banners"
                             v-model="form.banner_id"
-                            v-slot="option"
+                            v-slot="{ option }"
                         >
                             <BannerPill
                                 :banner="option"
