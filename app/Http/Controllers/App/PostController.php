@@ -108,6 +108,7 @@ class PostController extends Controller
         abort_unless($request->user()->can('edit', $post), 403, 'Access denied. Only the Author can edit the post');
 
         $post->load('team.challenges', 'team.currentChallenges', 'team.banner');
+        $post->imageUrl = empty($post->image) ? null : Storage::disk('upload')->url($post->image);
 
         return Inertia::render('post/Edit', [
             'post' => $post,
@@ -129,7 +130,9 @@ class PostController extends Controller
             'content' => ['required', 'string'],
             'banner_id' => ['nullable', 'exists:banners,id'],
             'challenge_id' => ['nullable', 'exists:challenges,id'],
+            'image' => ['nullable', 'file', 'image'],
             'video' => ['nullable', 'string'],
+            'removeImage' => ['nullable', 'bool'],
         ]);
 
         abort_unless($request->user()->can('edit', $post), 403, 'Access denied. Only the Author can edit the post');
@@ -139,6 +142,28 @@ class PostController extends Controller
         $post->banner_id = $data['banner_id'];
         $post->challenge_id = $data['challenge_id'];
         $post->video = $data['video'] ?? '';
+
+        if(isset($data['removeImage']) && $data['removeImage'] && $post->image){
+            Storage::disk('upload')->delete($post->image);
+            $post->image = '';
+        }
+
+        if (!empty($data['image'])) {
+            // save original image
+            $imageOriginal = Image::make($data['image']);
+            $filename = 'post/originals/' . $data['image']->hashName();
+            Storage::disk('upload')->put($filename, $imageOriginal->encode());
+
+            // save preview version
+            $imagePreview = Image::make($data['image'])->resize(1024, 1024, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+            $data['image'] = 'post/' . $data['image']->hashName();
+            Storage::disk('upload')->put($data['image'], $imagePreview->encode());
+
+            $post->image = $data['image'];
+        }
 
         $post->save();
 
