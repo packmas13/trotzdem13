@@ -26,6 +26,7 @@ class PostResource extends JsonResource
             'challenge_id' => $this->challenge_id,
             'banner_id' => $this->banner_id,
             'image' => empty($this->image) ? null : Storage::disk('upload')->url($this->image),
+            'video' => $this->video,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
 

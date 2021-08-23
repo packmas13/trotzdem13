@@ -66,6 +66,7 @@ class PostController extends Controller
             'banner_id' => ['nullable', 'exists:banners,id'],
             'challenge_id' => ['nullable', 'exists:challenges,id'],
             'image' => ['nullable', 'file', 'image'],
+            'video' => ['nullable', 'string'],
         ]);
 
         $author = $request->user();
@@ -86,6 +87,10 @@ class PostController extends Controller
             Storage::disk('upload')->put($data['image'], $imagePreview->encode());
         } else {
             $data['image'] = '';
+        }
+
+        if(!isset($data['video'])){
+            $data['video'] = '';
         }
 
         $post = Post::create($data);
@@ -124,6 +129,7 @@ class PostController extends Controller
             'content' => ['required', 'string'],
             'banner_id' => ['nullable', 'exists:banners,id'],
             'challenge_id' => ['nullable', 'exists:challenges,id'],
+            'video' => ['nullable', 'string'],
         ]);
 
         abort_unless($request->user()->can('edit', $post), 403, 'Access denied. Only the Author can edit the post');
@@ -132,6 +138,7 @@ class PostController extends Controller
         $post->content = $data['content'];
         $post->banner_id = $data['banner_id'];
         $post->challenge_id = $data['challenge_id'];
+        $post->video = $data['video'] ?? '';
 
         $post->save();
 
