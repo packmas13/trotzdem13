@@ -51,6 +51,13 @@ class PostController extends Controller
         ]);
     }
 
+    private $youtubePattern = '/^(?:(?:https?:)?\/\/)?(?:(?:www|m)\.)?(?:youtube\.com|youtu\.be|youtube-nocookie\.com)(?:\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/';
+    private function youtubeNoCookieURL(string $url): string
+    {
+        preg_match($this->youtubePattern, $url, $matches);
+        $youtubeID = $matches[1];
+        return 'https://www.youtube-nocookie.com/embed/' . $youtubeID;
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -66,7 +73,7 @@ class PostController extends Controller
             'banner_id' => ['nullable', 'exists:banners,id'],
             'challenge_id' => ['nullable', 'exists:challenges,id'],
             'image' => ['nullable', 'file', 'image'],
-            'video' => ['nullable', 'string'],
+            'youtube_url' => ['nullable', 'string', 'regex:' . $this->youtubePattern],
         ]);
 
         $author = $request->user();
@@ -89,8 +96,9 @@ class PostController extends Controller
             $data['image'] = '';
         }
 
-        if(!isset($data['video'])){
-            $data['video'] = '';
+        $data['video'] = '';
+        if (isset($data['youtube_url'])) {
+            $data['video'] = $this->youtubeNoCookieURL($data['youtube_url']);
         }
 
         $post = Post::create($data);
@@ -131,7 +139,7 @@ class PostController extends Controller
             'banner_id' => ['nullable', 'exists:banners,id'],
             'challenge_id' => ['nullable', 'exists:challenges,id'],
             'image' => ['nullable', 'file', 'image'],
-            'video' => ['nullable', 'string'],
+            'youtube_url' => ['nullable', 'string', 'regex:' . $this->youtubePattern],
             'removeImage' => ['nullable', 'bool'],
         ]);
 
@@ -141,7 +149,11 @@ class PostController extends Controller
         $post->content = $data['content'];
         $post->banner_id = $data['banner_id'];
         $post->challenge_id = $data['challenge_id'];
-        $post->video = $data['video'] ?? '';
+
+        $post->video = '';
+        if (isset($data['youtube_url'])) {
+            $post->video = $this->youtubeNoCookieURL($data['youtube_url']);
+        }
 
         if(isset($data['removeImage']) && $data['removeImage'] && $post->image){
             $originalFile = str_replace('post/', 'post/originals/', $post->image);

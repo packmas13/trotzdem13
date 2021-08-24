@@ -34,7 +34,7 @@
             </div>
             <div class="w-full my-2" >
                 <div class="w-full video-container xl:mb-4 mb-1" v-if="post.video">
-                    <iframe :src="'https://www.youtube.com/embed/' + post.video" allowfullscreen></iframe>
+                    <iframe :src="post.video" allowfullscreen></iframe>
                 </div>
                 <img class="float-right w-full" :class="post.content.length > 500 ? 'md:w-1/2 xl:w-1/3 mb-1 ml-1' : ''" v-if="post.image" :src="post.image" />
                 <p class="whitespace-pre-line text-sm sm:text-base pb-2" v-html="contentWithHashtags">

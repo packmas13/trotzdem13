@@ -124,13 +124,20 @@
             <div class="col-span-6 sm:col-span-2 lg:col-span-2">
                 <InputLabel
                     label="Füge deinem Beitrag ein Youtube-Video hinzu?"
-                    :error="form.errors.video"
+                    :error="form.errors.youtube_url"
                 >
                     <input
                         type="text"
-                        class="mt-1 w-full rounded-md border-gray-300 col-span-6 sm:col-span-4"
-                        v-model="form.video"
-                        placeholder="Youtube Video-ID"
+                        class="
+                            mt-1
+                            w-full
+                            rounded-md
+                            border-gray-300
+                            col-span-6
+                            sm:col-span-4
+                        "
+                        v-model="form.youtube_url"
+                        placeholder="https://www.youtube.com/watch?v=..."
                     />
                 </InputLabel>
             </div>
@@ -183,6 +190,7 @@ export default {
                 banner_related: false,
                 challenge_related: false,
                 image: null,
+                youtube_url: null,
             }),
             imagePreview: null,
         };
