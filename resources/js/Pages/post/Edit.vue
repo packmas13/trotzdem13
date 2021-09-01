@@ -100,7 +100,7 @@
                                         </div>
                                     </div>
                                     <input
-                                        v-show="!imagePreview"
+                                        v-show="!imagePreview && !oldImagePreview"
                                         type="file"
                                         accept="image/*"
                                         class="mt-1 w-full rounded-md border-gray-300 focus:ring focus:ring-indigo-200"
