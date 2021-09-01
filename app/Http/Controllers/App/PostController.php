@@ -144,7 +144,9 @@ class PostController extends Controller
         $post->video = $data['video'] ?? '';
 
         if(isset($data['removeImage']) && $data['removeImage'] && $post->image){
+            $originalFile = str_replace('post/', 'post/originals/', $post->image);
             Storage::disk('upload')->delete($post->image);
+            Storage::disk('upload')->delete($originalFile);
             $post->image = '';
         }
 
