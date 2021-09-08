@@ -33,7 +33,7 @@ Route::get('impressum', [ImprintController::class, 'index']);
 Route::get('datenschutz', [PrivacyController::class, 'index']);
 Route::get('datenschutz/leiter', [PrivacyController::class, 'leader']);
 
-Route::redirect('datenschutz/einwilligung-foto', 'https://dpsg.de/fileadmin/daten/dokumente/infopool/corporatedesign/Oeffentlichkeitsarbeit/DPSG_Einwilligung_Foto_Video.pdf');
+Route::redirect('datenschutz/einwilligung-foto', 'https://dpsg.de/sites/default/files/2021-06/dpsg_einwilligung_foto_video.pdf');
 
 
 
