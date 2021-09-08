@@ -5,16 +5,20 @@
             Bannerlauf startet in
             {{ $start_days_left }} Tagen, am {{ $banner_start->format('d.m.') }}
         </h2>
-        @elseif(0 > $start_days_left)
-        <h2 class="bg-mango-600 px-1 py-3 mx-6 mt-3">
-            Die Banner laufen noch {{ $end_days_left }} Tage, bis zum {{ $banner_end->format('d.m.') }}
-        </h2>
-        @else
+        @elseif($start_days_left >=0)
         <h2 class="bg-mango-600 px-1 py-3 mx-6 mt-3">
             Bannerlauf startet {{$start_days_left == 1?'morgen':'heute'}}, um 18 Uhr
             <a href="https://youtu.be/ajqxr-0PEr8" target="_blank" rel="noopener noreferrer" class="bg-white text-mango-600 py-2 px-6 mt-3 inline-block font-bold">
                 Zum Gottesdienst-Livestream →
             </a>
+        </h2>
+        @elseif($end_days_left > 1)
+        <h2 class="bg-mango-600 px-1 py-3 mx-6 mt-3">
+            Die Banner laufen noch {{ $end_days_left }} Tage, bis zum {{ $banner_end->format('d.m.') }}
+        </h2>
+        @else
+        <h2 class="bg-mango-600 px-1 py-3 mx-6 mt-3">
+            Danke an alle, die teilgenommen haben!
         </h2>
         @endif
         <video autoplay loop muted playsinline poster="/img/trotzdem_banner.jpg" width="768" heigh="432" tabindex="-1" aria-label="Wehendes DPSG Banner">
@@ -24,8 +28,13 @@
         </video>
 
         <div class="bg-mango-600 px-1 py-3 text-2xl mx-6 mb-3">
-            {{ $team_count }} Gruppen &middot;
-            <span class="inline-block">{{ $challenge_count }} Projekte zur Auswahl</span>
+            {{ $participant_count }} Teilnehmer &middot;
+            <span class="inline-block">{{ $team_count }} Gruppen</span> &middot;
+            <span class="inline-block">{{ $challenge_count }} Projekte</span> &middot;
+            <span class="inline-block">{{ $banner_count }} Banner</span>
+            @if($end_days_left <= 1)
+                &middot; <span class="inline-block">1 Aktion</span>
+            @endif
         </div>
     </div>
     <div class="prose lg:prose-xl mx-auto px-2 sm:px-0 py-8 text-center">

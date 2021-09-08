@@ -45,7 +45,6 @@
 <body class="font-sans antialiased bg-teal-500 flex flex-col min-h-screen">
     <div class="relative">
         &nbsp;
-        @if ($showLoginLink || auth()->user())
         <a href="{{route('app.post.index')}}" class="float-right block text-white font-bold text-center group py-1 px-2  text-sm sm:text-base shadow-lg bg-mango-600 mr-2 -mb-2">
             @auth
             Mitglieder-Bereich
@@ -53,7 +52,6 @@
             Anmeldung
             @endauth
         </a>
-        @endif
     </div>
     <a href="/" class="clear-both flex justify-between items-center bg-teal-500 px-2">
         <div class="sm:flex-1"><img src="{{asset('img/logo_192.png')}}" class="w-24" alt="Logo von Trotzdem ’13" width="192" height="155" /></div>
