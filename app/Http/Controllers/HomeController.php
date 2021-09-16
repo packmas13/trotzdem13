@@ -6,6 +6,7 @@ use App\Models\Banner;
 use App\Models\Challenge;
 use App\Models\Team;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class HomeController
 {
@@ -31,7 +32,7 @@ class HomeController
 
             'participant_count' => $teams->sum('size'),
             'team_count' => $teams->count(),
-            'challenge_count' => Challenge::published()->has('teams')->count(),
+            'challenge_count' => DB::table('team_challenge')->count(),
             'banner_count' => Banner::sum('variants'),
         ]);
     }
