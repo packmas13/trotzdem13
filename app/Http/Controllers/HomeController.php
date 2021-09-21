@@ -28,7 +28,7 @@ class HomeController
             'start_days_left' => $start_days_left,
 
             'banner_end' => $bannerEnd,
-            'end_days_left' => $bannerEnd->diffInDays(),
+            'end_days_left' => -$bannerEnd->diffInDays(null, false),
 
             'participant_count' => $teams->sum('size'),
             'team_count' => $teams->count(),
