@@ -6,6 +6,11 @@ updates:
     schedule:
       interval: "weekly"
       day: "tuesday"
+      time: "08:00"
+      timezone: "Europe/Berlin"
+    allow:
+      - dependency-type: "production"
+    open-pull-requests-limit: 1
 
   # Enable version updates for php
   - package-ecosystem: "composer"
@@ -13,3 +18,8 @@ updates:
     schedule:
       interval: "weekly"
       day: "tuesday"
+      time: "08:00"
+      timezone: "Europe/Berlin"
+    allow:
+      - dependency-type: "production"
+    open-pull-requests-limit: 1
