@@ -10,7 +10,7 @@ import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 
 mapboxgl.accessToken =
-    "pk.eyJ1Ijoib2xpdmVycG9vbCIsImEiOiJyQW82a1hjIn0.yK2FfgVuRuX-PTD-HFjueA";
+    "pk.eyJ1Ijoib2xpdmVycG9vbCIsImEiOiJja2xiOXhtNGIwNHhhMnZtamRycTB6N2F2In0.oDChPNXx61iD1AheKeT-vg";
 
 export default {
     props: {

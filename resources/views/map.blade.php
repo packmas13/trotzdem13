@@ -15,7 +15,7 @@
 </div>
 
 <script>
-    mapboxgl.accessToken = 'pk.eyJ1Ijoib2xpdmVycG9vbCIsImEiOiJyQW82a1hjIn0.yK2FfgVuRuX-PTD-HFjueA';
+    mapboxgl.accessToken = 'pk.eyJ1Ijoib2xpdmVycG9vbCIsImEiOiJja2xiOXhtNGIwNHhhMnZtamRycTB6N2F2In0.oDChPNXx61iD1AheKeT-vg';
     var map = new mapboxgl.Map({
         container: 'main', // container ID
         style: 'mapbox://styles/oliverpool/cklbak4fg2p3o17rzfkmeiytq', // style URL
